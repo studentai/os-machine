@@ -1,4 +1,3 @@
-
 public class RealMemory {
 	private byte[][] memory = new byte[1024][4];  //1024 þodþiai po 4 baitus.
 	
