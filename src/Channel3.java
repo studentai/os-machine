@@ -1,34 +1,27 @@
-import java.io.DataInputStream;
-import java.io.FileInputStream;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 public class Channel3 {
 
+    private BufferedReader file;
+    private String line;
+	public void openFile(String fName){
+		 try{
+			FileReader fileReader = new FileReader(fName);
+			file = new BufferedReader(fileReader);
+		 }catch(FileNotFoundException e){System.out.println("Klaida atidarant faila");}
+	}	
     
-    public DataInputStream OpenFile(String name)
-    {
-        DataInputStream in = null;
-        try
-        {
-            FileInputStream fstream = new FileInputStream(name);    
-            in = new DataInputStream(fstream);
-        }
-        catch (Exception e){}
-        return in;
-    }
-    
-    public void CloseFile(DataInputStream dataInputStream)
-    {
+    public void closeFile(){
         try{ 
-        	dataInputStream.close(); 
+        	this.file.close(); 
         }catch (Exception e){}
     }
     
-    public String readLine(BufferedReader buffReader)
-    {
-        String line;
+    public String readLine(){
         try { 
-        	line = buffReader.readLine(); 
+        	line = file.readLine(); 
         }catch (Exception e){ line = null; }
         
         return line;
