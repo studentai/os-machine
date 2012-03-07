@@ -5,7 +5,7 @@ import java.io.FileReader;
 public class Channel3 {
 
     private BufferedReader file;
-    private String line;
+    
 	public void openFile(String fName){
 		 try{
 			FileReader fileReader = new FileReader(fName);
@@ -21,9 +21,7 @@ public class Channel3 {
     
     public String readLine(){
         try { 
-        	line = file.readLine(); 
-        }catch (Exception e){ line = null; }
-        
-        return line;
+        	return file.readLine(); 
+        }catch (Exception e){ return null; }
     }
 }
