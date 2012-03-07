@@ -25,16 +25,16 @@ public class VirtualMachine {
 		return P;
 	}
 	
-	public void setP(byte[] p) {
-		P = p;
+	public void setP(byte[] P) {
+		this.P = P;
 	}
 	
 	public byte[] getR() {
 		return R;
 	}
 	
-	public void setR(byte[] r) {
-		R = r;
+	public void setR(byte[] R) {
+		this.R = R;
 	}
     
     
