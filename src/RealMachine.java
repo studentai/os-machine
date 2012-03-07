@@ -1,23 +1,22 @@
 
 public class RealMachine {
 	
-    private byte[] IC;
-    private byte[] SF;
-    private byte[] SM;
-    private byte[] P;
-    private byte[] R;
-    private byte PI;
-    private byte SI;
-    private byte TI;
-    private byte MODE;
-    private byte C;
+    private byte[] IC;     	 										// komandu skaitiklio registras
+    private byte[] SF; 												// status flag (!3 baitas Loginis C registras!)
+    private byte[] SM; 												// semaforo registras
+    private byte[] P;  												// bendro naudojimo registras
+    private byte[] R;												// bendro naudojimo registras
+    private byte PI;												// programiniu pertraukimu registras
+    private byte SI;												// sisteminiu pertraukimu registras
+    private byte TI;												// taimerio registras
+    private byte MODE;												// procesoriaus darbo busenos registras
     //private RealMemory realMemory;
     //private VirtualMachine virtualMachine;
-    private byte[] PTR;
+    private byte[] PTR;												// puslapiavimo registras
     //private Paging paging;
-    private Channel1 channel1;
-    private Channel2 channel2;
-    //private Channel3 channel3;
+    private Channel1 channel1;										
+    private Channel2 channel2;										
+    //private Channel3 channel3;									
     
     private String error;
 
@@ -32,8 +31,7 @@ public class RealMachine {
         this.setPI((byte) 0);
         this.setSI((byte) 0);
         this.setTI((byte) 0);
-        this.setMODE((byte) 0);  
-        this.setC((byte) 0);        
+        this.setMODE((byte) 0);         
         //this.realMemory;
         //this.virtualMachine = null;
         //this.paging = null;
@@ -47,88 +45,80 @@ public class RealMachine {
 		return IC;
 	}
 
-	public void setIC(byte[] iC) {
-		IC = iC;
+	public void setIC(byte[] IC) {
+		this.IC = IC;
 	}
 
 	public byte[] getSF() {
 		return SF;
 	}
 
-	public void setSF(byte[] sF) {
-		SF = sF;
+	public void setSF(byte[] SF) {
+		this.SF = SF;
 	}
 
 	public byte[] getSM() {
 		return SM;
 	}
 
-	public void setSM(byte[] sM) {
-		SM = sM;
+	public void setSM(byte[] SM) {
+		this.SM = SM;
 	}
 
 	public byte[] getP() {
 		return P;
 	}
 
-	public void setP(byte[] p) {
-		P = p;
+	public void setP(byte[] P) {
+		this.P = P;
 	}
 
 	public byte[] getR() {
 		return R;
 	}
 
-	public void setR(byte[] r) {
-		R = r;
+	public void setR(byte[] R) {
+		this.R = R;
 	}
 
 	public byte getPI() {
 		return PI;
 	}
 
-	public void setPI(byte pI) {
-		PI = pI;
+	public void setPI(byte PI) {
+		this.PI = PI;
 	}
 
 	public byte getSI() {
 		return SI;
 	}
 
-	public void setSI(byte sI) {
-		SI = sI;
+	public void setSI(byte SI) {
+		this.SI = SI;
 	}
 
 	public byte getTI() {
 		return TI;
 	}
 
-	public void setTI(byte tI) {
-		TI = tI;
+	public void setTI(byte TI) {
+		this.TI = TI;
 	}
 
 	public byte getMODE() {
 		return MODE;
 	}
 
-	public void setMODE(byte mODE) {
-		MODE = mODE;
+	public void setMODE(byte MODE) {
+		this.MODE = MODE;
 	}
 
 	public byte[] getPTR() {
 		return PTR;
 	}
 
-	public void setPTR(byte[] pTR) {
-		PTR = pTR;
-	}
-
-	public byte getC() {
-		return C;
-	}
-
-	public void setC(byte c) {
-		C = c;
+	public void setPTR(byte[] PTR) {
+		this.PTR = PTR;
 	}
 
 	public Channel1 getChannel1() {
