@@ -5,5 +5,6 @@ public class Main {
 		P[0] = 127;
 		
 		System.out.println(P[0]);
+		//...
 	}
 }
