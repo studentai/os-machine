@@ -1,6 +1,6 @@
 
 public class RealMemory {
-	byte[][] memory = new byte[1024][4];  //1024 þodþiai po 4 baitus.
+	private byte[][] memory = new byte[1024][4];  //1024 þodþiai po 4 baitus.
 	
 	public RealMemory(){
 		for (int i=0;i<memory.length;i++){
@@ -15,5 +15,9 @@ public class RealMemory {
 			return memory[arg];
 		}
 		else return null;
+	}
+	
+	public byte[][] getMemory(){
+		return memory;
 	}
 }
