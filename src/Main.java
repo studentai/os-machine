@@ -1,31 +1,12 @@
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-
 
 public class Main {
-
-	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
-	
-	@SuppressWarnings("unused")
-	private static void installLnF() {
-		try {
-			String lnfClassname = PREFERRED_LOOK_AND_FEEL;
-			if (lnfClassname == null)
-				lnfClassname = UIManager.getCrossPlatformLookAndFeelClassName();
-			UIManager.setLookAndFeel(lnfClassname);
-		} catch (Exception e) {
-			System.err.println("Cannot install " + PREFERRED_LOOK_AND_FEEL
-					+ " on this platform:" + e.getMessage());
-		}
-	}
-		
 	
 	public static void main(String[] args){
-		//GUI----------------------------------------
 		
+		//GUI----------------------------------------
 		setRealMemoryValues(1024);
 		setVirtualMemoryValues(256);
-		installLnF();
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				GUI frame = new GUI();
