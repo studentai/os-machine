@@ -2,6 +2,23 @@ import javax.swing.SwingUtilities;
 
 public class Main {
 	
+	//Sunumeruoju realios atminties zodziu numerius lentelej
+	public static void setRealMemoryValues(int size){
+		GUI.values = new Integer[size][2];
+		for(int i = 0; i<size;i++){
+			GUI.values[i][0] =(Integer) i;
+			GUI.values[i][1] =(Integer) 0;
+		}
+	}
+	//sunumeruoja virtualios atminties zodziu numerius lentelei
+	public static void setVirtualMemoryValues(int size){
+		GUI.values2 = new Integer[size][2];
+		for(int i = 0; i < size; i++){
+			GUI.values2[i][0] = (Integer) i;
+			GUI.values2[i][1] = (Integer) 0;
+		}
+	}
+	
 	public static void main(String[] args){
 		
 		//GUI----------------------------------------
@@ -68,22 +85,6 @@ public class Main {
 		
 		realMachine.getRealMemory().print();
 		//
-	}
-	
-	public static void setRealMemoryValues(int size){
-		GUI.values = new Integer[size][2];
-		for(int i = 0; i<size;i++){
-			GUI.values[i][0] =(Integer) i;
-			GUI.values[i][1] =(Integer) 0;
-		}
-	}
-	
-	public static void setVirtualMemoryValues(int size){
-		GUI.values2 = new Integer[size][2];
-		for(int i = 0; i < size; i++){
-			GUI.values2[i][0] = (Integer) i;
-			GUI.values2[i][1] = (Integer) 0;
-		}
 	}
 }
 
