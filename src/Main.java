@@ -1,13 +1,12 @@
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.JFrame;
 
 
 public class Main {
-	private static Integer[][] values;
-	private static Integer[][] values2;
+
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	
+	@SuppressWarnings("unused")
 	private static void installLnF() {
 		try {
 			String lnfClassname = PREFERRED_LOOK_AND_FEEL;

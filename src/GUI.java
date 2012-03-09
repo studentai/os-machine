@@ -19,10 +19,10 @@ public class GUI extends JFrame {
 	private JButton jButton1;
 	private JButton jButton2;
 	private JTable virtualMemoryTable;
-	private JScrollPane jScrollPane0;
-	private JTable realMemoryTable;
-	private JScrollPane jScrollPane1;
 	private JTable registersTable;
+	private JTable realMemoryTable;
+	private JScrollPane jScrollPane0;
+	private JScrollPane jScrollPane1;
 	private JScrollPane jScrollPane2;
 	private JLabel jLabel0;
 	private JLabel jLabel1;
@@ -31,6 +31,8 @@ public class GUI extends JFrame {
 	private JSeparator jSeparator0;
 	public static Integer[][] values;
 	public static Integer[][] values2;
+	
+	
 	public GUI() {
 		initComponents();
 	}
@@ -149,7 +151,6 @@ public class GUI extends JFrame {
 	private JTable getRealMemoryTable() {
 		if (realMemoryTable == null) {
 			realMemoryTable = new JTable();
-			Integer[][] obj = new Integer[][]{{1,1}};
 			realMemoryTable.setModel(new DefaultTableModel(values, new String[] { "Numeris", "Adresas", }) {
 				private static final long serialVersionUID = 1L;
 				Class<?>[] types = new Class<?>[] { Integer.class, Integer.class, };
