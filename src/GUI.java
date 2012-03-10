@@ -3,6 +3,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 
 import org.dyno.visual.swing.layouts.Constraints;
@@ -18,20 +19,21 @@ public class GUI extends JFrame {
 	private JButton jButton1;
 	private JButton jButton2;
 	private JTable realMemoryTable;
-	private JTable virtualMemoryTable;
 	private JTable registersTable;
 	private JTable flagsTable;
 	private JScrollPane jScrollPane0;
-	private JScrollPane jScrollPane1;
 	private JScrollPane jScrollPane2;
 	private JLabel jLabel0;
-	private JLabel jLabel1;
 	private JButton jButton3;
 	private JButton jButton4;
 	public static Integer[][] values;
 	public static Integer[][] values2;
 	
 	private JScrollPane jScrollPane3;
+	private JTable commandsTable;
+	private JScrollPane jScrollPane4;
+	private JTextArea jTextArea0;
+	private JScrollPane jScrollPane5;
 	public GUI() {
 		initComponents();
 	}
@@ -39,17 +41,72 @@ public class GUI extends JFrame {
 	private void initComponents() {
 		setLayout(new GroupLayout());
 		add(getJButton0(), new Constraints(new Leading(8, 10, 10), new Leading(8, 10, 10)));
-		add(getJButton1(), new Constraints(new Leading(8, 12, 12), new Leading(43, 10, 10)));
 		add(getJButton2(), new Constraints(new Leading(8, 12, 12), new Leading(77, 10, 10)));
-		add(getJScrollPane0(), new Constraints(new Leading(563, 200, 10, 10), new Leading(177, 150, 10, 10)));
 		add(getJLabel0(), new Constraints(new Leading(563, 12, 12), new Leading(159, 10, 10)));
-		add(getJScrollPane1(), new Constraints(new Leading(563, 200, 12, 12), new Leading(353, 150, 10, 10)));
-		add(getJLabel1(), new Constraints(new Leading(565, 10, 10), new Leading(335, 10, 10)));
-		add(getJButton3(), new Constraints(new Leading(24, 10, 10), new Leading(470, 10, 10)));
-		add(getJButton4(), new Constraints(new Leading(138, 10, 10), new Leading(470, 12, 12)));
 		add(getJScrollPane3(), new Constraints(new Leading(707, 58, 10, 10), new Leading(6, 136, 12, 12)));
-		add(getJScrollPane2(), new Constraints(new Leading(563, 128, 12, 12), new Leading(8, 119, 12, 12)));
+		add(getJButton1(), new Constraints(new Leading(8, 80, 12, 12), new Leading(43, 10, 10)));
+		add(getJScrollPane2(), new Constraints(new Leading(563, 128, 12, 12), new Leading(8, 132, 12, 12)));
+		add(getJScrollPane4(), new Constraints(new Leading(232, 200, 10, 10), new Leading(8, 361, 12, 12)));
+		add(getJButton4(), new Constraints(new Leading(8, 120, 12, 12), new Leading(438, 12, 12)));
+		add(getJButton3(), new Constraints(new Leading(8, 12, 12), new Leading(470, 12, 12)));
+		add(getJScrollPane0(), new Constraints(new Leading(563, 200, 10, 10), new Leading(177, 319, 12, 12)));
+		add(getJScrollPane5(), new Constraints(new Leading(233, 198, 12, 12), new Leading(386, 110, 12, 12)));
 		setSize(775, 513);
+	}
+
+	private JScrollPane getJScrollPane5() {
+		if (jScrollPane5 == null) {
+			jScrollPane5 = new JScrollPane();
+			jScrollPane5.setViewportView(getJTextArea0());
+		}
+		return jScrollPane5;
+	}
+
+	private JTextArea getJTextArea0() {
+		if (jTextArea0 == null) {
+			jTextArea0 = new JTextArea();
+			jTextArea0.setText("jTextArea0");
+		}
+		return jTextArea0;
+	}
+
+	private JScrollPane getJScrollPane4() {
+		if (jScrollPane4 == null) {
+			jScrollPane4 = new JScrollPane();
+			jScrollPane4.setViewportView(getCommandsTable());
+		}
+		return jScrollPane4;
+	}
+
+	private JTable getCommandsTable() {
+		if (commandsTable == null) {
+			commandsTable = new JTable();
+			commandsTable.setModel(new DefaultTableModel(new Object[][] { { "ADD", "50", }, { "SUB", "80", }, }, new String[] { "Komanda", "Adresas", }) {
+				private static final long serialVersionUID = 1L;
+				Class<?>[] types = new Class<?>[] { Object.class, Object.class, };
+	
+				public Class<?> getColumnClass(int columnIndex) {
+					return types[columnIndex];
+				}
+			});
+		}
+		return commandsTable;
+	}
+
+	private JButton getJButton1() {
+		if (jButton1 == null) {
+			jButton1 = new JButton();
+			jButton1.setText("Vykdyti");
+		}
+		return jButton1;
+	}
+
+	private JButton getJButton0() {
+		if (jButton0 == null) {
+			jButton0 = new JButton();
+			jButton0.setText("Ákelti VM");
+		}
+		return jButton0;
 	}
 
 	private JScrollPane getJScrollPane3() {
@@ -79,7 +136,7 @@ public class GUI extends JFrame {
 	private JButton getJButton4() {
 		if (jButton4 == null) {
 			jButton4 = new JButton();
-			jButton4.setText("jButton4");
+			jButton4.setText("Keisti atmintá");
 		}
 		return jButton4;
 	}
@@ -87,17 +144,9 @@ public class GUI extends JFrame {
 	private JButton getJButton3() {
 		if (jButton3 == null) {
 			jButton3 = new JButton();
-			jButton3.setText("jButton3");
+			jButton3.setText("Keisti registrus");
 		}
 		return jButton3;
-	}
-
-	private JLabel getJLabel1() {
-		if (jLabel1 == null) {
-			jLabel1 = new JLabel();
-			jLabel1.setText("Virtualioji atmintis");
-		}
-		return jLabel1;
 	}
 
 	private JLabel getJLabel0() {
@@ -119,9 +168,9 @@ public class GUI extends JFrame {
 	private JTable getRegistersTable() {
 		if (registersTable == null) {
 			registersTable = new JTable();
-			registersTable.setEnabled(false);
-			registersTable.setModel(new DefaultTableModel(new Object[][] { { "PTR", "0000", }, { "R", "0000", }, { "P", "0000", }, { "IC", "00", }, { "SF", "00", },
-					{ "SM", "00", }, }, new String[] { "Registrai", "Reikðmë", }) {
+			registersTable.setModel(new DefaultTableModel(new Object[][] { { "PTR", "0000", }, { "R", "0000", }, { "P", "0000", }, { "IC", "00", },
+					{ "SF", "00", }, { "SM", "00", }, { "PI", "0", }, { "SI", "0", }, { "CHNL", "0", }, },
+					new String[] { "Registrai", "Reikðmë", }) {
 				private static final long serialVersionUID = 1L;
 				Class<?>[] types = new Class<?>[] { Object.class, Object.class, };
 	
@@ -129,31 +178,9 @@ public class GUI extends JFrame {
 					return types[columnIndex];
 				}
 			});
+			registersTable.setEnabled(false);
 		}
 		return registersTable;
-	}
-
-	private JScrollPane getJScrollPane1() {
-		if (jScrollPane1 == null) {
-			jScrollPane1 = new JScrollPane();
-			jScrollPane1.setViewportView(getVirtualMemoryTable());
-		}
-		return jScrollPane1;
-	}
-
-	private JTable getVirtualMemoryTable() {
-		if (virtualMemoryTable == null) {
-			virtualMemoryTable = new JTable();
-			virtualMemoryTable.setModel(new DefaultTableModel(values2, new String[] { "Numeris", "Adresas", }) {
-				private static final long serialVersionUID = 1L;
-				Class<?>[] types = new Class<?>[] { Integer.class, Integer.class, };
-	
-				public Class<?> getColumnClass(int columnIndex) {
-					return types[columnIndex];
-				}
-			});
-		}
-		return virtualMemoryTable;
 	}
 
 	private JScrollPane getJScrollPane0() {
@@ -182,24 +209,8 @@ public class GUI extends JFrame {
 	private JButton getJButton2() {
 		if (jButton2 == null) {
 			jButton2 = new JButton();
-			jButton2.setText("jButton2");
+			jButton2.setText("Þingsnis");
 		}
 		return jButton2;
-	}
-
-	private JButton getJButton1() {
-		if (jButton1 == null) {
-			jButton1 = new JButton();
-			jButton1.setText("jButton1");
-		}
-		return jButton1;
-	}
-
-	private JButton getJButton0() {
-		if (jButton0 == null) {
-			jButton0 = new JButton();
-			jButton0.setText("jButton0");
-		}
-		return jButton0;
 	}
 }
