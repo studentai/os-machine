@@ -52,7 +52,11 @@ public class GUI extends JFrame {
 	private JTextField jTextField1;
 	private JPanel jPanel0;
 	private JFrame framek;
+	private JFrame frameks;
 	private JButton okButton;
+	private JScrollPane jScrollPane1;
+	private JButton jButton5;
+	private JPanel jPanel1;
 	
 	public GUI() {
 		initComponents();
@@ -74,9 +78,47 @@ public class GUI extends JFrame {
 		setSize(775, 513);
 	}
 
+	private JPanel getJPanel1() {
+		if (jPanel1 == null) {
+			jPanel1 = new JPanel();
+			jPanel1.setLayout(new GroupLayout());
+			jPanel1.add(getJScrollPane1(), new Constraints(new Leading(12, 126, 12, 12), new Leading(4, 168, 10, 10)));
+			jPanel1.add(getJButton5(), new Constraints(new Leading(40, 10, 10), new Leading(178, 120, 10)));
+		}
+		return jPanel1;
+	}
+
+	private JButton getJButton5() {
+		if (jButton5 == null) {
+			jButton5 = new JButton();
+			jButton5.addActionListener(new ActionListener() {
+	
+				public void actionPerformed(ActionEvent event) {
+					ok2ButtonActionActionPerformed(event);
+				}
+			});
+			jButton5.setText("Gerai");
+		}
+		return jButton5;
+	}
+
+	private JScrollPane getJScrollPane1() {
+		if (jScrollPane1 == null) {
+			jScrollPane1 = new JScrollPane();
+			jScrollPane1.setViewportView(getRegistersTable());
+		}
+		return jScrollPane1;
+	}
+
 	private JButton getOkButton() {
 		if (okButton == null) {
 			okButton = new JButton();
+			okButton.addActionListener(new ActionListener() {
+	
+				public void actionPerformed(ActionEvent event) {
+					okButtonActionActionPerformed(event);
+				}
+			});
 			okButton.setText("Gerai");
 		}
 		return okButton;
@@ -320,17 +362,45 @@ public class GUI extends JFrame {
 	}
 
 	private void changeRegistersButtonActionActionPerformed(ActionEvent event) {
+		if(framek == null){
+			framek = new JFrame("Registrø Keitimas");
+			framek.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			registersTable.setEnabled(true);;
+			framek.getContentPane().add(getJPanel1(), BorderLayout.CENTER);
+			framek.pack();
+			framek.setLocation(getLocation());
+			framek.setVisible(true);
+		}else {
+			registersTable.setEnabled(true);
+			jScrollPane1.setViewportView(getRegistersTable());
+			framek.setVisible(true);
+		}
+		
 	}
 
 	private void changeMemoryButtonActionActionPerformed(ActionEvent event) {
-		framek = new JFrame("Keitimas");
-		framek.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		framek.getContentPane().add(getJPanel0(), BorderLayout.CENTER);
-		framek.pack();
-		framek.setLocation(getLocation());
-		framek.setVisible(true);
+		if(frameks == null){
+			frameks = new JFrame("Atminties Keitimas");
+			frameks.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			realMemoryTable.setEnabled(true);
+			frameks.getContentPane().add(getJPanel0(), BorderLayout.CENTER);
+			frameks.pack();
+			frameks.setLocation(getLocation());
+			frameks.setVisible(true);
+		}else{ 
+			frameks.setVisible(true);
+		}
+	}
+	
+	private void ok2ButtonActionActionPerformed(ActionEvent event) {
+		framek.setVisible(false);
+		getRegistersTable().setEnabled(false);
+		jScrollPane2.setViewportView(getRegistersTable());
 	}
 
+	private void okButtonActionActionPerformed(ActionEvent event){
+		frameks.setVisible(false);
+	}
 	private void stepButtonActionActionPerformed(ActionEvent event) {
 	}
 
