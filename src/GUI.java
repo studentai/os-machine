@@ -198,9 +198,10 @@ public class GUI extends JFrame {
 	private JTable getCommandsTable() {
 		if (commandsTable == null) {
 			commandsTable = new JTable();
-			commandsTable.setModel(new DefaultTableModel(new Object[][] { { "ADD", "50", }, { "SUB", "80", }, }, new String[] { "Komanda", "Adresas", }) {
+			commandsTable.setModel(new DefaultTableModel(new Object[][] { { "ADD", "0", "0", "0", "0", }, { "SUB", "0", "0", "0", "0", }, },
+					new String[] { "K", "1", "2", "3", "4", }) {
 				private static final long serialVersionUID = 1L;
-				Class<?>[] types = new Class<?>[] { Object.class, Object.class, };
+				Class<?>[] types = new Class<?>[] { Object.class, Object.class, String.class, String.class, String.class, };
 	
 				public Class<?> getColumnClass(int columnIndex) {
 					return types[columnIndex];
