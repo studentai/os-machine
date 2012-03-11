@@ -94,10 +94,10 @@ public class GUI extends JFrame {
 	public void updateRealMemory(){
 		byte[][] memory = realMachine.getRealMemory().getMemory();
 		for(int i = 0; i<memory.length; i++){
-			realMemoryTable.setValueAt(memory[i][0], i, 1);
-			realMemoryTable.setValueAt(memory[i][1], i, 2);
-			realMemoryTable.setValueAt(memory[i][2], i, 3);
-			realMemoryTable.setValueAt(memory[i][3], i, 4);
+			realMemoryTable.setValueAt(Converter.ByteToChar(memory[i][0]), i, 1);
+			realMemoryTable.setValueAt(Converter.ByteToChar(memory[i][1]), i, 2);
+			realMemoryTable.setValueAt(Converter.ByteToChar(memory[i][2]), i, 3);
+			realMemoryTable.setValueAt(Converter.ByteToChar(memory[i][3]), i, 4);
 		}
 	}
 
