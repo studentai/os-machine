@@ -15,7 +15,7 @@ public class Main {
 				break;
 			case 2: adress = "00"+adress;
 				break;
-			default: adress = "0"+adress;
+			case 3: adress = "0"+adress;
 				break;
 			}
 			GUI.values[i][0] = adress;
@@ -88,6 +88,7 @@ public class Main {
 						gui.setVisible(true);
 						gui.setRealMachine(realMachine);
 						gui.updateRegistersValues();
+						gui.updateRealMemory();
 					}
 				});
 				//GUI---------------------------------------

@@ -59,7 +59,6 @@ public class GUI extends JFrame {
 	private JPanel jPanel1;
 	
 	private RealMachine realMachine;
-	private String[][] registerValues;
 	
 	public GUI() {
 		initComponents();
@@ -90,6 +89,16 @@ public class GUI extends JFrame {
 		registersTable.setValueAt(realMachine.getSI(), 7, 1);
 		registersTable.setValueAt(realMachine.getChnl(), 8, 1);
 		
+	}
+	
+	public void updateRealMemory(){
+		byte[][] memory = realMachine.getRealMemory().getMemory();
+		for(int i = 0; i<memory.length; i++){
+			realMemoryTable.setValueAt(memory[i][0], i, 1);
+			realMemoryTable.setValueAt(memory[i][1], i, 2);
+			realMemoryTable.setValueAt(memory[i][2], i, 3);
+			realMemoryTable.setValueAt(memory[i][3], i, 4);
+		}
 	}
 
 	private void initComponents() {
