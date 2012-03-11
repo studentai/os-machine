@@ -4,26 +4,31 @@ public class Main {
 	
 	//Sunumeruoju realios atminties zodziu numerius lentelej
 	public static void setRealMemoryValues(int size){
-		GUI.values = new Integer[size][2];
+		GUI.values = new String[size][5];
+		String adress;
 		for(int i = 0; i<size;i++){
-			GUI.values[i][0] =(Integer) i;
-			GUI.values[i][1] =(Integer) 0;
+			adress = String.valueOf(i);
+			switch(adress.length()){
+			case 1: adress = "000"+adress;
+				break;
+			case 2: adress = "00"+adress;
+				break;
+			default: adress = "0"+adress;
+				break;
+			}
+			GUI.values[i][0] = adress;
+			GUI.values[i][1] = String.valueOf(0);
+			GUI.values[i][2] = String.valueOf(0);
+			GUI.values[i][3] = String.valueOf(0);
+			GUI.values[i][4] = String.valueOf(0);
 		}
 	}
 	//sunumeruoja virtualios atminties zodziu numerius lentelei
-	public static void setVirtualMemoryValues(int size){
-		GUI.values2 = new Integer[size][2];
-		for(int i = 0; i < size; i++){
-			GUI.values2[i][0] = (Integer) i;
-			GUI.values2[i][1] = (Integer) 0;
-		}
-	}
 	
 	public static void main(String[] args){
 		
 		//GUI----------------------------------------
 		setRealMemoryValues(1024);
-		setVirtualMemoryValues(256);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				GUI frame = new GUI();

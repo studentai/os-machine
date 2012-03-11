@@ -42,7 +42,7 @@ public class GUI extends JFrame {
 	private JScrollPane jScrollPane5;
 	private JLabel jLabel0;
 	
-	public static Integer[][] values;
+	public static String[][] values;
 	public static Integer[][] values2;
 	
 	private JTextArea jTextArea0;
@@ -69,12 +69,12 @@ public class GUI extends JFrame {
 		add(getJLabel0(), new Constraints(new Leading(563, 12, 12), new Leading(159, 10, 10)));
 		add(getJScrollPane3(), new Constraints(new Leading(707, 58, 10, 10), new Leading(6, 136, 12, 12)));
 		add(getJButton1(), new Constraints(new Leading(8, 80, 12, 12), new Leading(43, 10, 10)));
-		add(getJScrollPane2(), new Constraints(new Leading(563, 128, 12, 12), new Leading(8, 132, 12, 12)));
 		add(getJScrollPane4(), new Constraints(new Leading(232, 200, 10, 10), new Leading(8, 361, 12, 12)));
 		add(getJButton3(), new Constraints(new Leading(8, 12, 12), new Leading(470, 12, 12)));
 		add(getJScrollPane0(), new Constraints(new Leading(563, 200, 10, 10), new Leading(177, 319, 12, 12)));
 		add(getJScrollPane5(), new Constraints(new Leading(233, 198, 12, 12), new Leading(386, 110, 12, 12)));
 		add(getJButton4(), new Constraints(new Leading(8, 120, 12, 12), new Leading(432, 12, 12)));
+		add(getJScrollPane2(), new Constraints(new Leading(535, 156, 10, 10), new Leading(8, 132, 12, 12)));
 		setSize(775, 513);
 	}
 
@@ -198,9 +198,10 @@ public class GUI extends JFrame {
 	private JTable getCommandsTable() {
 		if (commandsTable == null) {
 			commandsTable = new JTable();
-			commandsTable.setModel(new DefaultTableModel(new Object[][] { { "ADD", "50", }, { "SUB", "80", }, }, new String[] { "Komanda", "Adresas", }) {
+			commandsTable.setModel(new DefaultTableModel(new Object[][] { { "ADD", "0000", }, { "SUB", "0001",} },
+					new String[] { "Komanda", "Adresas", }) {
 				private static final long serialVersionUID = 1L;
-				Class<?>[] types = new Class<?>[] { Object.class, Object.class, };
+				Class<?>[] types = new Class<?>[] { String.class, String.class, };
 	
 				public Class<?> getColumnClass(int columnIndex) {
 					return types[columnIndex];
@@ -309,11 +310,11 @@ public class GUI extends JFrame {
 	private JTable getRegistersTable() {
 		if (registersTable == null) {
 			registersTable = new JTable();
-			registersTable.setModel(new DefaultTableModel(new Object[][] { { "PTR", "0000", }, { "R", "0000", }, { "P", "0000", }, { "IC", "00", },
-					{ "SF", "00", }, { "SM", "00", }, { "PI", "0", }, { "SI", "0", }, { "CHNL", "0", }, },
-					new String[] { "Registrai", "Reikðmë", }) {
+			registersTable.setModel(new DefaultTableModel(new Object[][] { { "PTR", 0, 0, 0, 0, }, { "R", 0, 0, 0, 0, }, { "P", 0, 0, 0, 0, },
+					{ "IC", 0, 0, 0, 0, }, { "SF", 0, 0, 0, 0, }, { "SM", 0, 0, 0, 0, }, { "PI", 0, 0, 0, 0, }, { "SI", 0, 0, 0, 0, }, { "CHNL", 0, 0, 0, 0, }, },
+					new String[] { "Reg", "1", "2", "3", "4", }) {
 				private static final long serialVersionUID = 1L;
-				Class<?>[] types = new Class<?>[] { Object.class, Object.class, };
+				Class<?>[] types = new Class<?>[] { Object.class, Integer.class, Integer.class, Integer.class, Integer.class, };
 	
 				public Class<?> getColumnClass(int columnIndex) {
 					return types[columnIndex];
@@ -335,9 +336,9 @@ public class GUI extends JFrame {
 	private JTable getRealMemoryTable() {
 		if (realMemoryTable == null) {
 			realMemoryTable = new JTable();
-			realMemoryTable.setModel(new DefaultTableModel(values, new String[] { "Adresas", "Reikðmë", }) {
+			realMemoryTable.setModel(new DefaultTableModel(values, new String[] { "Adr", "1", "2", "3", "4", }) {
 				private static final long serialVersionUID = 1L;
-				Class<?>[] types = new Class<?>[] { Integer.class, Integer.class, };
+				Class<?>[] types = new Class<?>[] { String.class, String.class, String.class, String.class, String.class, };
 	
 				public Class<?> getColumnClass(int columnIndex) {
 					return types[columnIndex];
@@ -400,6 +401,8 @@ public class GUI extends JFrame {
 
 	private void okButtonActionActionPerformed(ActionEvent event){
 		frameks.setVisible(false);
+		Integer value = Integer.parseInt(jTextField1.getText());
+		realMemoryTable.setValueAt(value, Integer.parseInt(jTextField0.getText()), 1);
 	}
 	private void stepButtonActionActionPerformed(ActionEvent event) {
 	}
