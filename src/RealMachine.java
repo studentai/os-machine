@@ -15,6 +15,7 @@ public class RealMachine {
     private byte PI;												// programiniu pertraukimu registras
     private byte SI;												// sisteminiu pertraukimu registras
     private byte TI;												// taimerio registras
+    private byte chnl;
     private byte MODE;												// procesoriaus darbo busenos registras
     private RealMemory realMemory;
     private VirtualMachine activeVirtualMachine;
@@ -30,6 +31,7 @@ public class RealMachine {
     public RealMachine()
     {
         this.setIC(new byte[2]);
+        this.setChnl((byte) 0);
         this.setSF(new byte[2]);
         this.setSM(new byte[2]);
         this.setP(new byte[4]);
@@ -227,4 +229,10 @@ public class RealMachine {
         this.setTI((byte) 127);
         this.setMODE((byte) 0);
     }
+	public byte getChnl() {
+		return chnl;
+	}
+	public void setChnl(byte chnl) {
+		this.chnl = chnl;
+	}
 }

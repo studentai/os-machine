@@ -58,8 +58,38 @@ public class GUI extends JFrame {
 	private JButton jButton5;
 	private JPanel jPanel1;
 	
+	private RealMachine realMachine;
+	private String[][] registerValues;
+	
 	public GUI() {
 		initComponents();
+	}
+	
+	public void setRealMachine(RealMachine realMachine){
+		this.realMachine = realMachine;
+	}
+	
+	public RealMachine getRealMachine(){
+		return realMachine;
+	}
+	
+	public void updateRegistersValues(){
+	
+		for(int i = 0; i<4; i++){
+			registersTable.setValueAt(realMachine.getPTR()[i], 0, i+1);
+			registersTable.setValueAt(realMachine.getR()[i], 1, i+1);
+			registersTable.setValueAt(realMachine.getR()[i], 2, i+1);
+		}
+		for(int i = 0; i < 2; i++){
+			registersTable.setValueAt(realMachine.getIC()[i], 3, i+1);
+			registersTable.setValueAt(realMachine.getSF()[i], 4, i+1);
+			registersTable.setValueAt(realMachine.getSM()[i], 5, i+1);
+		}
+		
+		registersTable.setValueAt(realMachine.getPI(), 6, 1);
+		registersTable.setValueAt(realMachine.getSI(), 7, 1);
+		registersTable.setValueAt(realMachine.getChnl(), 8, 1);
+		
 	}
 
 	private void initComponents() {
@@ -311,7 +341,7 @@ public class GUI extends JFrame {
 		if (registersTable == null) {
 			registersTable = new JTable();
 			registersTable.setModel(new DefaultTableModel(new Object[][] { { "PTR", 0, 0, 0, 0, }, { "R", 0, 0, 0, 0, }, { "P", 0, 0, 0, 0, },
-					{ "IC", 0, 0, 0, 0, }, { "SF", 0, 0, 0, 0, }, { "SM", 0, 0, 0, 0, }, { "PI", 0, 0, 0, 0, }, { "SI", 0, 0, 0, 0, }, { "CHNL", 0, 0, 0, 0, }, },
+					{ "IC", 0, 0, }, { "SF", 0, 0, }, { "SM", 0, 0, }, { "PI", 0}, { "SI", 0 }, { "CHNL", 0}, },
 					new String[] { "Reg", "1", "2", "3", "4", }) {
 				private static final long serialVersionUID = 1L;
 				Class<?>[] types = new Class<?>[] { Object.class, Integer.class, Integer.class, Integer.class, Integer.class, };
