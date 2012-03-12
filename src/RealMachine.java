@@ -50,6 +50,89 @@ public class RealMachine {
         this.setChannel2(new Channel2());
         this.setChannel3(new Channel3());
     }
+    public void executeNextCommand(){
+    	byte[] word = realMemory.getWord(paging.convertRMAddress(realMemory, PTR, IC));
+    	if (IC[1] == 15){
+    		IC[0]++;
+    		IC[1] = 0;
+    	} else {
+    		IC[1]++;
+    	}
+    	boolean isLeggit = false;
+    	
+    	//FOUR BYTES
+    	if ((word[0]==78)&&(word[1]==79)&&(word[2]==84)&&(word[3]==82)){
+    		//NOTR
+    		isLeggit = true;
+    		System.out.println("NOTR");
+    	}
+    	if ((word[0]==77)&&(word[1]==86)&&(word[2]==82)&&(word[3]==80)){
+    		//MVPR
+    		isLeggit = true;
+    		System.out.println("MVPR");
+    	}
+    	if ((word[0]==77)&&(word[1]==86)&&(word[2]==80)&&(word[3]==82)){
+    		//MVRP
+    		isLeggit = true;
+    		System.out.println("MVRP");
+    	}
+    	if ((word[0]==72)&&(word[1]==64)&&(word[2]==76)&&(word[3]==84)){
+    		//HALT
+    		isLeggit = true;
+    		System.out.println("HALT");
+    	}
+    	//TWO BYTES
+    	//Aritmetinës
+    	if ((word[0]==65)&&(word[1]==68)){
+    		//AD
+    		System.out.println("AD");
+    		isLeggit = true;
+    	}
+    	if ((word[0]==83)&&(word[1]==66)){
+    		//SB
+    		System.out.println("SB");
+    		isLeggit = true;
+    	}
+    	if ((word[0]==67)&&(word[1]==80)){
+    		//CP
+    		System.out.println("CP");
+    		isLeggit = true;
+    	}
+    	if ((word[0]==68)&&(word[1]==86)){
+    		//DV
+    		System.out.println("DV");
+    		isLeggit = true;
+    	}
+
+    	//Valdymo perdavimo
+    	if ((word[0]==74)&&(word[1]==80)){
+    		//JP
+    		System.out.println("JP");
+    		isLeggit = true;
+    	}
+    	if ((word[0]==74)&&(word[1]==69)){
+    		//JE
+    		System.out.println("JE");
+    		isLeggit = true;
+    	}
+    	if ((word[0]==74)&&(word[1]==71)){
+    		//JG
+    		System.out.println("JG");
+    		isLeggit = true;
+    	}
+    	if ((word[0]==74)&&(word[1]==61)){
+    		//JB
+    		System.out.println("JB");
+    		isLeggit = true;
+    	}
+    	//Logines ir ciklas
+    	
+//    	if ((word[0]==)&&(word[1]==)){
+//    		//
+//    		System.out.println("");
+//    		isLeggit = true;
+//    	}
+    }
 	public byte[] getIC() {
 		return IC;
 	}
@@ -206,7 +289,9 @@ public class RealMachine {
 			addr[2] = (byte) (virtualMachines.size() + 15);
 			addr[3] = 0;
 			this.setPTR(addr);
+			addr = new byte[2];
 			addr[0] = 1;
+			addr[1] = 0;
 			this.setIC(addr);
     		return true;
     	}

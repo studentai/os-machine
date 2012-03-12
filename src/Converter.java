@@ -48,9 +48,9 @@ public class Converter {
 		String value = "";
 		for(int i = 0; i< arg.length; i++){
 			tmp = Integer.toBinaryString(arg[i]);
-			if(tmp.length()==1) tmp ="000"+tmp;
-			if(tmp.length()==2) tmp ="00"+tmp;
-			if(tmp.length()==3) tmp ="0"+tmp;
+			for (int j=tmp.length();j<8;j++){
+				tmp = "0"+tmp;
+			}
 			value = value + tmp;
 		}
 		return Integer.parseInt(value, 2);
