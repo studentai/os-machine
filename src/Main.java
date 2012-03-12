@@ -72,7 +72,6 @@ public class Main {
 			program[i][3] = (byte)  (i+4);
 		}
 		
-		
 		realMachine.registerNewVirtualmachine(program, 3);
 		
 		//GUI----------------------------------------
@@ -89,6 +88,7 @@ public class Main {
 						gui.setRealMachine(realMachine);
 						gui.updateRegistersValues();
 						gui.updateRealMemory();
+						gui.updateFlags();
 					}
 				});
 				//GUI---------------------------------------

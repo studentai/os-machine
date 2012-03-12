@@ -103,6 +103,28 @@ public class GUI extends JFrame {
 			realMemoryTable.setValueAt(Converter.ByteToChar(memory[i][3]), i, 4);
 		}
 	}
+	
+	public void updateFlags(){
+		byte[] flag = realMachine.getSF();
+		String firstByte = Integer.toBinaryString(flag[0]);
+		String secondByte = Integer.toBinaryString(flag[1]);
+	
+		if(firstByte.length() == 3) firstByte = "0"+firstByte;
+		if(firstByte.length() == 2) firstByte = "00"+firstByte;
+		if(firstByte.length() == 1) firstByte = "000"+firstByte;
+		if(secondByte.length() == 3) secondByte = "0"+secondByte;
+		if(secondByte.length() == 2) secondByte = "00"+secondByte;
+		if(secondByte.length() == 1) secondByte = "000"+secondByte;
+		
+		char[] charsArray1 = firstByte.toCharArray();
+		char[] charsArray2 = secondByte.toCharArray();
+		
+		for(int i = 0; i<firstByte.length(); i++){
+			flagsTable.setValueAt(charsArray1[i], i, 1);
+			flagsTable.setValueAt(charsArray2[i], i+4, 1);
+		}
+		
+	}
 
 	private void initComponents() {
 		setLayout(new GroupLayout());
@@ -318,10 +340,10 @@ public class GUI extends JFrame {
 	private JTable getFlagsTable() {
 		if (flagsTable == null) {
 			flagsTable = new JTable();
-			flagsTable.setModel(new DefaultTableModel(new Object[][] { { "X", "0", }, { "X", "0", }, { "BF", "0", }, { "CF", "0", }, { "ZF", "0", },
-					{ "SF", "0", }, { "JF", "0", }, { "MF", "0", }, }, new String[] { "", "", }) {
+			flagsTable.setModel(new DefaultTableModel(new String[][] { { "X", "0", }, { "X", "0", }, { "BF", "0", }, { "CF", "0", }, { "ZF", "0", },
+					{ "SF", "0", }, { "JF", "0", }, { "MF", "0", }, }, new String[] { "FL", "B", }) {
 				private static final long serialVersionUID = 1L;
-				Class<?>[] types = new Class<?>[] { Object.class, Object.class, };
+				Class<?>[] types = new Class<?>[] { String.class, String.class, };
 	
 				public Class<?> getColumnClass(int columnIndex) {
 					return types[columnIndex];
