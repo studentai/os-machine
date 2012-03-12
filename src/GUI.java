@@ -52,7 +52,15 @@ public class GUI extends JFrame {
 	private JButton okButton;
 	private JScrollPane jScrollPane1;
 	private JButton jButton5;
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+
+=======
+	
+>>>>>>> 5f95153bb0824c1de178d6190a1dd771be6e631f
+>>>>>>> f00531e1fe5c3111856c479e7eba4a120a034c02
 	private RealMachine realMachine;
 	private JTextField jTextField6;
 	private JLabel jLabel3;
@@ -62,9 +70,135 @@ public class GUI extends JFrame {
 	private JTextField jTextField5;
 	private JLabel jLabel4;
 	private JPanel jPanel2;
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+
+=======
+	
+>>>>>>> 5f95153bb0824c1de178d6190a1dd771be6e631f
+>>>>>>> f00531e1fe5c3111856c479e7eba4a120a034c02
 	public GUI() {
 		initComponents();
+	}
+	
+	public void setRealMachine(RealMachine realMachine){
+		this.realMachine = realMachine;
+	}
+	
+	public RealMachine getRealMachine(){
+		return realMachine;
+	}
+	
+	public void updateRegistersValues(){
+	
+		for(int i = 0; i<4; i++){
+			registersTable.setValueAt(realMachine.getPTR()[i], 0, i+1);
+			registersTable.setValueAt(realMachine.getR()[i], 1, i+1);
+			registersTable.setValueAt(realMachine.getR()[i], 2, i+1);
+		}
+		for(int i = 0; i < 2; i++){
+			registersTable.setValueAt(realMachine.getIC()[i], 3, i+1);
+			registersTable.setValueAt(realMachine.getSF()[i], 4, i+1);
+			registersTable.setValueAt(realMachine.getSM()[i], 5, i+1);
+		}
+		
+		registersTable.setValueAt(realMachine.getPI(), 6, 1);
+		registersTable.setValueAt(realMachine.getSI(), 7, 1);
+		registersTable.setValueAt(realMachine.getChnl(), 8, 1);
+		
+	}
+	
+	public void updateRealMemory(){
+		byte[][] memory = realMachine.getRealMemory().getMemory();
+		for(int i = 0; i<memory.length; i++){
+			realMemoryTable.setValueAt(Converter.ByteToChar(memory[i][0]), i, 1);
+			realMemoryTable.setValueAt(Converter.ByteToChar(memory[i][1]), i, 2);
+			realMemoryTable.setValueAt(Converter.ByteToChar(memory[i][2]), i, 3);
+			realMemoryTable.setValueAt(Converter.ByteToChar(memory[i][3]), i, 4);
+		}
+	}
+	
+	public void updateFlags(){
+		byte[] flag = realMachine.getSF();
+		String firstByte = Integer.toBinaryString(flag[0]);
+		String secondByte = Integer.toBinaryString(flag[1]);
+	
+		if(firstByte.length() == 3) firstByte = "0"+firstByte;
+		if(firstByte.length() == 2) firstByte = "00"+firstByte;
+		if(firstByte.length() == 1) firstByte = "000"+firstByte;
+		if(secondByte.length() == 3) secondByte = "0"+secondByte;
+		if(secondByte.length() == 2) secondByte = "00"+secondByte;
+		if(secondByte.length() == 1) secondByte = "000"+secondByte;
+		
+		char[] charsArray1 = firstByte.toCharArray();
+		char[] charsArray2 = secondByte.toCharArray();
+		
+		for(int i = 0; i<firstByte.length(); i++){
+			flagsTable.setValueAt(charsArray1[i], i, 1);
+			flagsTable.setValueAt(charsArray2[i], i+4, 1);
+		}
+		
+	}
+
+	public void setRealMachine(RealMachine realMachine){
+		this.realMachine = realMachine;
+	}
+
+	public RealMachine getRealMachine(){
+		return realMachine;
+	}
+
+	public void updateRegistersValues(){
+
+		for(int i = 0; i<4; i++){
+			registersTable.setValueAt(realMachine.getPTR()[i], 0, i+1);
+			registersTable.setValueAt(realMachine.getR()[i], 1, i+1);
+			registersTable.setValueAt(realMachine.getR()[i], 2, i+1);
+		}
+		for(int i = 0; i < 2; i++){
+			registersTable.setValueAt(realMachine.getIC()[i], 3, i+1);
+			registersTable.setValueAt(realMachine.getSF()[i], 4, i+1);
+			registersTable.setValueAt(realMachine.getSM()[i], 5, i+1);
+		}
+
+		registersTable.setValueAt(realMachine.getPI(), 6, 1);
+		registersTable.setValueAt(realMachine.getSI(), 7, 1);
+		registersTable.setValueAt(realMachine.getChnl(), 8, 1);
+
+	}
+
+	public void updateRealMemory(){
+		byte[][] memory = realMachine.getRealMemory().getMemory();
+		for(int i = 0; i<memory.length; i++){
+			realMemoryTable.setValueAt(Converter.ByteToChar(memory[i][0]), i, 1);
+			realMemoryTable.setValueAt(Converter.ByteToChar(memory[i][1]), i, 2);
+			realMemoryTable.setValueAt(Converter.ByteToChar(memory[i][2]), i, 3);
+			realMemoryTable.setValueAt(Converter.ByteToChar(memory[i][3]), i, 4);
+		}
+	}
+
+	public void updateFlags(){
+		byte[] flag = realMachine.getSF();
+		String firstByte = Integer.toBinaryString(flag[0]);
+		String secondByte = Integer.toBinaryString(flag[1]);
+
+		if(firstByte.length() == 3) firstByte = "0"+firstByte;
+		if(firstByte.length() == 2) firstByte = "00"+firstByte;
+		if(firstByte.length() == 1) firstByte = "000"+firstByte;
+		if(secondByte.length() == 3) secondByte = "0"+secondByte;
+		if(secondByte.length() == 2) secondByte = "00"+secondByte;
+		if(secondByte.length() == 1) secondByte = "000"+secondByte;
+
+		char[] charsArray1 = firstByte.toCharArray();
+		char[] charsArray2 = secondByte.toCharArray();
+
+		for(int i = 0; i<firstByte.length(); i++){
+			flagsTable.setValueAt(charsArray1[i], i, 1);
+			flagsTable.setValueAt(charsArray2[i], i+4, 1);
+		}
+
 	}
 
 	public void setRealMachine1(RealMachine realMachine){
@@ -220,8 +354,16 @@ public class GUI extends JFrame {
 	private JLabel getJLabel4() {
 		if (jLabel4 == null) {
 			jLabel4 = new JLabel();
+<<<<<<< HEAD
 			jLabel4.setText("Reik?m?");
 			jLabel4.setText("Reik?m?");
+=======
+<<<<<<< HEAD
+			jLabel4.setText("Reik?m?");
+=======
+			jLabel4.setText("Reikðmë");
+>>>>>>> 5f95153bb0824c1de178d6190a1dd771be6e631f
+>>>>>>> f00531e1fe5c3111856c479e7eba4a120a034c02
 		}
 		return jLabel4;
 	}
@@ -352,7 +494,15 @@ public class GUI extends JFrame {
 					new String[] { "Komanda", "Adresas", }) {
 				private static final long serialVersionUID = 1L;
 				Class<?>[] types = new Class<?>[] { String.class, String.class, };
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+
+=======
+	
+>>>>>>> 5f95153bb0824c1de178d6190a1dd771be6e631f
+>>>>>>> f00531e1fe5c3111856c479e7eba4a120a034c02
 				public Class<?> getColumnClass(int columnIndex) {
 					return types[columnIndex];
 				}
@@ -404,6 +554,14 @@ public class GUI extends JFrame {
 					{ "SF", "0", }, { "JF", "0", }, { "MF", "0", }, }, new String[] { "FL", "B", }) {
 				private static final long serialVersionUID = 1L;
 				Class<?>[] types = new Class<?>[] { String.class, String.class, };
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+=======
+	
+>>>>>>> 5f95153bb0824c1de178d6190a1dd771be6e631f
+>>>>>>> f00531e1fe5c3111856c479e7eba4a120a034c02
 				public Class<?> getColumnClass(int columnIndex) {
 					return types[columnIndex];
 				}
@@ -515,7 +673,11 @@ public class GUI extends JFrame {
 
 	private void changeRegistersButtonActionActionPerformed(ActionEvent event) {
 		if(framek == null){
+<<<<<<< HEAD
 			framek = new JFrame("Registr Keitimas");
+=======
+			framek = new JFrame("Registr¸ Keitimas");
+>>>>>>> f00531e1fe5c3111856c479e7eba4a120a034c02
 			framek.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			registersTable.setEnabled(true);;
 			framek.getContentPane().add(getJPanel1(), BorderLayout.CENTER);

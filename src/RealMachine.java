@@ -237,4 +237,12 @@ public class RealMachine {
 	public void setChnl(byte chnl) {
 		this.chnl = chnl;
 	}
+<<<<<<< HEAD
 }
+=======
+<<<<<<< HEAD
+}
+=======
+}
+>>>>>>> 5f95153bb0824c1de178d6190a1dd771be6e631f
+>>>>>>> f00531e1fe5c3111856c479e7eba4a120a034c02
