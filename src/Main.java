@@ -1,8 +1,10 @@
 import javax.swing.SwingUtilities;
 
 public class Main {
-	
+
 	//Sunumeruoju realios atminties zodziu numerius lentelej
+	private static GUI gui;
+	private static RealMachine realMachine;
 	public static void setRealMemoryValues(int size){
 		GUI.values = new String[size][5];
 		String adress;
@@ -13,7 +15,7 @@ public class Main {
 				break;
 			case 2: adress = "00"+adress;
 				break;
-			default: adress = "0"+adress;
+			case 3: adress = "0"+adress;
 				break;
 			}
 			GUI.values[i][0] = adress;
@@ -24,27 +26,11 @@ public class Main {
 		}
 	}
 	//sunumeruoja virtualios atminties zodziu numerius lentelei
-	
+
 	public static void main(String[] args){
-		
-		//GUI----------------------------------------
-		setRealMemoryValues(1024);
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				GUI frame = new GUI();
-				frame.setDefaultCloseOperation(GUI.EXIT_ON_CLOSE);
-				frame.setTitle("GUI");
-				frame.getContentPane().setPreferredSize(frame.getSize());
-				frame.pack();
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
-			}
-		});
-		//GUI---------------------------------------
-		
-		
+
 		//TEST DONT DELETE
-		RealMachine realMachine = new RealMachine();
+	     realMachine = new RealMachine();
 		byte[][] program = new byte[240][4];
 		for (int i=0;i<program.length;i++){
 			program[i][0] = (byte) (i/2+1);
@@ -52,8 +38,8 @@ public class Main {
 			program[i][2] = (byte) (i/2+3);
 			program[i][3] = (byte)  (i/2+4);
 		}
-		
-		
+
+
 		realMachine.registerNewVirtualmachine(program, 16);
 		program = new byte[240][4];
 		for (int i=0;i<program.length;i++){
@@ -62,8 +48,8 @@ public class Main {
 			program[i][2] = (byte) (i/3+3);
 			program[i][3] = (byte)  (i/3+4);
 		}
-		
-		
+
+
 		realMachine.registerNewVirtualmachine(program, 16);
 		program = new byte[240][4];
 		for (int i=0;i<program.length;i++){
@@ -72,8 +58,8 @@ public class Main {
 			program[i][2] = (byte) (i/4+3);
 			program[i][3] = (byte)  (i/4+4);
 		}
-		
-		
+
+
 		realMachine.registerNewVirtualmachine(program, 16);
 
 
@@ -84,12 +70,30 @@ public class Main {
 			program[i][2] = (byte) (i+3);
 			program[i][3] = (byte)  (i+4);
 		}
-		
-		
+
 		realMachine.registerNewVirtualmachine(program, 3);
-		
+
+		realMachine.registerNewVirtualmachine(program, 3);
+
+		//GUI----------------------------------------
+				setRealMemoryValues(1024);
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						gui = new GUI();
+						gui.setDefaultCloseOperation(GUI.EXIT_ON_CLOSE);
+						gui.setTitle("GUI");
+						gui.getContentPane().setPreferredSize(gui.getSize());
+						gui.pack();
+						gui.setLocationRelativeTo(null);
+						gui.setVisible(true);
+						gui.setRealMachine(realMachine);
+						gui.updateRegistersValues();
+						gui.updateRealMemory();
+						gui.updateFlags();
+					}
+				});
+				//GUI---------------------------------------
 		realMachine.getRealMemory().print();
 		//
 	}
 }
-

@@ -2,11 +2,11 @@ import java.util.LinkedList;
 
 
 public class RealMachine {
-	
-	
+
+
 	private static int maxMachineSize = 16;
 	private static int maxMachineCount = 3;
-	
+
     private byte[] IC;     	 										// komandu skaitiklio registras
     private byte[] SF; 												// status flag (!3 baitas Loginis C registras!)
     private byte[] SM; 												// semaforo registras
@@ -15,6 +15,7 @@ public class RealMachine {
     private byte PI;												// programiniu pertraukimu registras
     private byte SI;												// sisteminiu pertraukimu registras
     private byte TI;												// taimerio registras
+    private byte chnl;
     private byte MODE;												// procesoriaus darbo busenos registras
     private RealMemory realMemory;
     private VirtualMachine activeVirtualMachine;
@@ -30,6 +31,7 @@ public class RealMachine {
     public RealMachine()
     {
         this.setIC(new byte[2]);
+        this.setChnl((byte) 0);
         this.setSF(new byte[2]);
         this.setSM(new byte[2]);
         this.setP(new byte[4]);
@@ -58,6 +60,8 @@ public class RealMachine {
 		return SF;
 	}
 	public void setSF(byte[] SF) {
+		SF[0] = 10;
+		SF[1] = 10;
 		this.SF = SF;
 	}
 	public byte[] getSM() {
@@ -227,4 +231,10 @@ public class RealMachine {
         this.setTI((byte) 127);
         this.setMODE((byte) 0);
     }
+	public byte getChnl() {
+		return chnl;
+	}
+	public void setChnl(byte chnl) {
+		this.chnl = chnl;
+	}
 }
