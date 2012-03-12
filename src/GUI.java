@@ -46,19 +46,22 @@ public class GUI extends JFrame {
 	public static Integer[][] values2;
 	
 	private JTextArea jTextArea0;
-	private JTextField jTextField0;
-	private JLabel jLabel1;
-	private JLabel jLabel2;
-	private JTextField jTextField1;
-	private JPanel jPanel0;
+	private JPanel jPanel1;
 	private JFrame framek;
 	private JFrame frameks;
 	private JButton okButton;
 	private JScrollPane jScrollPane1;
 	private JButton jButton5;
-	private JPanel jPanel1;
 	
 	private RealMachine realMachine;
+	private JTextField jTextField6;
+	private JLabel jLabel3;
+	private JTextField jTextField4;
+	private JTextField jTextField3;
+	private JTextField jTextField2;
+	private JTextField jTextField5;
+	private JLabel jLabel4;
+	private JPanel jPanel2;
 	
 	public GUI() {
 		initComponents();
@@ -117,14 +120,77 @@ public class GUI extends JFrame {
 		setSize(775, 513);
 	}
 
-	private JPanel getJPanel1() {
-		if (jPanel1 == null) {
-			jPanel1 = new JPanel();
-			jPanel1.setLayout(new GroupLayout());
-			jPanel1.add(getJScrollPane1(), new Constraints(new Leading(12, 126, 12, 12), new Leading(4, 168, 10, 10)));
-			jPanel1.add(getJButton5(), new Constraints(new Leading(40, 10, 10), new Leading(178, 120, 10)));
+	private JPanel getJPanel2() {
+		if (jPanel2 == null) {
+			jPanel2 = new JPanel();
+			jPanel2.setLayout(new GroupLayout());
+			jPanel2.add(getJLabel3(), new Constraints(new Leading(10, 10, 10), new Leading(17, 12, 12)));
+			jPanel2.add(getJTextField4(), new Constraints(new Leading(160, 24, 12, 12), new Leading(47, 12, 12)));
+			jPanel2.add(getJTextField3(), new Constraints(new Leading(130, 24, 12, 12), new Leading(47, 12, 12)));
+			jPanel2.add(getJTextField2(), new Constraints(new Leading(100, 24, 12, 12), new Leading(47, 12, 12)));
+			jPanel2.add(getJTextField5(), new Constraints(new Leading(70, 24, 12, 12), new Leading(47, 12, 12)));
+			jPanel2.add(getJLabel4(), new Constraints(new Leading(10, 12, 12), new Leading(49, 12, 12)));
+			jPanel2.add(getOkButton(), new Constraints(new Leading(63, 10, 10), new Leading(85, 12, 12)));
+			jPanel2.add(getJTextField6(), new Constraints(new Leading(70, 39, 10, 10), new Leading(17, 12, 12)));
 		}
-		return jPanel1;
+		return jPanel2;
+	}
+
+	private JLabel getJLabel4() {
+		if (jLabel4 == null) {
+			jLabel4 = new JLabel();
+			jLabel4.setText("Reikðmë");
+		}
+		return jLabel4;
+	}
+
+	private JTextField getJTextField5() {
+		if (jTextField5 == null) {
+			jTextField5 = new JTextField();
+			jTextField5.setText("");
+		}
+		return jTextField5;
+	}
+
+	private JTextField getJTextField2() {
+		if (jTextField2 == null) {
+			jTextField2 = new JTextField();
+			jTextField2.setText("");
+		}
+		return jTextField2;
+	}
+
+	private JTextField getJTextField3() {
+		if (jTextField3 == null) {
+			jTextField3 = new JTextField();
+			jTextField3.setText("");
+		}
+		return jTextField3;
+	}
+
+	private JTextField getJTextField4() {
+		if (jTextField4 == null) {
+			jTextField4 = new JTextField();
+			jTextField4.setText("");
+		}
+		return jTextField4;
+	}
+
+	private JLabel getJLabel3() {
+		if (jLabel3 == null) {
+			jLabel3 = new JLabel();
+			jLabel3.setText("Adresas");
+		}
+		return jLabel3;
+	}
+
+	private JTextField getJTextField6() {
+		if (jTextField6 == null) {
+			jTextField6 = new JTextField();
+			jTextField6.setDocument(new JTextFieldLimit(4));
+			jTextField6.setText("");
+		}
+		return jTextField6;
 	}
 
 	private JButton getJButton5() {
@@ -141,14 +207,6 @@ public class GUI extends JFrame {
 		return jButton5;
 	}
 
-	private JScrollPane getJScrollPane1() {
-		if (jScrollPane1 == null) {
-			jScrollPane1 = new JScrollPane();
-			jScrollPane1.setViewportView(getRegistersTable());
-		}
-		return jScrollPane1;
-	}
-
 	private JButton getOkButton() {
 		if (okButton == null) {
 			okButton = new JButton();
@@ -163,51 +221,22 @@ public class GUI extends JFrame {
 		return okButton;
 	}
 
-	private JPanel getJPanel0() {
-		if (jPanel0 == null) {
-			jPanel0 = new JPanel();
-			jPanel0.setLayout(new GroupLayout());
-			jPanel0.add(getJLabel1(), new Constraints(new Leading(8, 10, 10), new Leading(3, 10, 10)));
-			jPanel0.add(getJTextField0(), new Constraints(new Leading(62, 34, 12, 12), new Leading(3, 12, 12)));
-			jPanel0.add(getJTextField1(), new Constraints(new Leading(63, 12, 12), new Leading(27, 10, 10)));
-			jPanel0.add(getJLabel2(), new Constraints(new Leading(7, 12, 12), new Leading(29, 12, 12)));
-			jPanel0.add(getOkButton(), new Constraints(new Leading(18, 10, 10), new Leading(53, 12, 12)));
+	private JPanel getJPanel1() {
+		if (jPanel1 == null) {
+			jPanel1 = new JPanel();
+			jPanel1.setLayout(new GroupLayout());
+			jPanel1.add(getJScrollPane1(), new Constraints(new Leading(12, 126, 12, 12), new Leading(4, 168, 10, 10)));
+			jPanel1.add(getJButton5(), new Constraints(new Leading(40, 10, 10), new Leading(178, 120, 10)));
 		}
-		return jPanel0;
+		return jPanel1;
 	}
 
-	private JTextField getJTextField1() {
-		if (jTextField1 == null) {
-			jTextField1 = new JTextField();
-			jTextField1.setDocument(new JTextFieldLimit(4));
-			jTextField1.setText("FFFF");
+	private JScrollPane getJScrollPane1() {
+		if (jScrollPane1 == null) {
+			jScrollPane1 = new JScrollPane();
+			jScrollPane1.setViewportView(getRegistersTable());
 		}
-		return jTextField1;
-	}
-
-	private JLabel getJLabel2() {
-		if (jLabel2 == null) {
-			jLabel2 = new JLabel();
-			jLabel2.setText("Reikðmë");
-		}
-		return jLabel2;
-	}
-	
-	private JLabel getJLabel1() {
-		if (jLabel1 == null) {
-			jLabel1 = new JLabel();
-			jLabel1.setText("Adresas");
-		}
-		return jLabel1;
-	}
-
-	private JTextField getJTextField0() {
-		if (jTextField0 == null) {
-			jTextField0 = new JTextField(4);
-			jTextField0.setDocument(new JTextFieldLimit(4));
-			jTextField0.setText("0000");
-		}
-		return jTextField0;
+		return jScrollPane1;
 	}
 
 	private JScrollPane getJScrollPane5() {
@@ -298,6 +327,7 @@ public class GUI extends JFrame {
 					return types[columnIndex];
 				}
 			});
+			flagsTable.setEnabled(false);
 		}
 		return flagsTable;
 	}
@@ -383,6 +413,7 @@ public class GUI extends JFrame {
 					return types[columnIndex];
 				}
 			});
+			realMemoryTable.setEnabled(false);
 		}
 		return realMemoryTable;
 	}
@@ -423,7 +454,7 @@ public class GUI extends JFrame {
 			frameks = new JFrame("Atminties Keitimas");
 			frameks.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			realMemoryTable.setEnabled(true);
-			frameks.getContentPane().add(getJPanel0(), BorderLayout.CENTER);
+			frameks.getContentPane().add(getJPanel2(), BorderLayout.CENTER);
 			frameks.pack();
 			frameks.setLocation(getLocation());
 			frameks.setVisible(true);
@@ -440,8 +471,10 @@ public class GUI extends JFrame {
 
 	private void okButtonActionActionPerformed(ActionEvent event){
 		frameks.setVisible(false);
-		Integer value = Integer.parseInt(jTextField1.getText());
-		realMemoryTable.setValueAt(value, Integer.parseInt(jTextField0.getText()), 1);
+		realMemoryTable.setValueAt(jTextField5.getText(), Integer.parseInt(jTextField6.getText()), 1);
+		realMemoryTable.setValueAt(jTextField2.getText(), Integer.parseInt(jTextField6.getText()), 2);
+		realMemoryTable.setValueAt(jTextField3.getText(), Integer.parseInt(jTextField6.getText()), 3);
+		realMemoryTable.setValueAt(jTextField4.getText(), Integer.parseInt(jTextField6.getText()), 4);
 	}
 	private void stepButtonActionActionPerformed(ActionEvent event) {
 	}
