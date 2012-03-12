@@ -28,7 +28,11 @@ public class Main {
 	//sunumeruoja virtualios atminties zodziu numerius lentelei
 
 	public static void main(String[] args){
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 5f95153bb0824c1de178d6190a1dd771be6e631f
 
 		//TEST DONT DELETE
 	     realMachine = new RealMachine();
@@ -71,9 +75,15 @@ public class Main {
 			program[i][2] = (byte) (i+3);
 			program[i][3] = (byte)  (i+4);
 		}
+<<<<<<< HEAD
 
 		realMachine.registerNewVirtualmachine(program, 3);
 
+=======
+		
+		realMachine.registerNewVirtualmachine(program, 3);
+		
+>>>>>>> 5f95153bb0824c1de178d6190a1dd771be6e631f
 		//GUI----------------------------------------
 				setRealMemoryValues(1024);
 				SwingUtilities.invokeLater(new Runnable() {
@@ -92,9 +102,15 @@ public class Main {
 					}
 				});
 				//GUI---------------------------------------
+<<<<<<< HEAD
 
 
 
+=======
+		
+		
+		
+>>>>>>> 5f95153bb0824c1de178d6190a1dd771be6e631f
 		realMachine.getRealMemory().print();
 		//
 	}
