@@ -59,7 +59,7 @@ public class RealMachine {
     		IC[1]++;
     	}
     	boolean isLeggit = false;
-    	
+    	System.out.println(word[0]+" "+word[1]+" "+word[2]+" "+word[3]+"   "+paging.convertRMAddress(realMemory, PTR, IC));
     	//FOUR BYTES
     	if ((word[0]==78)&&(word[1]==79)&&(word[2]==84)&&(word[3]==82)){
     		//NOTR
@@ -76,7 +76,7 @@ public class RealMachine {
     		isLeggit = true;
     		System.out.println("MVRP");
     	}
-    	if ((word[0]==72)&&(word[1]==64)&&(word[2]==76)&&(word[3]==84)){
+    	if ((word[0]==72)&&(word[1]==65)&&(word[2]==76)&&(word[3]==84)){
     		//HALT
     		isLeggit = true;
     		System.out.println("HALT");
@@ -290,7 +290,7 @@ public class RealMachine {
 			addr[3] = 0;
 			this.setPTR(addr);
 			addr = new byte[2];
-			addr[0] = 1;
+			addr[0] = 0;
 			addr[1] = 0;
 			this.setIC(addr);
     		return true;

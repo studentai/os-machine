@@ -71,10 +71,5 @@ public class Main {
 		System.out.println("-1 ---> "+Converter.byteToInt((byte) -1)+
 							"<====== byte to integer test");
 		//
-		realMachine.executeNextCommand();
-		realMachine.executeNextCommand();
-		realMachine.executeNextCommand();
-		realMachine.executeNextCommand();
-		realMachine.executeNextCommand();
 	}
 }

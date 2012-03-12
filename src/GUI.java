@@ -168,10 +168,10 @@ public class GUI extends JFrame {
 	public void updateRealMemory(){
 		byte[][] memory = realMachine.getRealMemory().getMemory();
 		for(int i = 0; i<memory.length; i++){
-			realMemoryTable.setValueAt(Converter.ByteToChar(memory[i][0]), i, 1);
-			realMemoryTable.setValueAt(Converter.ByteToChar(memory[i][1]), i, 2);
-			realMemoryTable.setValueAt(Converter.ByteToChar(memory[i][2]), i, 3);
-			realMemoryTable.setValueAt(Converter.ByteToChar(memory[i][3]), i, 4);
+			realMemoryTable.setValueAt(memory[i][0], i, 1);
+			realMemoryTable.setValueAt(memory[i][1], i, 2);
+			realMemoryTable.setValueAt(memory[i][2], i, 3);
+			realMemoryTable.setValueAt(memory[i][3], i, 4);
 		}
 	}
 
@@ -616,6 +616,10 @@ public class GUI extends JFrame {
 		realMemoryTable.setValueAt(jTextField4.getText(), Integer.parseInt(jTextField6.getText()), 4);
 	}
 	private void stepButtonActionActionPerformed(ActionEvent event) {
+		realMachine.executeNextCommand();
+		updateRealMemory();
+		updateRegistersValues();
+		
 	}
 
 	private void loadVMButtonActionActionPerformed(ActionEvent event) {
@@ -653,6 +657,7 @@ public class GUI extends JFrame {
 			}
 			realMachine.registerNewVirtualmachine(program, Math.round(16));
 			updateRealMemory();
+			updateRegistersValues();
 		 }catch(FileNotFoundException e){System.out.println("Klaida atidarant faila");}
 		
 	}
