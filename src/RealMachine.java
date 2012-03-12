@@ -127,122 +127,104 @@ public class RealMachine {
     	}
     	//Logines ir ciklas
     	
-//    	if ((word[0]==)&&(word[1]==)){
-//    		//
-//    		System.out.println("");
-//    		isLeggit = true;
-//    	}
+    	if ((word[0]==65)&&(word[1]==78)){
+    		//AN
+    		System.out.println("AN");
+    		isLeggit = true;
+    	}
+    	if ((word[0]==81)&&(word[1]==81)){
+    		//OR
+    		System.out.println("OR");
+    		isLeggit = true;
+    	}
+    	if ((word[0]==76)&&(word[1]==80)){
+    		//LP
+    		System.out.println("LP");
+    		isLeggit = true;
+    	}
+    	//Mov'ai
+    	if ((word[0]==77)&&(word[1]==82)){
+    		//MR
+    		System.out.println("MR");
+    		isLeggit = true;
+    	}
+    	if ((word[0]==82)&&(word[1]==77)){
+    		//RM
+    		System.out.println("RM");
+    		isLeggit = true;
+    	}
+    	//Atmintis ir kanalai
+    	if ((word[0]==71)&&(word[1]==44)){
+    		//GD
+    		System.out.println("GD");
+    		isLeggit = true;
+    	}
+    	if ((word[0]==80)&&(word[1]==68)){
+    		//PD
+    		System.out.println("PD");
+    		isLeggit = true;
+    	}
+    	if ((word[0]==76)&&(word[1]==82)){
+    		//LR
+    		System.out.println("LR");
+    		isLeggit = true;
+    	}
+    	if ((word[0]==83)&&(word[1]==82)){
+    		//SR
+    		System.out.println("SR");
+    		isLeggit = true;
+    	}
+    	if ((word[0]==76)&&(word[1]==75)){
+    		//LK
+    		System.out.println("LK");
+    		isLeggit = true;
+    	}
+    	if ((word[0]==78)&&(word[1]==75)){
+    		//NK
+    		System.out.println("NK");
+    		isLeggit = true;
+    	}
     }
-	public byte[] getIC() {
-		return IC;
-	}
-	public void setIC(byte[] IC) {
-		this.IC = IC;
-	}
-	public byte[] getSF() {
-		return SF;
-	}
+	public byte[] getIC() {return IC;}
+	public void setIC(byte[] IC) {this.IC = IC;}
+	public byte[] getSF() {return SF;}
 	public void setSF(byte[] SF) {
 		SF[0] = 10;
 		SF[1] = 10;
 		this.SF = SF;
 	}
-	public byte[] getSM() {
-		return SM;
-	}
-	public void setSM(byte[] SM) {
-		this.SM = SM;
-	}
-	public byte[] getP() {
-		return P;
-	}
-	public void setP(byte[] P) {
-		this.P = P;
-	}
-	public byte[] getR() {
-		return R;
-	}
-	public void setR(byte[] R) {
-		this.R = R;
-	}
-	public byte getPI() {
-		return PI;
-	}
-	public void setPI(byte PI) {
-		this.PI = PI;
-	}
-	public byte getSI() {
-		return SI;
-	}
-	public void setSI(byte SI) {
-		this.SI = SI;
-	}
-	public byte getTI() {
-		return TI;
-	}
-	public void setTI(byte TI) {
-		this.TI = TI;
-	}
-	public byte getMODE() {
-		return MODE;
-	}
-	public void setMODE(byte MODE) {
-		this.MODE = MODE;
-	}
-	public byte[] getPTR() {
-		return PTR;
-	}
-	public void setPTR(byte[] PTR) {
-		this.PTR = PTR;
-	}
-	public Channel1 getChannel1() {
-		return channel1;
-	}
-	public void setChannel1(Channel1 channel1) {
-		this.channel1 = channel1;
-	}
-	public Channel2 getChannel2() {
-		return channel2;
-	}
-	public void setChannel2(Channel2 channel2) {
-		this.channel2 = channel2;
-	}
-	public String getError() {
-		return error;
-	}
-	public void setError(String error) {
-		this.error = error;
-	}
-	public RealMemory getRealMemory() {
-		return realMemory;
-	}
-	public void setRealMemory(RealMemory realMemory) {
-		this.realMemory = realMemory;
-	}
-	public VirtualMachine getActiveVirtualMachine() {
-		return activeVirtualMachine;
-	}
-	public void setActiveVirtualMachine(VirtualMachine activeVirtualMachine) {
-		this.activeVirtualMachine = activeVirtualMachine;
-	}
-	public LinkedList<VirtualMachine> getVirtualMachines() {
-		return virtualMachines;
-	}
-	public void setVirtualMachines(LinkedList<VirtualMachine> virtualMachines) {
-		this.virtualMachines = virtualMachines;
-	}
-	public Paging getPaging() {
-		return paging;
-	}
-	public void setPaging(Paging paging) {
-		this.paging = paging;
-	}
-	public Channel3 getChannel3() {
-		return channel3;
-	}
-	public void setChannel3(Channel3 channel3) {
-		this.channel3 = channel3;
-	}
+	public byte[] getSM() {return SM;}
+	public void setSM(byte[] SM) {this.SM = SM;}
+	public byte[] getP() {return P;}
+	public void setP(byte[] P) {this.P = P;}
+	public byte[] getR() {return R;}
+	public void setR(byte[] R) {this.R = R;}
+	public byte getPI() {return PI;}
+	public void setPI(byte PI) {this.PI = PI;}
+	public byte getSI() {return SI;}
+	public void setSI(byte SI) {this.SI = SI;}
+	public byte getTI() {return TI;}
+	public void setTI(byte TI) {this.TI = TI;}
+	public byte getMODE() {return MODE;}
+	public void setMODE(byte MODE) {this.MODE = MODE;}
+	public byte[] getPTR() {return PTR;}
+	public void setPTR(byte[] PTR) {this.PTR = PTR;}
+	public Channel1 getChannel1() {return channel1;}
+	public void setChannel1(Channel1 channel1) {this.channel1 = channel1;}
+	public Channel2 getChannel2() {return channel2;}
+	public void setChannel2(Channel2 channel2) {this.channel2 = channel2;}
+	public String getError() {return error;}
+	public void setError(String error) {this.error = error;}
+	public RealMemory getRealMemory() {return realMemory;}
+	public void setRealMemory(RealMemory realMemory) {this.realMemory = realMemory;}
+	public VirtualMachine getActiveVirtualMachine() {return activeVirtualMachine;}
+	public void setActiveVirtualMachine(VirtualMachine activeVirtualMachine) {this.activeVirtualMachine = activeVirtualMachine;}
+	public LinkedList<VirtualMachine> getVirtualMachines() {return virtualMachines;}
+	public void setVirtualMachines(LinkedList<VirtualMachine> virtualMachines) {this.virtualMachines = virtualMachines;}
+	public Paging getPaging() {	return paging;}
+	public void setPaging(Paging paging) {this.paging = paging;}
+	public Channel3 getChannel3() {return channel3;}
+	public void setChannel3(Channel3 channel3) {this.channel3 = channel3;}
     public boolean registerNewVirtualmachine(byte[][] program, int size){
     	if ((size > maxMachineSize) && (size < 1) || (virtualMachines.size() >= maxMachineCount)){
     		return false;
@@ -316,10 +298,6 @@ public class RealMachine {
         this.setTI((byte) 127);
         this.setMODE((byte) 0);
     }
-	public byte getChnl() {
-		return chnl;
-	}
-	public void setChnl(byte chnl) {
-		this.chnl = chnl;
-	}
+	public byte getChnl() {return chnl;}
+	public void setChnl(byte chnl) {this.chnl = chnl;}
 }
