@@ -1,6 +1,11 @@
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.Math;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,6 +23,7 @@ import javax.swing.text.PlainDocument;
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
+import org.dyno.visual.swing.layouts.Trailing;
 
 //bbzn
 //VS4E -- DO NOT REMOVE THIS LINE!
@@ -44,11 +50,13 @@ public class GUI extends JFrame {
 
 	public static String[][] values;
 	public static Integer[][] values2;
+	private BufferedReader file;
 
 	private JTextArea jTextArea0;
 	private JPanel jPanel1;
 	private JFrame framek;
 	private JFrame frameks;
+	private JFrame frame2;
 	private JButton okButton;
 	private JScrollPane jScrollPane1;
 	private JButton jButton5;
@@ -62,6 +70,10 @@ public class GUI extends JFrame {
 	private JTextField jTextField5;
 	private JLabel jLabel4;
 	private JPanel jPanel2;
+	private JPanel jPanel0;
+	private JLabel jLabel1;
+	private JTextField jTextField0;
+	private JButton jButton6;
 
 	public GUI() {
 		initComponents();
@@ -199,6 +211,52 @@ public class GUI extends JFrame {
 		add(getJButton4(), new Constraints(new Leading(8, 120, 12, 12), new Leading(432, 12, 12)));
 		add(getJScrollPane2(), new Constraints(new Leading(535, 156, 10, 10), new Leading(8, 132, 12, 12)));
 		setSize(775, 513);
+	}
+
+	private JButton getJButton6() {
+		if (jButton6 == null) {
+			jButton6 = new JButton();
+			jButton6.addActionListener(new ActionListener() {
+
+				public void actionPerformed(ActionEvent event) {
+					try {
+						ok3ButtonActionActionPerformed(event);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			});
+			jButton6.setText("Uzkrauti");
+		}
+		return jButton6;
+	}
+
+	private JTextField getJTextField0() {
+		if (jTextField0 == null) {
+			jTextField0 = new JTextField();
+			jTextField0.setText("jTextField0");
+		}
+		return jTextField0;
+	}
+
+	private JLabel getJLabel1() {
+		if (jLabel1 == null) {
+			jLabel1 = new JLabel();
+			jLabel1.setText("Failo pavadinimas");
+		}
+		return jLabel1;
+	}
+
+	private JPanel getJPanel0() {
+		if (jPanel0 == null) {
+			jPanel0 = new JPanel();
+			jPanel0.setLayout(new GroupLayout());
+			jPanel0.add(getJLabel1(), new Constraints(new Leading(6, 10, 10), new Leading(8, 10, 10)));
+			jPanel0.add(getJTextField0(), new Constraints(new Leading(6, 12, 12), new Leading(33, 10, 10)));
+			jPanel0.add(getJButton6(), new Constraints(new Leading(18, 10, 10), new Trailing(12, 65, 65)));
+		}
+		return jPanel0;
 	}
 
 	private JPanel getJPanel2() {
@@ -515,7 +573,7 @@ public class GUI extends JFrame {
 
 	private void changeRegistersButtonActionActionPerformed(ActionEvent event) {
 		if(framek == null){
-			framek = new JFrame("Registrè Keitimas");
+			framek = new JFrame("RegistrÔøΩ Keitimas");
 			framek.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			registersTable.setEnabled(true);;
 			framek.getContentPane().add(getJPanel1(), BorderLayout.CENTER);
@@ -561,9 +619,42 @@ public class GUI extends JFrame {
 	}
 
 	private void loadVMButtonActionActionPerformed(ActionEvent event) {
+		if(frame2 == null){
+			frame2 = new JFrame("Load VM");
+			frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame2.getContentPane().add(getJPanel0(), BorderLayout.CENTER);
+			frame2.pack();
+			frame2.setLocation(getLocation());
+			frame2.setVisible(true);
+		}else frame2.setVisible(true);
 	}
 
 	private void playButtonActionActionPerformed(ActionEvent event) {
+	}
+	private void ok3ButtonActionActionPerformed(ActionEvent event)throws IOException{
+		frame2.setVisible(false);
+		
+		 try{
+			FileReader fileReader = new FileReader(jTextField0.getText());
+			file = new BufferedReader(fileReader);
+			byte[][] program = new byte[256][4];
+			int i = 0;
+			String line;
+			char[] lineArray;
+			while((file.ready()== true)&& (i < program.length)){
+				line = file.readLine();
+				System.out.println(line+"----------------");
+				lineArray =  line.toCharArray();
+				program[i][0] = (byte)lineArray[0];
+				program[i][1] = (byte)lineArray[1];
+				program[i][2] = (byte)lineArray[2];
+				program[i][3] = (byte)lineArray[3];
+				i++;
+			}
+			realMachine.registerNewVirtualmachine(program, Math.round(16));
+			updateRealMemory();
+		 }catch(FileNotFoundException e){System.out.println("Klaida atidarant faila");}
+		
 	}
 }
 

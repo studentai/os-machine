@@ -88,7 +88,7 @@ public class Main {
 				gui.setVisible(true);
 				gui.setRealMachine(realMachine);
 				gui.updateRegistersValues();
-				gui.updateRealMemory();
+				//gui.updateRealMemory();
 				gui.updateFlags();
 			}
 		});
