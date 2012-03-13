@@ -113,11 +113,13 @@ public class RealMachine {
     		//JP
     		System.out.println("JP");
     		isLeggit = true;
+    		JP(word);
     	}
     	if ((word[0]==74)&&(word[1]==69)){
     		//JE
     		System.out.println("JE");
     		isLeggit = true;
+    		JE(word);
     	}
     	if ((word[0]==74)&&(word[1]==71)){
     		//JG
@@ -189,20 +191,52 @@ public class RealMachine {
     		isLeggit = true;
     	}
     }
+    public void JP(byte[] cmd){
+    	byte[] addr = new byte[]{Converter.HexCharToByte((char)cmd[2]), Converter.HexCharToByte((char)cmd[3])};
+    	int realAddr = paging.convertRMAddress(realMemory, PTR, addr);
+    	if (realAddr > -1){
+    		IC = addr;
+    	}else{
+    		PI = 2;
+    	}
+    }
+    public void JE(byte[] cmd){
+    	byte[] addr = new byte[]{Converter.HexCharToByte((char)cmd[2]), Converter.HexCharToByte((char)cmd[3])};
+    	int realAddr = paging.convertRMAddress(realMemory, PTR, addr);
+    	if (realAddr > -1){
+			String bits = Integer.toBinaryString(Converter.byteToInt(SF));
+			for (int j=bits.length();j<8;j++){
+				bits = "0"+bits;
+			}
+    		if (bits.charAt(2) == '0'){
+    			IC = addr;
+    		}
+    	}else{
+    		PI = 2;
+    	}
+    }
     public void CP(byte[] cmd){
     	byte[] addr = new byte[]{Converter.HexCharToByte((char)cmd[2]), Converter.HexCharToByte((char)cmd[3])};
-    	byte[] word = realMemory.getWord(paging.convertRMAddress(realMemory, PTR, addr));
-    	BigInteger wordInt = new BigInteger(word); 
-    	BigInteger RInt = new BigInteger(R);
-    	System.out.println(wordInt+" "+RInt);
-    	if (wordInt.equals(RInt)){
-    	
+    	int realAddr = paging.convertRMAddress(realMemory, PTR, addr);
+    	if (realAddr > -1){
+        	byte[] word = realMemory.getWord(realAddr);
+        	long wordInt = Converter.byteArrayToInt(word);
+        	long RInt = Converter.byteArrayToInt(R);
+        	System.out.println(wordInt+" "+RInt);
+        	if (wordInt == RInt){
+        		changeFlag('0', 2);
+        	}
+        	if (wordInt> RInt){
+        		changeFlag('1', 2);
+        		changeFlag('1', 6);
+        	}
+        	if (wordInt < RInt){
+        		changeFlag('1', 2);
+        		changeFlag('0', 6);
+        	}
     	}
-    	if (wordInt.doubleValue() > RInt.doubleValue()){
-    		
-    	}
-    	if (wordInt.doubleValue() < RInt.doubleValue()){
-    		
+    	else {
+    		PI = 2;
     	}
     }
     public void HALT(){
@@ -239,8 +273,9 @@ public class RealMachine {
 			value = array[i] + value;
 		}
 		R = (Converter.stringToWord(value));
-		if (isSubed = false){
+		if (isSubed == false){
 			//Ivyko perkelimas nustatom CF
+			changeFlag('1', 3);
 		}
     }
     

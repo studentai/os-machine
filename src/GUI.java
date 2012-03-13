@@ -606,6 +606,7 @@ public class GUI extends JFrame {
 		selectionModel.setSelectionInterval(commandsTable.getSelectedRow()+1, commandsTable.getSelectedRow()+1);
 		updateRealMemory();
 		updateRegistersValues();
+		updateFlags();
 		
 	}
 

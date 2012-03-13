@@ -45,7 +45,7 @@ public class Converter {
 		return (256-(-arg));
 	}
 	
-	public static int byteArrayToInt(byte[] arg){
+	public static long byteArrayToInt(byte[] arg){
 		String tmp = "";
 		String value = "";
 		for(int i = 0; i < arg.length; i++){
@@ -56,7 +56,7 @@ public class Converter {
 			}
 			value = value + tmp;
 		}
-		return Integer.parseInt(value, 2);
+		return Long.parseLong(value, 2);
 	}
 	public static byte[] stringToWord(String value){
 		if (value.length() >= 4*8){
