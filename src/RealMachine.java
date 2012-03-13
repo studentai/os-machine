@@ -188,11 +188,7 @@ public class RealMachine {
 	public byte[] getIC() {return IC;}
 	public void setIC(byte[] IC) {this.IC = IC;}
 	public byte[] getSF() {return SF;}
-	public void setSF(byte[] SF) {
-		SF[0] = 10;
-		SF[1] = 10;
-		this.SF = SF;
-	}
+	public void setSF(byte[] SF) {this.SF = SF;}
 	public byte[] getSM() {return SM;}
 	public void setSM(byte[] SM) {this.SM = SM;}
 	public byte[] getP() {return P;}

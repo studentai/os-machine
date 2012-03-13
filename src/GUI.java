@@ -5,9 +5,10 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.Math;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -53,13 +54,10 @@ public class GUI extends JFrame {
 	private BufferedReader file;
 
 	private JTextArea jTextArea0;
-	private JPanel jPanel1;
 	private JFrame framek;
 	private JFrame frameks;
 	private JFrame frame2;
 	private JButton okButton;
-	private JScrollPane jScrollPane1;
-	private JButton jButton5;
 
 	private RealMachine realMachine;
 	private JTextField jTextField6;
@@ -74,68 +72,16 @@ public class GUI extends JFrame {
 	private JLabel jLabel1;
 	private JTextField jTextField0;
 	private JButton jButton6;
+	private JComboBox<String> jComboBox0;
+	private JPanel jPanel3;
+	private JTextField jTextFieldA;
+	private JTextField jTextFieldB;
+	private JTextField jTextFieldC;
+	private JTextField jTextFieldD;
+	private JButton jButton7;
 
 	public GUI() {
 		initComponents();
-	}
-
-	public void setRealMachine1(RealMachine realMachine){
-		this.realMachine = realMachine;
-	}
-
-	public RealMachine getRealMachine1(){
-		return realMachine;
-	}
-
-	public void updateRegistersValues1(){
-
-		for(int i = 0; i<4; i++){
-			registersTable.setValueAt(realMachine.getPTR()[i], 0, i+1);
-			registersTable.setValueAt(realMachine.getR()[i], 1, i+1);
-			registersTable.setValueAt(realMachine.getR()[i], 2, i+1);
-		}
-		for(int i = 0; i < 2; i++){
-			registersTable.setValueAt(realMachine.getIC()[i], 3, i+1);
-			registersTable.setValueAt(realMachine.getSF()[i], 4, i+1);
-			registersTable.setValueAt(realMachine.getSM()[i], 5, i+1);
-		}
-
-		registersTable.setValueAt(realMachine.getPI(), 6, 1);
-		registersTable.setValueAt(realMachine.getSI(), 7, 1);
-		registersTable.setValueAt(realMachine.getChnl(), 8, 1);
-
-	}
-
-	public void updateRealMemory1(){
-		byte[][] memory = realMachine.getRealMemory().getMemory();
-		for(int i = 0; i<memory.length; i++){
-			realMemoryTable.setValueAt(Converter.ByteToChar(memory[i][0]), i, 1);
-			realMemoryTable.setValueAt(Converter.ByteToChar(memory[i][1]), i, 2);
-			realMemoryTable.setValueAt(Converter.ByteToChar(memory[i][2]), i, 3);
-			realMemoryTable.setValueAt(Converter.ByteToChar(memory[i][3]), i, 4);
-		}
-	}
-
-	public void updateFlags1(){
-		byte[] flag = realMachine.getSF();
-		String firstByte = Integer.toBinaryString(flag[0]);
-		String secondByte = Integer.toBinaryString(flag[1]);
-
-		if(firstByte.length() == 3) firstByte = "0"+firstByte;
-		if(firstByte.length() == 2) firstByte = "00"+firstByte;
-		if(firstByte.length() == 1) firstByte = "000"+firstByte;
-		if(secondByte.length() == 3) secondByte = "0"+secondByte;
-		if(secondByte.length() == 2) secondByte = "00"+secondByte;
-		if(secondByte.length() == 1) secondByte = "000"+secondByte;
-
-		char[] charsArray1 = firstByte.toCharArray();
-		char[] charsArray2 = secondByte.toCharArray();
-
-		for(int i = 0; i<firstByte.length(); i++){
-			flagsTable.setValueAt(charsArray1[i], i, 1);
-			flagsTable.setValueAt(charsArray2[i], i+4, 1);
-		}
-
 	}
 
 	public void setRealMachine(RealMachine realMachine){
@@ -151,7 +97,7 @@ public class GUI extends JFrame {
 		for(int i = 0; i<4; i++){
 			registersTable.setValueAt(realMachine.getPTR()[i], 0, i+1);
 			registersTable.setValueAt(realMachine.getR()[i], 1, i+1);
-			registersTable.setValueAt(realMachine.getR()[i], 2, i+1);
+			registersTable.setValueAt(realMachine.getP()[i], 2, i+1);
 		}
 		for(int i = 0; i < 2; i++){
 			registersTable.setValueAt(realMachine.getIC()[i], 3, i+1);
@@ -209,8 +155,85 @@ public class GUI extends JFrame {
 		add(getJScrollPane0(), new Constraints(new Leading(563, 200, 10, 10), new Leading(177, 319, 12, 12)));
 		add(getJScrollPane5(), new Constraints(new Leading(233, 198, 12, 12), new Leading(386, 110, 12, 12)));
 		add(getJButton4(), new Constraints(new Leading(8, 120, 12, 12), new Leading(432, 12, 12)));
-		add(getJScrollPane2(), new Constraints(new Leading(535, 156, 10, 10), new Leading(8, 132, 12, 12)));
+		add(getJScrollPane2(), new Constraints(new Leading(535, 156, 10, 10), new Leading(6, 132, 12, 12)));
 		setSize(775, 513);
+	}
+
+	private JButton getJButton7() {
+		if (jButton7 == null) {
+			jButton7 = new JButton();
+			jButton7.setText("Gerai");
+			jButton7.addActionListener(new ActionListener() {
+	
+				public void actionPerformed(ActionEvent event) {
+					jButton7ActionActionPerformed(event);
+				}
+			});
+		}
+		return jButton7;
+	}
+
+	private JTextField getJTextFieldD() {
+		if (jTextFieldD == null) {
+			jTextFieldD = new JTextField();
+			jTextFieldD.setText("");
+		}
+		return jTextFieldD;
+	}
+
+	private JTextField getJTextFieldC() {
+		if (jTextFieldC == null) {
+			jTextFieldC = new JTextField();
+			jTextFieldC.setText("");
+		}
+		return jTextFieldC;
+	}
+
+	private JTextField getJTextFieldB() {
+		if (jTextFieldB == null) {
+			jTextFieldB = new JTextField();
+			jTextFieldB.setText("");
+		}
+		return jTextFieldB;
+	}
+
+	private JTextField getJTextFieldA() {
+		if (jTextFieldA == null) {
+			jTextFieldA = new JTextField();
+			jTextFieldA.setText("");
+		}
+		return jTextFieldA;
+	}
+
+	private JPanel getJPanel3() {
+		if (jPanel3 == null) {
+			jPanel3 = new JPanel();
+			jPanel3.setLayout(new GroupLayout());
+			jPanel3.add(getJComboBox0(), new Constraints(new Leading(4, 10, 10), new Leading(5, 10, 10)));
+			jPanel3.add(getJTextFieldB(), new Constraints(new Leading(110, 24, 12, 12), new Leading(10, 12, 12)));
+			jPanel3.add(getJTextFieldC(), new Constraints(new Leading(140, 24, 12, 12), new Leading(10, 12, 12)));
+			jPanel3.add(getJTextFieldD(), new Constraints(new Leading(170, 24, 12, 12), new Leading(10, 12, 12)));
+			jPanel3.add(getJButton7(), new Constraints(new Leading(63, 10, 10), new Leading(48, 12, 12)));
+			jPanel3.add(getJTextFieldA(), new Constraints(new Leading(80, 24, 12, 12), new Leading(10, 12, 12)));
+		}
+		return jPanel3;
+	}
+
+	private JComboBox<String> getJComboBox0() {
+		if (jComboBox0 == null) {
+			jComboBox0 = new JComboBox<String>();
+			jComboBox0.setModel(new DefaultComboBoxModel<String>(new String[] { "PTR", "R", "P", "IC", "SF", "SM", "PI", "SI", "CHNL" }));
+			jComboBox0.setDoubleBuffered(false);
+			jComboBox0.setSelectedIndex(0);
+			jComboBox0.setBorder(null);
+			jComboBox0.addActionListener(new ActionListener() {
+	
+				public void actionPerformed(ActionEvent event) {
+					jComboBox0ActionActionPerformed(event);
+				}
+			});
+		}
+		return jComboBox0;
 	}
 
 	private JButton getJButton6() {
@@ -235,7 +258,7 @@ public class GUI extends JFrame {
 	private JTextField getJTextField0() {
 		if (jTextField0 == null) {
 			jTextField0 = new JTextField();
-			jTextField0.setText("jTextField0");
+			jTextField0.setText("");
 		}
 		return jTextField0;
 	}
@@ -253,7 +276,7 @@ public class GUI extends JFrame {
 			jPanel0 = new JPanel();
 			jPanel0.setLayout(new GroupLayout());
 			jPanel0.add(getJLabel1(), new Constraints(new Leading(6, 10, 10), new Leading(8, 10, 10)));
-			jPanel0.add(getJTextField0(), new Constraints(new Leading(6, 12, 12), new Leading(33, 10, 10)));
+			jPanel0.add(getJTextField0(), new Constraints(new Leading(6, 140, 12, 10), new Leading(33, 10, 10)));
 			jPanel0.add(getJButton6(), new Constraints(new Leading(18, 10, 10), new Trailing(12, 65, 65)));
 		}
 		return jPanel0;
@@ -332,21 +355,7 @@ public class GUI extends JFrame {
 		}
 		return jTextField6;
 	}
-
-	private JButton getJButton5() {
-		if (jButton5 == null) {
-			jButton5 = new JButton();
-			jButton5.addActionListener(new ActionListener() {
-
-				public void actionPerformed(ActionEvent event) {
-					ok2ButtonActionActionPerformed(event);
-				}
-			});
-			jButton5.setText("Gerai");
-		}
-		return jButton5;
-	}
-
+	
 	private JButton getOkButton() {
 		if (okButton == null) {
 			okButton = new JButton();
@@ -361,24 +370,6 @@ public class GUI extends JFrame {
 		return okButton;
 	}
 
-	private JPanel getJPanel1() {
-		if (jPanel1 == null) {
-			jPanel1 = new JPanel();
-			jPanel1.setLayout(new GroupLayout());
-			jPanel1.add(getJScrollPane1(), new Constraints(new Leading(12, 126, 12, 12), new Leading(4, 168, 10, 10)));
-			jPanel1.add(getJButton5(), new Constraints(new Leading(40, 10, 10), new Leading(178, 120, 10)));
-		}
-		return jPanel1;
-	}
-
-	private JScrollPane getJScrollPane1() {
-		if (jScrollPane1 == null) {
-			jScrollPane1 = new JScrollPane();
-			jScrollPane1.setViewportView(getRegistersTable());
-		}
-		return jScrollPane1;
-	}
-
 	private JScrollPane getJScrollPane5() {
 		if (jScrollPane5 == null) {
 			jScrollPane5 = new JScrollPane();
@@ -390,7 +381,7 @@ public class GUI extends JFrame {
 	private JTextArea getJTextArea0() {
 		if (jTextArea0 == null) {
 			jTextArea0 = new JTextArea();
-			jTextArea0.setText("jTextArea0");
+			jTextArea0.setText("wassup fags");
 		}
 		return jTextArea0;
 	}
@@ -575,14 +566,11 @@ public class GUI extends JFrame {
 		if(framek == null){
 			framek = new JFrame("Registr� Keitimas");
 			framek.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			registersTable.setEnabled(true);;
-			framek.getContentPane().add(getJPanel1(), BorderLayout.CENTER);
+			framek.getContentPane().add(getJPanel3(), BorderLayout.CENTER);
 			framek.pack();
 			framek.setLocation(getLocation());
 			framek.setVisible(true);
 		}else {
-			registersTable.setEnabled(true);
-			jScrollPane1.setViewportView(getRegistersTable());
 			framek.setVisible(true);
 		}
 
@@ -602,18 +590,17 @@ public class GUI extends JFrame {
 		}
 	}
 
-	private void ok2ButtonActionActionPerformed(ActionEvent event) {
-		framek.setVisible(false);
-		getRegistersTable().setEnabled(false);
-		jScrollPane2.setViewportView(getRegistersTable());
-	}
-
 	private void okButtonActionActionPerformed(ActionEvent event){
 		frameks.setVisible(false);
-		realMemoryTable.setValueAt(jTextField5.getText(), Integer.parseInt(jTextField6.getText()), 1);
-		realMemoryTable.setValueAt(jTextField2.getText(), Integer.parseInt(jTextField6.getText()), 2);
-		realMemoryTable.setValueAt(jTextField3.getText(), Integer.parseInt(jTextField6.getText()), 3);
-		realMemoryTable.setValueAt(jTextField4.getText(), Integer.parseInt(jTextField6.getText()), 4);
+		byte[] b = new byte[4];
+		b[0] = (byte)Integer.parseInt(jTextField5.getText());
+		b[1] = (byte)Integer.parseInt(jTextField2.getText());
+		b[2] = (byte)Integer.parseInt(jTextField3.getText());
+		b[3] = (byte)Integer.parseInt(jTextField4.getText());
+		
+		
+		realMachine.getRealMemory().setWord(Integer.parseInt(jTextField6.getText()), b);
+		updateRealMemory();
 	}
 	private void stepButtonActionActionPerformed(ActionEvent event) {
 		realMachine.executeNextCommand();
@@ -660,6 +647,142 @@ public class GUI extends JFrame {
 			updateRegistersValues();
 		 }catch(FileNotFoundException e){System.out.println("Klaida atidarant faila");}
 		
+	}
+
+	private void jComboBox0ActionActionPerformed(ActionEvent event) {
+		byte[] value = new byte[4];
+		byte[] value2 = new byte[2];
+		byte value3;
+		switch(jComboBox0.getSelectedIndex()){
+		case 0: value = realMachine.getPTR(); 
+				jTextFieldA.setEditable(true);
+				jTextFieldA.setText(String.valueOf(value[0]));
+				jTextFieldB.setEditable(true);
+				jTextFieldB.setText(String.valueOf(value[1]));
+				jTextFieldC.setEditable(true);
+				jTextFieldC.setText(String.valueOf(value[2]));
+				jTextFieldD.setEditable(true);
+				jTextFieldD.setText(String.valueOf(value[3]));
+			break;
+		case 1: value = realMachine.getR();
+				jTextFieldA.setText(String.valueOf(value[0]));
+				jTextFieldB.setEditable(true);
+				jTextFieldB.setText(String.valueOf(value[1]));
+				jTextFieldC.setEditable(true);
+				jTextFieldC.setText(String.valueOf(value[2]));
+				jTextFieldD.setEditable(true);
+				jTextFieldD.setText(String.valueOf(value[3]));
+			break;
+		case 2: value = realMachine.getP();
+				jTextFieldA.setText(String.valueOf(value[0]));
+				jTextFieldB.setEditable(true);
+				jTextFieldB.setText(String.valueOf(value[1]));
+				jTextFieldC.setEditable(true);
+				jTextFieldC.setText(String.valueOf(value[2]));
+				jTextFieldD.setEditable(true);
+				jTextFieldD.setText(String.valueOf(value[3]));
+			break;
+		case 3: value2 = realMachine.getIC();
+				jTextFieldA.setEditable(true);
+				jTextFieldA.setText(String.valueOf(value2[0]));
+				jTextFieldB.setEditable(true);
+				jTextFieldB.setText(String.valueOf(value2[1]));
+				jTextFieldC.setEditable(false);
+				jTextFieldC.setText("");
+				jTextFieldD.setEditable(false);
+				jTextFieldD.setText("");
+			break;
+		case 4:	value2 = realMachine.getSF();
+				jTextFieldA.setEditable(true);
+				jTextFieldA.setText(String.valueOf(value2[0]));
+				jTextFieldB.setEditable(true);
+				jTextFieldB.setText(String.valueOf(value2[1]));
+				jTextFieldC.setEditable(false);
+				jTextFieldC.setText("");
+				jTextFieldD.setEditable(false);
+				jTextFieldD.setText("");
+			break;
+		case 5:	value2 = realMachine.getSM();
+				jTextFieldA.setEditable(true);
+				jTextFieldA.setText(String.valueOf(value2[0]));
+				jTextFieldB.setEditable(true);
+				jTextFieldB.setText(String.valueOf(value2[1]));
+				jTextFieldC.setEditable(false);
+				jTextFieldC.setText("");
+				jTextFieldD.setEditable(false);
+				jTextFieldD.setText("");
+			break;
+		case 6:	value3 = realMachine.getPI();
+				jTextFieldA.setText(String.valueOf(value3));
+				jTextFieldB.setEditable(false);
+				jTextFieldB.setText("");
+				jTextFieldC.setEditable(false);
+				jTextFieldC.setText("");
+				jTextFieldD.setEditable(false);
+				jTextFieldD.setText("");
+			break;
+		case 7: value3 = realMachine.getSI();
+				jTextFieldA.setText(String.valueOf(value3));
+				jTextFieldB.setEditable(false);
+				jTextFieldB.setText("");
+				jTextFieldC.setEditable(false);
+				jTextFieldC.setText("");
+				jTextFieldD.setEditable(false);
+				jTextFieldD.setText("");
+			break;
+		default:value3 = realMachine.getChnl();
+				jTextFieldA.setText(String.valueOf(value3));
+				jTextFieldB.setEditable(false);
+				jTextFieldB.setText("");
+				jTextFieldC.setEditable(false);
+				jTextFieldC.setText("");
+				jTextFieldD.setEditable(false);
+				jTextFieldD.setText("");
+			break;
+		}
+		
+	}
+
+	private void jButton7ActionActionPerformed(ActionEvent event) {
+		framek.setVisible(true);
+		byte[] value = new byte[4];
+		byte[] valueb = new byte[]{0,0};
+		if(jComboBox0.getSelectedIndex()> 2){
+			value[0] = (byte)Integer.parseInt(jTextFieldA.getText());
+			value[1] = (byte)Integer.parseInt(jTextFieldB.getText());
+			
+		}else{
+			value[0] = (byte)Integer.parseInt(jTextFieldA.getText());
+			value[1] = (byte)Integer.parseInt(jTextFieldB.getText());
+			value[2] = (byte)Integer.parseInt(jTextFieldC.getText());
+			value[3] = (byte)Integer.parseInt(jTextFieldD.getText());
+		}
+		valueb[0] = value[0];
+		valueb[1] = value[1];
+		
+		switch(jComboBox0.getSelectedIndex()){
+		case 0: realMachine.setPTR(value);
+			break;
+		case 1: realMachine.setR(value);
+			break;
+		case 2: realMachine.setP(value);
+			break;
+		case 3: realMachine.setIC(valueb);
+			break;
+		case 4: realMachine.setSF(valueb);
+				updateFlags();
+			break;
+		case 5: realMachine.setSM(valueb);
+			break;
+		case 6: realMachine.setPI(value[0]);
+			break;
+		case 7: realMachine.setSI(value[0]);
+			break;
+		default:realMachine.setChnl(value[0]);
+			break;
+		}
+	    updateRegistersValues();
+	    framek.setVisible(false);
 	}
 }
 
