@@ -1,3 +1,4 @@
+import java.math.BigInteger;
 import java.util.LinkedList;
 
 
@@ -65,6 +66,7 @@ public class RealMachine {
     		//NOTR
     		isLeggit = true;
     		System.out.println("NOTR");
+    		NOTR();
     	}
     	if ((word[0]==77)&&(word[1]==86)&&(word[2]==82)&&(word[3]==80)){
     		//MVPR
@@ -80,6 +82,7 @@ public class RealMachine {
     		//HALT
     		isLeggit = true;
     		System.out.println("HALT");
+    		HALT();
     	}
     	//TWO BYTES
     	//Aritmetinës
@@ -185,6 +188,45 @@ public class RealMachine {
     		isLeggit = true;
     	}
     }
+    public void HALT(){
+    	SI = 5;
+    	error = "Baigiama programa"; //Ne klaida tiesiog baigiasi programa
+    }
+    public void NOTR(){
+		String tmp = "";
+		String value = "";
+		for(int i = 0; i < R.length; i++){
+			tmp = Integer.toBinaryString(Converter.byteToInt(R[i]));
+			System.out.println(tmp);
+			for (int j=tmp.length();j<8;j++){
+				tmp = "0"+tmp;
+			}
+			value = value + tmp;
+		}
+		char[] array = value.toCharArray();
+		value = "";
+		boolean isSubed = false;
+		for (int i = array.length-1;i>=0;i--){
+			if (array[i] == '0'){
+				if (isSubed){
+					array[i] = '1';
+				}
+			} else {
+				if (isSubed){
+					array[i] = '0';
+				} else {
+					array[i] = '1';
+					isSubed = true;
+				}
+			}
+			value = array[i] + value;
+		}
+		setR(Converter.stringToWord(value));
+		if (isSubed = false){
+			//Ivyko perkelimas nustatom CF
+		}
+    }
+    
 	public byte[] getIC() {return IC;}
 	public void setIC(byte[] IC) {this.IC = IC;}
 	public byte getSF() {return SF;}
@@ -285,11 +327,16 @@ public class RealMachine {
     	four[1] = 0;
     	four[2] = 0;
     	four[3] = 0;
+    	this.setR(four);
+    	four = new byte[4];
+    	four[0] = 0;
+    	four[1] = 0;
+    	four[2] = 0;
+    	four[3] = 0;
+    	this.setP(four);
         this.setIC(two);
         this.setSF((byte) 0);
         this.setSM(two);
-        this.setP(four);
-        this.setR(four);
         this.setPTR(four);
         this.setPI((byte) 0);
         this.setSI((byte) 0);

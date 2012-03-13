@@ -1,3 +1,5 @@
+import java.math.BigInteger;
+
 //str.getBytes(0, str.length(), b, 0);
 public class Converter {
 	
@@ -56,5 +58,17 @@ public class Converter {
 		}
 		return Integer.parseInt(value, 2);
 	}
-	
+	public static byte[] stringToWord(String value){
+		if (value.length() >= 4*8){
+			byte[] ret = new byte[4];
+			String tmp;
+			for (int i=0;i<4;i++){
+				tmp = value.substring(i*8, (i+1)*8);
+				ret[i] = (byte) new BigInteger(tmp, 2).intValue();
+			}
+			return ret;
+		} else {
+			return null;
+		}
+	}
 }
