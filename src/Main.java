@@ -57,6 +57,12 @@ public class Main {
 				gui.updateRegistersValues();
 				//gui.updateRealMemory();
 				gui.updateFlags();
+				realMachine.changeFlag('1', 0);
+				realMachine.changeFlag('1', 4);
+				realMachine.changeFlag('1', 7);
+				realMachine.changeFlag('1', 2);
+				gui.updateFlags();
+				gui.updateRegistersValues();
 			}
 		});
 				//GUI---------------------------------------

@@ -362,4 +362,21 @@ public class RealMachine {
     }
 	public byte getChnl() {return chnl;}
 	public void setChnl(byte chnl) {this.chnl = chnl;}
+	
+	public void changeFlag(char value, int number){
+		if((number <= 7) && (number >=0)){
+			String bits = Integer.toBinaryString(Converter.byteToInt(SF));
+			for (int j=bits.length();j<8;j++){
+				bits = "0"+bits;
+			}
+			char[] tmp = bits.toCharArray();
+			tmp[number] = value;
+			bits = "";
+			for (int i = 0;i<tmp.length;i++){
+				bits = bits + tmp[i];
+			}
+			SF = (byte) new BigInteger(bits, 2).intValue();
+		}
+	}
+	
 }
