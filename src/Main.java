@@ -76,24 +76,33 @@ public class Main {
 		realMachine.registerNewVirtualmachine(program, 3);
 
 		//GUI----------------------------------------
-				setRealMemoryValues(1024);
-				SwingUtilities.invokeLater(new Runnable() {
-					public void run() {
-						gui = new GUI();
-						gui.setDefaultCloseOperation(GUI.EXIT_ON_CLOSE);
-						gui.setTitle("GUI");
-						gui.getContentPane().setPreferredSize(gui.getSize());
-						gui.pack();
-						gui.setLocationRelativeTo(null);
-						gui.setVisible(true);
-						gui.setRealMachine(realMachine);
-						gui.updateRegistersValues();
-						gui.updateRealMemory();
-						gui.updateFlags();
-					}
-				});
+		setRealMemoryValues(1024);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				gui = new GUI();
+				gui.setDefaultCloseOperation(GUI.EXIT_ON_CLOSE);
+				gui.setTitle("GUI");
+				gui.getContentPane().setPreferredSize(gui.getSize());
+				gui.pack();
+				gui.setLocationRelativeTo(null);
+				gui.setVisible(true);
+				gui.setRealMachine(realMachine);
+				gui.updateRegistersValues();
+				gui.updateRealMemory();
+				gui.updateFlags();
+			}
+		});
 				//GUI---------------------------------------
 		realMachine.getRealMemory().print();
+		
+		//converter update 
+		byte[] array = new byte[2];
+		array[0] = 1;
+		array[1] = 10;
+		System.out.println(array[0]+""+array[1]+"--->"+Converter.byteArrayToInt(array)+
+							"<====== byte array to string to integer test");
+		System.out.println("-1 ---> "+Converter.byteToInt((byte) -1)+
+							"<====== byte to integer test");
 		//
 	}
 }

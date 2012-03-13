@@ -1,5 +1,4 @@
 //str.getBytes(0, str.length(), b, 0);
-
 public class Converter {
 	
 	private static char[] hexValuesCaps = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
@@ -36,4 +35,25 @@ public class Converter {
 		}
 		return ret;
 	}
+	//eliga
+	public static int byteToInt(byte arg){
+		if((arg >=0)&&(arg<=127)){
+			return arg;
+		}
+		return -arg+127;
+	}
+	
+	public static int byteArrayToInt(byte[] arg){
+		String tmp = "";
+		String value = "";
+		for(int i = 0; i< arg.length; i++){
+			tmp = Integer.toBinaryString(arg[i]);
+			if(tmp.length()==1) tmp ="000"+tmp;
+			if(tmp.length()==2) tmp ="00"+tmp;
+			if(tmp.length()==3) tmp ="0"+tmp;
+			value = value + tmp;
+		}
+		return Integer.parseInt(value, 2);
+	}
+	
 }
