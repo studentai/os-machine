@@ -100,6 +100,7 @@ public class RealMachine {
     		//CP
     		System.out.println("CP");
     		isLeggit = true;
+    		CP(word);
     	}
     	if ((word[0]==68)&&(word[1]==86)){
     		//DV
@@ -188,6 +189,22 @@ public class RealMachine {
     		isLeggit = true;
     	}
     }
+    public void CP(byte[] cmd){
+    	byte[] addr = new byte[]{Converter.HexCharToByte((char)cmd[2]), Converter.HexCharToByte((char)cmd[3])};
+    	byte[] word = realMemory.getWord(paging.convertRMAddress(realMemory, PTR, addr));
+    	BigInteger wordInt = new BigInteger(word); 
+    	BigInteger RInt = new BigInteger(R);
+    	System.out.println(wordInt+" "+RInt);
+    	if (wordInt.equals(RInt)){
+    	
+    	}
+    	if (wordInt.doubleValue() > RInt.doubleValue()){
+    		
+    	}
+    	if (wordInt.doubleValue() < RInt.doubleValue()){
+    		
+    	}
+    }
     public void HALT(){
     	SI = 5;
     	error = "Baigiama programa"; //Ne klaida tiesiog baigiasi programa
@@ -221,7 +238,7 @@ public class RealMachine {
 			}
 			value = array[i] + value;
 		}
-		setR(Converter.stringToWord(value));
+		R = (Converter.stringToWord(value));
 		if (isSubed = false){
 			//Ivyko perkelimas nustatom CF
 		}
