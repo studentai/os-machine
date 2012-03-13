@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
@@ -51,6 +52,7 @@ public class GUI extends JFrame {
 
 	public static String[][] values;
 	public static Integer[][] values2;
+	public static String[][] values3;
 	private BufferedReader file;
 
 	private JTextArea jTextArea0;
@@ -79,6 +81,7 @@ public class GUI extends JFrame {
 	private JTextField jTextFieldC;
 	private JTextField jTextFieldD;
 	private JButton jButton7;
+	private ListSelectionModel selectionModel;
 
 	public GUI() {
 		initComponents();
@@ -391,15 +394,17 @@ public class GUI extends JFrame {
 	private JTable getCommandsTable() {
 		if (commandsTable == null) {
 			commandsTable = new JTable();
-			commandsTable.setModel(new DefaultTableModel(new Object[][] { { "ADD", "0000", }, { "SUB", "0001",} },
-					new String[] { "Komanda", "Adresas", }) {
+			values3 = new String[256][1];
+			commandsTable.setModel(new DefaultTableModel(values3,
+					new String[] { "Komanda" }) {
 				private static final long serialVersionUID = 1L;
-				Class<?>[] types = new Class<?>[] { String.class, String.class, };
+				Class<?>[] types = new Class<?>[] { String.class };
 
 				public Class<?> getColumnClass(int columnIndex) {
 					return types[columnIndex];
 				}
 			});
+			commandsTable.setEnabled(false);
 		}
 		return commandsTable;
 	}
@@ -598,6 +603,8 @@ public class GUI extends JFrame {
 	}
 	private void stepButtonActionActionPerformed(ActionEvent event) {
 		realMachine.executeNextCommand();
+		selectionModel = commandsTable.getSelectionModel();
+		selectionModel.setSelectionInterval(commandsTable.getSelectedRow()+1, commandsTable.getSelectedRow()+1);
 		updateRealMemory();
 		updateRegistersValues();
 		
@@ -628,14 +635,16 @@ public class GUI extends JFrame {
 			char[] lineArray;
 			while((file.ready()== true)&& (i < program.length)){
 				line = file.readLine();
-				System.out.println(line+"----------------");
 				lineArray =  line.toCharArray();
+				commandsTable.setValueAt(line, i, 0);
 				program[i][0] = (byte)lineArray[0];
 				program[i][1] = (byte)lineArray[1];
 				program[i][2] = (byte)lineArray[2];
 				program[i][3] = (byte)lineArray[3];
 				i++;
 			}
+			selectionModel = commandsTable.getSelectionModel();
+			selectionModel.setSelectionInterval(0,0);
 			registersTable.setValueAt(Math.round((i/16)+0.5), 0, 0);
 			realMachine.registerNewVirtualmachine(program, (int) (Math.round((i/16)+0.5)+1));
 			updateRealMemory();
