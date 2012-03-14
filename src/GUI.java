@@ -101,7 +101,7 @@ public class GUI extends JFrame {
 		}
 		for(int i = 0; i < 2; i++){
 			registersTable.setValueAt(realMachine.getIC()[i], 3, i+1);
-			registersTable.setValueAt(realMachine.getSF()[i], 4, i+1);
+			registersTable.setValueAt(realMachine.getSF(), 4, i+1);
 			registersTable.setValueAt(realMachine.getSM()[i], 5, i+1);
 		}
 
@@ -122,23 +122,17 @@ public class GUI extends JFrame {
 	}
 
 	public void updateFlags(){
-		byte[] flag = realMachine.getSF();
-		String firstByte = Integer.toBinaryString(flag[0]);
-		String secondByte = Integer.toBinaryString(flag[1]);
+		byte flag = realMachine.getSF();
+		String firstByte = Integer.toBinaryString(Converter.byteToInt(flag));
+	
+	
+		for (int j=firstByte.length();j<8;j++){
+			firstByte = "0"+firstByte;
+		}
 
-		if(firstByte.length() == 3) firstByte = "0"+firstByte;
-		if(firstByte.length() == 2) firstByte = "00"+firstByte;
-		if(firstByte.length() == 1) firstByte = "000"+firstByte;
-		if(secondByte.length() == 3) secondByte = "0"+secondByte;
-		if(secondByte.length() == 2) secondByte = "00"+secondByte;
-		if(secondByte.length() == 1) secondByte = "000"+secondByte;
-
-		char[] charsArray1 = firstByte.toCharArray();
-		char[] charsArray2 = secondByte.toCharArray();
-
+		char[] charsArray = firstByte.toCharArray();
 		for(int i = 0; i<firstByte.length(); i++){
-			flagsTable.setValueAt(charsArray1[i], i, 1);
-			flagsTable.setValueAt(charsArray2[i], i+4, 1);
+			flagsTable.setValueAt(charsArray[i], i, 1);
 		}
 
 	}
@@ -642,7 +636,8 @@ public class GUI extends JFrame {
 				program[i][3] = (byte)lineArray[3];
 				i++;
 			}
-			realMachine.registerNewVirtualmachine(program, Math.round(16));
+			registersTable.setValueAt(Math.round((i/16)+0.5), 0, 0);
+			realMachine.registerNewVirtualmachine(program, (int) (Math.round((i/16)+0.5)+1));
 			updateRealMemory();
 			updateRegistersValues();
 		 }catch(FileNotFoundException e){System.out.println("Klaida atidarant faila");}
@@ -692,11 +687,11 @@ public class GUI extends JFrame {
 				jTextFieldD.setEditable(false);
 				jTextFieldD.setText("");
 			break;
-		case 4:	value2 = realMachine.getSF();
+		case 4:	value3 = realMachine.getSF();
 				jTextFieldA.setEditable(true);
-				jTextFieldA.setText(String.valueOf(value2[0]));
-				jTextFieldB.setEditable(true);
-				jTextFieldB.setText(String.valueOf(value2[1]));
+				jTextFieldA.setText(String.valueOf(value3));
+				jTextFieldB.setEditable(false);
+				jTextFieldB.setText("");
 				jTextFieldC.setEditable(false);
 				jTextFieldC.setText("");
 				jTextFieldD.setEditable(false);
@@ -747,15 +742,19 @@ public class GUI extends JFrame {
 		framek.setVisible(true);
 		byte[] value = new byte[4];
 		byte[] valueb = new byte[]{0,0};
-		if(jComboBox0.getSelectedIndex()> 2){
+		if (jComboBox0.getSelectedIndex() == 4 ){
 			value[0] = (byte)Integer.parseInt(jTextFieldA.getText());
-			value[1] = (byte)Integer.parseInt(jTextFieldB.getText());
-			
-		}else{
-			value[0] = (byte)Integer.parseInt(jTextFieldA.getText());
-			value[1] = (byte)Integer.parseInt(jTextFieldB.getText());
-			value[2] = (byte)Integer.parseInt(jTextFieldC.getText());
-			value[3] = (byte)Integer.parseInt(jTextFieldD.getText());
+		} else {
+			if(jComboBox0.getSelectedIndex()> 2){
+				value[0] = (byte)Integer.parseInt(jTextFieldA.getText());
+				value[1] = (byte)Integer.parseInt(jTextFieldB.getText());
+				
+			}else{
+				value[0] = (byte)Integer.parseInt(jTextFieldA.getText());
+				value[1] = (byte)Integer.parseInt(jTextFieldB.getText());
+				value[2] = (byte)Integer.parseInt(jTextFieldC.getText());
+				value[3] = (byte)Integer.parseInt(jTextFieldD.getText());
+			}	
 		}
 		valueb[0] = value[0];
 		valueb[1] = value[1];
@@ -769,7 +768,7 @@ public class GUI extends JFrame {
 			break;
 		case 3: realMachine.setIC(valueb);
 			break;
-		case 4: realMachine.setSF(valueb);
+		case 4: realMachine.setSF(valueb[0]);
 				updateFlags();
 			break;
 		case 5: realMachine.setSM(valueb);

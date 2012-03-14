@@ -8,7 +8,7 @@ public class RealMachine {
 	private static int maxMachineCount = 3;
 
     private byte[] IC;     	 										// komandu skaitiklio registras
-    private byte[] SF; 												// status flag (!3 baitas Loginis C registras!)
+    private byte SF; 												// status flag (!3 baitas Loginis C registras!)
     private byte[] SM; 												// semaforo registras
     private byte[] P;  												// bendro naudojimo registras
     private byte[] R;												// bendro naudojimo registras
@@ -32,7 +32,7 @@ public class RealMachine {
     {
         this.setIC(new byte[2]);
         this.setChnl((byte) 0);
-        this.setSF(new byte[2]);
+        this.setSF((byte) 0);
         this.setSM(new byte[2]);
         this.setP(new byte[4]);
         this.setR(new byte[4]);
@@ -187,8 +187,8 @@ public class RealMachine {
     }
 	public byte[] getIC() {return IC;}
 	public void setIC(byte[] IC) {this.IC = IC;}
-	public byte[] getSF() {return SF;}
-	public void setSF(byte[] SF) {this.SF = SF;}
+	public byte getSF() {return SF;}
+	public void setSF(byte SF) {this.SF = SF;}
 	public byte[] getSM() {return SM;}
 	public void setSM(byte[] SM) {this.SM = SM;}
 	public byte[] getP() {return P;}
@@ -221,6 +221,8 @@ public class RealMachine {
 	public void setPaging(Paging paging) {this.paging = paging;}
 	public Channel3 getChannel3() {return channel3;}
 	public void setChannel3(Channel3 channel3) {this.channel3 = channel3;}
+	
+	
     public boolean registerNewVirtualmachine(byte[][] program, int size){
     	if ((size > maxMachineSize) && (size < 1) || (virtualMachines.size() >= maxMachineCount)){
     		return false;
@@ -284,7 +286,7 @@ public class RealMachine {
     	four[2] = 0;
     	four[3] = 0;
         this.setIC(two);
-        this.setSF(two);
+        this.setSF((byte) 0);
         this.setSM(two);
         this.setP(four);
         this.setR(four);

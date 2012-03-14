@@ -40,14 +40,15 @@ public class Converter {
 		if((arg >=0)&&(arg<=127)){
 			return arg;
 		}
-		return -arg+127;
+		return (256-(-arg));
 	}
 	
 	public static int byteArrayToInt(byte[] arg){
 		String tmp = "";
 		String value = "";
-		for(int i = 0; i< arg.length; i++){
-			tmp = Integer.toBinaryString(arg[i]);
+		for(int i = 0; i < arg.length; i++){
+			tmp = Integer.toBinaryString(byteToInt(arg[i]));
+			System.out.println(tmp);
 			for (int j=tmp.length();j<8;j++){
 				tmp = "0"+tmp;
 			}

@@ -63,13 +63,20 @@ public class Main {
 		realMachine.getRealMemory().print();
 		
 		//converter update 
-		byte[] array = new byte[2];
-		array[0] = 1;
-		array[1] = 10;
-		System.out.println(array[0]+""+array[1]+"--->"+Converter.byteArrayToInt(array)+
+		byte[] array = new byte[1];
+		array[0] = -50;
+		System.out.println(array[0]+"--->"+Converter.byteArrayToInt(array)+
 							"<====== byte array to string to integer test");
 		System.out.println("-1 ---> "+Converter.byteToInt((byte) -1)+
 							"<====== byte to integer test");
+		System.out.println("-127 ---> "+Converter.byteToInt((byte) -127)+
+				"<====== byte to integer test");
+		System.out.println("-128 ---> "+Converter.byteToInt((byte) -128)+
+				"<====== byte to integer test");
+		System.out.println("-50 ---> "+Converter.byteToInt((byte) -50)+
+				"<====== byte to integer test");
+		System.out.println("130 ---> "+Converter.byteToInt((byte) 130)+
+				"<====== byte to integer test");
 		//
 	}
 }
