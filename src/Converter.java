@@ -58,6 +58,10 @@ public class Converter {
 		}
 		return Long.parseLong(value, 2);
 	}
+	public static String longToBinaryString(long arg){
+		String tmp = "";
+		return tmp; /////////NEPADARYTA
+	}
 	public static byte[] stringToWord(String value){
 		if (value.length() >= 4*8){
 			byte[] ret = new byte[4];

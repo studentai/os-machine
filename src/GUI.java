@@ -22,6 +22,7 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
+import org.dyno.visual.swing.layouts.Bilateral;
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
@@ -39,23 +40,20 @@ public class GUI extends JFrame {
 	private JButton changeMemoryButton;
 
 	private JTable realMemoryTable;
-	private JTable registersTable;
 	private JTable flagsTable;
 	private JTable commandsTable;
 
 	private JScrollPane jScrollPane0;
-	private JScrollPane jScrollPane2;
 	private JScrollPane jScrollPane3;
 	private JScrollPane jScrollPane4;
-	private JScrollPane jScrollPane5;
 	private JLabel jLabel0;
 
 	public static String[][] values;
 	public static Integer[][] values2;
 	public static String[][] values3;
+	public static String[][] values4;
 	private BufferedReader file;
 
-	private JTextArea jTextArea0;
 	private JFrame framek;
 	private JFrame frameks;
 	private JFrame frame2;
@@ -82,6 +80,47 @@ public class GUI extends JFrame {
 	private JTextField jTextFieldD;
 	private JButton jButton7;
 	private ListSelectionModel selectionModel;
+	private JTable virtualMemoryTable;
+	private JScrollPane jScrollPane1;
+	private JLabel jLabel2;
+	private JTable semaforTable;
+	private JScrollPane jScrollPane6;
+	private JLabel jLabel5;
+	private JLabel jLabel6;
+	private JLabel jLabel7;
+	private JLabel jLabel8;
+	private JLabel jLabel9;
+	private JLabel jLabel10;
+	private JLabel jLabel11;
+	private JLabel jLabel12;
+	private JLabel jLabel13;
+	private JPanel jPanel1;
+	private JTextField jTextField1;
+	private JTextField jTextField7;
+	private JTextField jTextField8;
+	private JTextField jTextField9;
+	private JTextField jTextField11;
+	private JTextField jTextField12;
+	private JTextField jTextField13;
+	private JTextField jTextField14;
+	private JTextField jTextField15;
+	private JTextField jTextField16;
+	private JTextField jTextField17;
+	private JTextField jTextField18;
+	private JTextField jTextField19;
+	private JTextField jTextField20;
+	private JTextField jTextField21;
+	private JTextField jTextField22;
+	private JTextField jTextField23;
+	private JTextField jTextField24;
+	private JTextField jTextField25;
+	private JTextField jTextField26;
+	private JTextArea jTextArea0;
+	private JScrollPane jScrollPane7;
+	private JLabel jLabel14;
+	private JTextField jTextField10;
+	private JLabel jLabel15;
+	private JLabel jLabel16;
 
 	public GUI() {
 		initComponents();
@@ -97,20 +136,33 @@ public class GUI extends JFrame {
 
 	public void updateRegistersValues(){
 
-		for(int i = 0; i<4; i++){
-			registersTable.setValueAt(realMachine.getPTR()[i], 0, i+1);
-			registersTable.setValueAt(realMachine.getR()[i], 1, i+1);
-			registersTable.setValueAt(realMachine.getP()[i], 2, i+1);
-		}
-		for(int i = 0; i < 2; i++){
-			registersTable.setValueAt(realMachine.getIC()[i], 3, i+1);
-			registersTable.setValueAt(realMachine.getSM()[i], 5, i+1);
-		}
-		registersTable.setValueAt(realMachine.getSF(), 4, 1);
-		registersTable.setValueAt(realMachine.getPI(), 6, 1);
-		registersTable.setValueAt(realMachine.getSI(), 7, 1);
-		registersTable.setValueAt(realMachine.getChnl(), 8, 1);
-
+		jTextField1.setText(String.valueOf(realMachine.getPTR()[0]));
+		jTextField7.setText(String.valueOf(realMachine.getPTR()[1]));
+		jTextField8.setText(String.valueOf(realMachine.getPTR()[2]));
+		jTextField9.setText(String.valueOf(realMachine.getPTR()[3]));
+		
+		jTextField11.setText(String.valueOf(realMachine.getR()[0]));
+		jTextField12.setText(String.valueOf(realMachine.getR()[1]));
+		jTextField13.setText(String.valueOf(realMachine.getR()[2]));
+		jTextField14.setText(String.valueOf(realMachine.getR()[3]));
+		
+		jTextField15.setText(String.valueOf(realMachine.getP()[0]));
+		jTextField16.setText(String.valueOf(realMachine.getP()[1]));
+		jTextField17.setText(String.valueOf(realMachine.getP()[2]));
+		jTextField18.setText(String.valueOf(realMachine.getP()[3]));
+		
+		jTextField19.setText(String.valueOf(realMachine.getIC()[0]));
+		jTextField20.setText(String.valueOf(realMachine.getIC()[1]));
+		
+		jTextField21.setText(String.valueOf(realMachine.getSM()[0]));
+		jTextField22.setText(String.valueOf(realMachine.getSM()[1]));
+		
+		jTextField23.setText(String.valueOf(realMachine.getSF()));
+		jTextField24.setText(String.valueOf(realMachine.getPI()));
+		
+		jTextField25.setText(String.valueOf(realMachine.getSI()));
+		jTextField26.setText(String.valueOf(realMachine.getTI()));
+		jTextField10.setText(String.valueOf(realMachine.getChnl()));
 	}
 
 	public void updateRealMemory(){
@@ -141,18 +193,398 @@ public class GUI extends JFrame {
 
 	private void initComponents() {
 		setLayout(new GroupLayout());
-		add(getJButton0(), new Constraints(new Leading(8, 10, 10), new Leading(8, 10, 10)));
-		add(getJButton2(), new Constraints(new Leading(8, 12, 12), new Leading(77, 10, 10)));
-		add(getJLabel0(), new Constraints(new Leading(563, 12, 12), new Leading(159, 10, 10)));
-		add(getJScrollPane3(), new Constraints(new Leading(707, 58, 10, 10), new Leading(6, 136, 12, 12)));
-		add(getJButton1(), new Constraints(new Leading(8, 80, 12, 12), new Leading(43, 10, 10)));
-		add(getJScrollPane4(), new Constraints(new Leading(232, 200, 10, 10), new Leading(8, 361, 12, 12)));
-		add(getJButton3(), new Constraints(new Leading(8, 12, 12), new Leading(470, 12, 12)));
-		add(getJScrollPane0(), new Constraints(new Leading(563, 200, 10, 10), new Leading(177, 319, 12, 12)));
-		add(getJScrollPane5(), new Constraints(new Leading(233, 198, 12, 12), new Leading(386, 110, 12, 12)));
-		add(getJButton4(), new Constraints(new Leading(8, 120, 12, 12), new Leading(432, 12, 12)));
-		add(getJScrollPane2(), new Constraints(new Leading(535, 156, 10, 10), new Leading(6, 132, 12, 12)));
-		setSize(775, 513);
+		add(getJButton3(), new Constraints(new Leading(8, 116, 10, 10), new Leading(152, 10, 10)));
+		add(getJButton4(), new Constraints(new Leading(9, 114, 12, 12), new Leading(112, 12, 12)));
+		add(getJButton2(), new Constraints(new Leading(8, 116, 12, 12), new Leading(77, 10, 10)));
+		add(getJButton1(), new Constraints(new Leading(8, 116, 12, 12), new Leading(43, 10, 10)));
+		add(getJButton0(), new Constraints(new Leading(8, 116, 12, 12), new Leading(8, 10, 10)));
+		add(getJScrollPane0(), new Constraints(new Leading(566, 200, 12, 12), new Leading(278, 271, 10, 10)));
+		add(getJLabel0(), new Constraints(new Leading(566, 12, 12), new Leading(255, 12, 12)));
+		add(getRegistersPanel(), new Constraints(new Leading(566, 164, 12, 12), new Leading(4, 252, 12, 12)));
+		add(getJScrollPane1(), new Constraints(new Leading(5, 200, 10, 10), new Leading(277, 270, 12, 12)));
+		add(getJLabel2(), new Constraints(new Leading(8, 12, 12), new Leading(255, 12, 12)));
+		add(getJScrollPane7(), new Constraints(new Leading(238, 304, 10, 10), new Bilateral(277, 12, 22)));
+		add(getJScrollPane6(), new Constraints(new Leading(238, 59, 12, 12), new Leading(31, 150, 10, 10)));
+		add(getJScrollPane3(), new Constraints(new Leading(484, 58, 12, 12), new Leading(31, 150, 40, 37)));
+		add(getJScrollPane4(), new Constraints(new Leading(314, 152, 12, 12), new Leading(9, 169, 40, 37)));
+		add(getJLabel15(), new Constraints(new Leading(252, 10, 10), new Leading(8, 40, 37)));
+		add(getJLabel16(), new Constraints(new Leading(506, 12, 12), new Leading(8, 40, 37)));
+		setSize(775, 559);
+	}
+
+	private JLabel getJLabel16() {
+		if (jLabel16 == null) {
+			jLabel16 = new JLabel();
+			jLabel16.setText("SF");
+		}
+		return jLabel16;
+	}
+
+	private JLabel getJLabel15() {
+		if (jLabel15 == null) {
+			jLabel15 = new JLabel();
+			jLabel15.setText("SM");
+		}
+		return jLabel15;
+	}
+
+	private JTextField getJTextField10() {
+		if (jTextField10 == null) {
+			jTextField10 = new JTextField();
+			jTextField10.setText("0");
+		}
+		return jTextField10;
+	}
+
+	private JLabel getJLabel14() {
+		if (jLabel14 == null) {
+			jLabel14 = new JLabel();
+			jLabel14.setText("CHL");
+		}
+		return jLabel14;
+	}
+
+	private JScrollPane getJScrollPane7() {
+		if (jScrollPane7 == null) {
+			jScrollPane7 = new JScrollPane();
+			jScrollPane7.setViewportView(getJTextArea0());
+		}
+		return jScrollPane7;
+	}
+
+	private JTextArea getJTextArea0() {
+		if (jTextArea0 == null) {
+			jTextArea0 = new JTextArea();
+			jTextArea0.setText("jTextArea0");
+		}
+		return jTextArea0;
+	}
+
+	private JTextField getJTextField26() {
+		if (jTextField26 == null) {
+			jTextField26 = new JTextField();
+			jTextField26.setText("0");
+		}
+		return jTextField26;
+	}
+
+	private JTextField getJTextField25() {
+		if (jTextField25 == null) {
+			jTextField25 = new JTextField();
+			jTextField25.setText("0");
+		}
+		return jTextField25;
+	}
+
+	private JTextField getJTextField24() {
+		if (jTextField24 == null) {
+			jTextField24 = new JTextField();
+			jTextField24.setText("0");
+		}
+		return jTextField24;
+	}
+
+	private JTextField getJTextField23() {
+		if (jTextField23 == null) {
+			jTextField23 = new JTextField();
+			jTextField23.setText("0");
+		}
+		return jTextField23;
+	}
+
+	private JTextField getJTextField22() {
+		if (jTextField22 == null) {
+			jTextField22 = new JTextField();
+			jTextField22.setText("0");
+		}
+		return jTextField22;
+	}
+
+	private JTextField getJTextField21() {
+		if (jTextField21 == null) {
+			jTextField21 = new JTextField();
+			jTextField21.setText("0");
+		}
+		return jTextField21;
+	}
+
+	private JTextField getJTextField20() {
+		if (jTextField20 == null) {
+			jTextField20 = new JTextField();
+			jTextField20.setText("0");
+		}
+		return jTextField20;
+	}
+
+	private JTextField getJTextField19() {
+		if (jTextField19 == null) {
+			jTextField19 = new JTextField();
+			jTextField19.setText("0");
+		}
+		return jTextField19;
+	}
+
+	private JTextField getJTextField18() {
+		if (jTextField18 == null) {
+			jTextField18 = new JTextField();
+			jTextField18.setText("0");
+		}
+		return jTextField18;
+	}
+
+	private JTextField getJTextField17() {
+		if (jTextField17 == null) {
+			jTextField17 = new JTextField();
+			jTextField17.setText("0");
+		}
+		return jTextField17;
+	}
+
+	private JTextField getJTextField16() {
+		if (jTextField16 == null) {
+			jTextField16 = new JTextField();
+			jTextField16.setText("0");
+		}
+		return jTextField16;
+	}
+
+	private JTextField getJTextField15() {
+		if (jTextField15 == null) {
+			jTextField15 = new JTextField();
+			jTextField15.setText("0");
+		}
+		return jTextField15;
+	}
+
+	private JTextField getJTextField14() {
+		if (jTextField14 == null) {
+			jTextField14 = new JTextField();
+			jTextField14.setText("0");
+		}
+		return jTextField14;
+	}
+
+	private JTextField getJTextField13() {
+		if (jTextField13 == null) {
+			jTextField13 = new JTextField();
+			jTextField13.setText("0");
+		}
+		return jTextField13;
+	}
+
+	private JTextField getJTextField12() {
+		if (jTextField12 == null) {
+			jTextField12 = new JTextField();
+			jTextField12.setText("0");
+		}
+		return jTextField12;
+	}
+
+	private JTextField getJTextField11() {
+		if (jTextField11 == null) {
+			jTextField11 = new JTextField();
+			jTextField11.setText("0");
+		}
+		return jTextField11;
+	}
+
+	private JTextField getJTextField9() {
+		if (jTextField9 == null) {
+			jTextField9 = new JTextField();
+			jTextField9.setText("0");
+		}
+		return jTextField9;
+	}
+
+	private JTextField getJTextField8() {
+		if (jTextField8 == null) {
+			jTextField8 = new JTextField();
+			jTextField8.setText("0");
+		}
+		return jTextField8;
+	}
+
+	private JTextField getJTextField7() {
+		if (jTextField7 == null) {
+			jTextField7 = new JTextField();
+			jTextField7.setText("0");
+		}
+		return jTextField7;
+	}
+
+	private JTextField getJTextField1() {
+		if (jTextField1 == null) {
+			jTextField1 = new JTextField();
+			jTextField1.setText("0");
+		}
+		return jTextField1;
+	}
+
+	private JPanel getRegistersPanel() {
+		if (jPanel1 == null) {
+			jPanel1 = new JPanel();
+			jPanel1.setLayout(new GroupLayout());
+			jPanel1.add(getJLabel5(), new Constraints(new Leading(3, 12, 12), new Leading(3, 12, 12)));
+			jPanel1.add(getJLabel6(), new Constraints(new Leading(3, 12, 12), new Leading(28, 12, 12)));
+			jPanel1.add(getJLabel7(), new Constraints(new Leading(3, 12, 12), new Leading(53, 12, 12)));
+			jPanel1.add(getJLabel8(), new Constraints(new Leading(3, 12, 12), new Leading(78, 12, 12)));
+			jPanel1.add(getJLabel9(), new Constraints(new Leading(3, 12, 12), new Leading(103, 12, 12)));
+			jPanel1.add(getJLabel10(), new Constraints(new Leading(3, 12, 12), new Leading(128, 12, 12)));
+			jPanel1.add(getJLabel11(), new Constraints(new Leading(3, 12, 12), new Leading(153, 12, 12)));
+			jPanel1.add(getJLabel12(), new Constraints(new Leading(3, 12, 12), new Leading(178, 12, 12)));
+			jPanel1.add(getJLabel13(), new Constraints(new Leading(3, 12, 12), new Leading(203, 12, 12)));
+			jPanel1.add(getJTextField1(), new Constraints(new Leading(36, 24, 10, 10), new Leading(1, 12, 12)));
+			jPanel1.add(getJTextField7(), new Constraints(new Leading(66, 24, 10, 10), new Leading(1, 12, 12)));
+			jPanel1.add(getJTextField8(), new Constraints(new Leading(96, 24, 10, 10), new Leading(1, 12, 12)));
+			jPanel1.add(getJTextField9(), new Constraints(new Leading(126, 24, 10, 10), new Leading(1, 12, 12)));
+			jPanel1.add(getJTextField11(), new Constraints(new Leading(36, 24, 12, 12), new Leading(25, 12, 12)));
+			jPanel1.add(getJTextField12(), new Constraints(new Leading(66, 24, 12, 12), new Leading(25, 12, 12)));
+			jPanel1.add(getJTextField13(), new Constraints(new Leading(96, 24, 12, 12), new Leading(25, 12, 12)));
+			jPanel1.add(getJTextField14(), new Constraints(new Leading(126, 24, 12, 12), new Leading(25, 12, 12)));
+			jPanel1.add(getJTextField15(), new Constraints(new Leading(36, 24, 12, 12), new Leading(51, 12, 12)));
+			jPanel1.add(getJTextField17(), new Constraints(new Leading(96, 24, 12, 12), new Leading(51, 12, 12)));
+			jPanel1.add(getJTextField18(), new Constraints(new Leading(126, 24, 12, 12), new Leading(51, 12, 12)));
+			jPanel1.add(getJTextField19(), new Constraints(new Leading(36, 24, 12, 12), new Leading(75, 12, 12)));
+			jPanel1.add(getJTextField20(), new Constraints(new Leading(66, 24, 12, 12), new Leading(75, 12, 12)));
+			jPanel1.add(getJTextField21(), new Constraints(new Leading(36, 24, 12, 12), new Leading(101, 12, 12)));
+			jPanel1.add(getJTextField22(), new Constraints(new Leading(66, 24, 12, 12), new Leading(101, 12, 12)));
+			jPanel1.add(getJTextField23(), new Constraints(new Leading(36, 24, 12, 12), new Leading(127, 12, 12)));
+			jPanel1.add(getJTextField24(), new Constraints(new Leading(36, 24, 12, 12), new Leading(153, 12, 12)));
+			jPanel1.add(getJTextField25(), new Constraints(new Leading(36, 24, 12, 12), new Leading(179, 12, 12)));
+			jPanel1.add(getJTextField26(), new Constraints(new Leading(36, 24, 12, 12), new Leading(203, 12, 12)));
+			jPanel1.add(getJTextField16(), new Constraints(new Leading(66, 24, 12, 12), new Leading(51, 12, 12)));
+			jPanel1.add(getJLabel14(), new Constraints(new Leading(3, 12, 12), new Leading(229, 12, 12)));
+			jPanel1.add(getJTextField10(), new Constraints(new Leading(36, 24, 12, 12), new Leading(227, 12, 12)));
+		}
+		return jPanel1;
+	}
+
+	private JLabel getJLabel13() {
+		if (jLabel13 == null) {
+			jLabel13 = new JLabel();
+			jLabel13.setText("TI");
+		}
+		return jLabel13;
+	}
+
+	private JLabel getJLabel12() {
+		if (jLabel12 == null) {
+			jLabel12 = new JLabel();
+			jLabel12.setText("SI");
+		}
+		return jLabel12;
+	}
+
+	private JLabel getJLabel11() {
+		if (jLabel11 == null) {
+			jLabel11 = new JLabel();
+			jLabel11.setText("PI");
+		}
+		return jLabel11;
+	}
+
+	private JLabel getJLabel10() {
+		if (jLabel10 == null) {
+			jLabel10 = new JLabel();
+			jLabel10.setText("SF");
+		}
+		return jLabel10;
+	}
+
+	private JLabel getJLabel9() {
+		if (jLabel9 == null) {
+			jLabel9 = new JLabel();
+			jLabel9.setText("SM");
+		}
+		return jLabel9;
+	}
+
+	private JLabel getJLabel8() {
+		if (jLabel8 == null) {
+			jLabel8 = new JLabel();
+			jLabel8.setText("IC");
+		}
+		return jLabel8;
+	}
+
+	private JLabel getJLabel7() {
+		if (jLabel7 == null) {
+			jLabel7 = new JLabel();
+			jLabel7.setText("P");
+		}
+		return jLabel7;
+	}
+
+	private JLabel getJLabel6() {
+		if (jLabel6 == null) {
+			jLabel6 = new JLabel();
+			jLabel6.setText("R");
+		}
+		return jLabel6;
+	}
+
+	private JLabel getJLabel5() {
+		if (jLabel5 == null) {
+			jLabel5 = new JLabel();
+			jLabel5.setText("PTR");
+		}
+		return jLabel5;
+	}
+
+	private JScrollPane getJScrollPane6() {
+		if (jScrollPane6 == null) {
+			jScrollPane6 = new JScrollPane();
+			jScrollPane6.setViewportView(getSemaforTable());
+		}
+		return jScrollPane6;
+	}
+
+	private JTable getSemaforTable() {
+		if (semaforTable == null) {
+			semaforTable = new JTable();
+			semaforTable.setModel(new DefaultTableModel(new String[][] { { "1", "0", }, { "2", "0", }, { "3", "0", }, { "4", "0", }, { "5", "0", },
+					{ "5", "0", }, { "6", "0", }, { "7", "0", }, { "8", "0", },{ "9", "0", },{ "A", "0", },{ "B", "0", },{ "C", "0", },{ "D", "0", },
+					{ "E", "0", },{ "F", "0", }, }, new String[] { "B", "V", }) {
+				private static final long serialVersionUID = 1L;
+				Class<?>[] types = new Class<?>[] { Object.class, Object.class, };
+	
+				public Class<?> getColumnClass(int columnIndex) {
+					return types[columnIndex];
+				}
+			});
+		}
+		return semaforTable;
+	}
+
+	private JLabel getJLabel2() {
+		if (jLabel2 == null) {
+			jLabel2 = new JLabel();
+			jLabel2.setText("Virtuali atmintis");
+		}
+		return jLabel2;
+	}
+
+	private JScrollPane getJScrollPane1() {
+		if (jScrollPane1 == null) {
+			jScrollPane1 = new JScrollPane();
+			jScrollPane1.setViewportView(getVirtualMemoryTable());
+		}
+		return jScrollPane1;
+	}
+
+	private JTable getVirtualMemoryTable() {
+		if (virtualMemoryTable == null) {
+			virtualMemoryTable = new JTable();
+			virtualMemoryTable.setModel(new DefaultTableModel(values4 , new String[] { "Adr", "1","2","3","4", }) {
+				private static final long serialVersionUID = 1L;
+				Class<?>[] types = new Class<?>[] { String.class, String.class, String.class, String.class, String.class };
+	
+				public Class<?> getColumnClass(int columnIndex) {
+					return types[columnIndex];
+				}
+			});
+		}
+		return virtualMemoryTable;
 	}
 
 	private JButton getJButton7() {
@@ -366,22 +798,6 @@ public class GUI extends JFrame {
 		return okButton;
 	}
 
-	private JScrollPane getJScrollPane5() {
-		if (jScrollPane5 == null) {
-			jScrollPane5 = new JScrollPane();
-			jScrollPane5.setViewportView(getJTextArea0());
-		}
-		return jScrollPane5;
-	}
-
-	private JTextArea getJTextArea0() {
-		if (jTextArea0 == null) {
-			jTextArea0 = new JTextArea();
-			jTextArea0.setText("wassup fags");
-		}
-		return jTextArea0;
-	}
-
 	private JScrollPane getJScrollPane4() {
 		if (jScrollPane4 == null) {
 			jScrollPane4 = new JScrollPane();
@@ -425,7 +841,7 @@ public class GUI extends JFrame {
 	private JButton getJButton0() {
 		if (loadVMButton == null) {
 			loadVMButton = new JButton();
-			loadVMButton.setText("?kelti VM");
+			loadVMButton.setText("Ikelti VM");
 			loadVMButton.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent event) {
@@ -463,7 +879,7 @@ public class GUI extends JFrame {
 	private JButton getJButton4() {
 		if (changeMemoryButton == null) {
 			changeMemoryButton = new JButton();
-			changeMemoryButton.setText("Keisti atmint?");
+			changeMemoryButton.setText("Keisti atminti");
 			changeMemoryButton.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent event) {
@@ -477,7 +893,7 @@ public class GUI extends JFrame {
 	private JButton getJButton3() {
 		if (changeRegistersButton == null) {
 			changeRegistersButton = new JButton();
-			changeRegistersButton.setText("Keisti registrus");
+			changeRegistersButton.setText("Keisti registra");
 			changeRegistersButton.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent event) {
@@ -494,32 +910,6 @@ public class GUI extends JFrame {
 			jLabel0.setText("Realioji atmintis");
 		}
 		return jLabel0;
-	}
-
-	private JScrollPane getJScrollPane2() {
-		if (jScrollPane2 == null) {
-			jScrollPane2 = new JScrollPane();
-			jScrollPane2.setViewportView(getRegistersTable());
-		}
-		return jScrollPane2;
-	}
-
-	private JTable getRegistersTable() {
-		if (registersTable == null) {
-			registersTable = new JTable();
-			registersTable.setModel(new DefaultTableModel(new Object[][] { { "PTR", 0, 0, 0, 0, }, { "R", 0, 0, 0, 0, }, { "P", 0, 0, 0, 0, },
-					{ "IC", 0, 0, }, { "SF", 0, }, { "SM", 0, 0, }, { "PI", 0}, { "SI", 0 }, { "CHNL", 0}, },
-					new String[] { "Reg", "1", "2", "3", "4", }) {
-				private static final long serialVersionUID = 1L;
-				Class<?>[] types = new Class<?>[] { Object.class, Integer.class, Integer.class, Integer.class, Integer.class, };
-
-				public Class<?> getColumnClass(int columnIndex) {
-					return types[columnIndex];
-				}
-			});
-			registersTable.setEnabled(false);
-		}
-		return registersTable;
 	}
 
 	private JScrollPane getJScrollPane0() {
@@ -549,7 +939,7 @@ public class GUI extends JFrame {
 	private JButton getJButton2() {
 		if (stepButton == null) {
 			stepButton = new JButton();
-			stepButton.setText("?ingsnis");
+			stepButton.setText("Zingsnis");
 			stepButton.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent event) {
@@ -595,7 +985,6 @@ public class GUI extends JFrame {
 		b[1] = (byte)Integer.parseInt(jTextField2.getText());
 		b[2] = (byte)Integer.parseInt(jTextField3.getText());
 		b[3] = (byte)Integer.parseInt(jTextField4.getText());
-		
 		
 		realMachine.getRealMemory().setWord(Integer.parseInt(jTextField6.getText()), b);
 		updateRealMemory();
@@ -645,7 +1034,6 @@ public class GUI extends JFrame {
 			}
 			selectionModel = commandsTable.getSelectionModel();
 			selectionModel.setSelectionInterval(0,0);
-			registersTable.setValueAt(Math.round((i/16)+0.5), 0, 0);
 			realMachine.registerNewVirtualmachine(program, (int) (Math.round((i/16)+0.5)+1));
 			updateRealMemory();
 			updateRegistersValues();

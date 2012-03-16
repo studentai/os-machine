@@ -53,7 +53,7 @@ public class RealMachine {
     }
     public void executeNextCommand(){
     	byte[] word = realMemory.getWord(paging.convertRMAddress(realMemory, PTR, IC));
-    	if (IC[1] == 15){
+    	if (IC[1] >= 15){
     		IC[0]++;
     		IC[1] = 0;
     	} else {
@@ -247,7 +247,7 @@ public class RealMachine {
 		String tmp = "";
 		String value = "";
 		for(int i = 0; i < R.length; i++){
-			tmp = Integer.toBinaryString(Converter.byteToInt(R[i]));
+			tmp = Integer.toBinaryString(Converter.byteToInt(R[i]));//PERKELT Y KONVERTERI WORDTOSTRING
 			System.out.println(tmp);
 			for (int j=tmp.length();j<8;j++){
 				tmp = "0"+tmp;

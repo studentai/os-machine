@@ -10,8 +10,8 @@ public class Channel2 {
         BufferedReader reader = new BufferedReader(input);
         try {
         	data = reader.readLine();
-        	if (data.length() > 64){
-        		data = data.substring(0, 64);
+        	if (data.length() > 256){
+        		data = data.substring(0, 256);
         	}
         }
         catch(Exception e){}

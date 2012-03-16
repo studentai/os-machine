@@ -5,11 +5,11 @@ public class Main {
 	//Sunumeruoju realios atminties zodziu numerius lentelej
 	private static GUI gui;
 	private static RealMachine realMachine;
-	public static void setRealMemoryValues(int size){
-		GUI.values = new String[size][5];
+	public static String[][] setRealMemoryValues(int size){
+		String[][] values = new String[size][5];
 		String adress;
 		for(int i = 0; i<size;i++){
-			adress = String.valueOf(i);
+			adress = Integer.toHexString(i).toUpperCase();
 			switch(adress.length()){
 			case 1: adress = "000"+adress;
 				break;
@@ -18,12 +18,13 @@ public class Main {
 			case 3: adress = "0"+adress;
 				break;
 			}
-			GUI.values[i][0] = adress;
-			GUI.values[i][1] = String.valueOf(0);
-			GUI.values[i][2] = String.valueOf(0);
-			GUI.values[i][3] = String.valueOf(0);
-			GUI.values[i][4] = String.valueOf(0);
+			values[i][0] = adress;
+			values[i][1] = String.valueOf(0);
+			values[i][2] = String.valueOf(0);
+			values[i][3] = String.valueOf(0);
+			values[i][4] = String.valueOf(0);
 		}
+		return values;
 	}
 	//sunumeruoja virtualios atminties zodziu numerius lentelei
 
@@ -43,7 +44,8 @@ public class Main {
 //		realMachine.registerNewVirtualmachine(program, 16);
 
 		//GUI----------------------------------------
-		setRealMemoryValues(1024);
+	 	GUI.values = setRealMemoryValues(1024);
+		GUI.values4 = setRealMemoryValues(256);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				gui = new GUI();
@@ -57,12 +59,6 @@ public class Main {
 				gui.updateRegistersValues();
 				//gui.updateRealMemory();
 				gui.updateFlags();
-				realMachine.changeFlag('1', 0);
-				realMachine.changeFlag('1', 4);
-				realMachine.changeFlag('1', 7);
-				realMachine.changeFlag('1', 2);
-				gui.updateFlags();
-				gui.updateRegistersValues();
 			}
 		});
 				//GUI---------------------------------------
