@@ -1,4 +1,4 @@
-//PUSLAPIAVIMO MECHANIZMAS
+
 public class Paging {
 	public int convertRMAddress(RealMemory memory, byte[] PTR, byte[] addr){
 		if ((PTR[1]-1)<=addr[0]){
