@@ -163,10 +163,10 @@ public class GUI extends JFrame {
 	public void updateRealMemory(){
 		byte[][] memory = realMachine.getRealMemory().getMemory();
 		for(int i = 0; i<memory.length; i++){
-			realMemoryTable.setValueAt(memory[i][0], i, 1);
-			realMemoryTable.setValueAt(memory[i][1], i, 2);
-			realMemoryTable.setValueAt(memory[i][2], i, 3);
-			realMemoryTable.setValueAt(memory[i][3], i, 4);
+			realMemoryTable.setValueAt(memory[i][0]+" ("+Converter.ByteToChar(memory[i][0])+")", i, 1);
+			realMemoryTable.setValueAt(memory[i][1]+" ("+Converter.ByteToChar(memory[i][1])+")", i, 2);
+			realMemoryTable.setValueAt(memory[i][2]+" ("+Converter.ByteToChar(memory[i][2])+")", i, 3);
+			realMemoryTable.setValueAt(memory[i][3]+" ("+Converter.ByteToChar(memory[i][3])+")", i, 4);
 		}
 	}
 
@@ -191,18 +191,18 @@ public class GUI extends JFrame {
 		add(getJButton2(), new Constraints(new Leading(8, 116, 12, 12), new Leading(77, 10, 10)));
 		add(getJButton1(), new Constraints(new Leading(8, 116, 12, 12), new Leading(43, 10, 10)));
 		add(getJButton0(), new Constraints(new Leading(8, 116, 12, 12), new Leading(8, 10, 10)));
-		add(getJScrollPane0(), new Constraints(new Leading(566, 200, 12, 12), new Leading(278, 271, 10, 10)));
 		add(getJLabel0(), new Constraints(new Leading(566, 12, 12), new Leading(255, 12, 12)));
 		add(getRegistersPanel(), new Constraints(new Leading(566, 164, 12, 12), new Leading(4, 252, 12, 12)));
 		add(getJScrollPane3(), new Constraints(new Leading(484, 58, 12, 12), new Leading(31, 150, 40, 37)));
-		add(getJLabel15(), new Constraints(new Leading(252, 10, 10), new Leading(8, 40, 37)));
 		add(getJLabel16(), new Constraints(new Leading(506, 12, 12), new Leading(8, 40, 37)));
 		add(getJLabel2(), new Constraints(new Leading(317, 12, 12), new Leading(12, 46, 243)));
 		add(getJButton3(), new Constraints(new Leading(8, 116, 12, 12), new Leading(517, 10, 10)));
 		add(getJButton4(), new Constraints(new Leading(8, 114, 12, 12), new Leading(479, 12, 12)));
-		add(getJScrollPane6(), new Constraints(new Leading(211, 59, 12, 12), new Leading(30, 150, 46, 243)));
-		add(getJScrollPane1(), new Constraints(new Leading(282, 186, 12, 12), new Leading(30, 270, 46, 243)));
-		add(getJScrollPane7(), new Constraints(new Leading(210, 304, 10, 10), new Leading(326, 219, 12, 12)));
+		add(getJScrollPane6(), new Constraints(new Leading(153, 59, 10, 10), new Leading(34, 150, 12, 12)));
+		add(getJLabel15(), new Constraints(new Leading(151, 10, 10), new Leading(15, 12, 12)));
+		add(getJScrollPane1(), new Constraints(new Leading(220, 248, 10, 10), new Leading(30, 270, 46, 243)));
+		add(getJScrollPane0(), new Constraints(new Leading(517, 249, 10, 10), new Leading(278, 271, 10, 10)));
+		add(getJScrollPane7(), new Constraints(new Leading(195, 304, 10, 10), new Leading(323, 219, 10, 10)));
 		setSize(775, 559);
 	}
 
@@ -1021,10 +1021,10 @@ public class GUI extends JFrame {
 			block = realMachine.getRealMemory().getBlock(address[0]);
 			int k = 0;
 			for(int j = i * 16; j < tmp; j++ ){
-				virtualMemoryTable.setValueAt(block[k][0], j, 1);
-				virtualMemoryTable.setValueAt(block[k][1], j, 2);
-				virtualMemoryTable.setValueAt(block[k][2], j, 3);
-				virtualMemoryTable.setValueAt(block[k][3], j, 4);
+				virtualMemoryTable.setValueAt(block[k][0]+" ("+Converter.ByteToChar(block[k][0])+")", j, 1);
+				virtualMemoryTable.setValueAt(block[k][1]+" ("+Converter.ByteToChar(block[k][1])+")", j, 2);
+				virtualMemoryTable.setValueAt(block[k][2]+" ("+Converter.ByteToChar(block[k][2])+")", j, 3);
+				virtualMemoryTable.setValueAt(block[k][3]+" ("+Converter.ByteToChar(block[k][3])+")", j, 4);
 				k++;
 			}
 			tmp = tmp + 16;
