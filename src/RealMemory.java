@@ -33,7 +33,7 @@ public class RealMemory {
 		if ((arg>=0)&&(arg<=memory.length/blockSize)){
 			ret = new byte[blockSize][memory[0].length];
 			int j = 0;
-			for (int i=arg*blockSize;i<arg*(blockSize+1);i++){
+			for (int i=arg*blockSize;i<(arg+1)*blockSize;i++){
 				ret[j] = memory[i];
 				j++;
 			}

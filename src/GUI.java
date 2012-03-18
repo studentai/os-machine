@@ -1015,15 +1015,19 @@ public class GUI extends JFrame {
 		byte[] PTR = realMachine.getPTR();
 		byte[][] block;
 		int tmp = 16;
-		for(int i = 0; i< PTR[1];i++){
-			block = realMachine.getRealMemory().getBlock(PTR[2]+i);
+		for(int i = 0; i< PTR[1]-1;i++){
+			byte[] address = realMachine.getRealMemory().getWord(PTR[2]*16+i);
+			System.out.println("Well Well: "+ address[0] + " " + (PTR[2]*16+i));
+			block = realMachine.getRealMemory().getBlock(address[0]);
+			int k = 0;
 			for(int j = i * 16; j < tmp; j++ ){
-				virtualMemoryTable.setValueAt(block[j][0], j, 1);
-				virtualMemoryTable.setValueAt(block[j][1], j, 2);
-				virtualMemoryTable.setValueAt(block[j][2], j, 3);
-				virtualMemoryTable.setValueAt(block[j][3], j, 4);
+				virtualMemoryTable.setValueAt(block[k][0], j, 1);
+				virtualMemoryTable.setValueAt(block[k][1], j, 2);
+				virtualMemoryTable.setValueAt(block[k][2], j, 3);
+				virtualMemoryTable.setValueAt(block[k][3], j, 4);
+				k++;
 			}
-			tmp = tmp * 2;
+			tmp = tmp + 16;
 		}
 	}
 
