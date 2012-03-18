@@ -11,18 +11,17 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
-import org.dyno.visual.swing.layouts.Bilateral;
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
@@ -41,11 +40,8 @@ public class GUI extends JFrame {
 
 	private JTable realMemoryTable;
 	private JTable flagsTable;
-	private JTable commandsTable;
-
 	private JScrollPane jScrollPane0;
 	private JScrollPane jScrollPane3;
-	private JScrollPane jScrollPane4;
 	private JLabel jLabel0;
 
 	public static String[][] values;
@@ -79,7 +75,6 @@ public class GUI extends JFrame {
 	private JTextField jTextFieldC;
 	private JTextField jTextFieldD;
 	private JButton jButton7;
-	private ListSelectionModel selectionModel;
 	private JTable virtualMemoryTable;
 	private JScrollPane jScrollPane1;
 	private JLabel jLabel2;
@@ -193,22 +188,21 @@ public class GUI extends JFrame {
 
 	private void initComponents() {
 		setLayout(new GroupLayout());
-		add(getJButton3(), new Constraints(new Leading(8, 116, 10, 10), new Leading(152, 10, 10)));
-		add(getJButton4(), new Constraints(new Leading(9, 114, 12, 12), new Leading(112, 12, 12)));
 		add(getJButton2(), new Constraints(new Leading(8, 116, 12, 12), new Leading(77, 10, 10)));
 		add(getJButton1(), new Constraints(new Leading(8, 116, 12, 12), new Leading(43, 10, 10)));
 		add(getJButton0(), new Constraints(new Leading(8, 116, 12, 12), new Leading(8, 10, 10)));
 		add(getJScrollPane0(), new Constraints(new Leading(566, 200, 12, 12), new Leading(278, 271, 10, 10)));
 		add(getJLabel0(), new Constraints(new Leading(566, 12, 12), new Leading(255, 12, 12)));
 		add(getRegistersPanel(), new Constraints(new Leading(566, 164, 12, 12), new Leading(4, 252, 12, 12)));
-		add(getJScrollPane1(), new Constraints(new Leading(5, 200, 10, 10), new Leading(277, 270, 12, 12)));
-		add(getJLabel2(), new Constraints(new Leading(8, 12, 12), new Leading(255, 12, 12)));
-		add(getJScrollPane7(), new Constraints(new Leading(238, 304, 10, 10), new Bilateral(277, 12, 22)));
-		add(getJScrollPane6(), new Constraints(new Leading(238, 59, 12, 12), new Leading(31, 150, 10, 10)));
 		add(getJScrollPane3(), new Constraints(new Leading(484, 58, 12, 12), new Leading(31, 150, 40, 37)));
-		add(getJScrollPane4(), new Constraints(new Leading(314, 152, 12, 12), new Leading(9, 169, 40, 37)));
 		add(getJLabel15(), new Constraints(new Leading(252, 10, 10), new Leading(8, 40, 37)));
 		add(getJLabel16(), new Constraints(new Leading(506, 12, 12), new Leading(8, 40, 37)));
+		add(getJLabel2(), new Constraints(new Leading(317, 12, 12), new Leading(12, 46, 243)));
+		add(getJButton3(), new Constraints(new Leading(8, 116, 12, 12), new Leading(517, 10, 10)));
+		add(getJButton4(), new Constraints(new Leading(8, 114, 12, 12), new Leading(479, 12, 12)));
+		add(getJScrollPane6(), new Constraints(new Leading(211, 59, 12, 12), new Leading(30, 150, 46, 243)));
+		add(getJScrollPane1(), new Constraints(new Leading(282, 186, 12, 12), new Leading(30, 270, 46, 243)));
+		add(getJScrollPane7(), new Constraints(new Leading(210, 304, 10, 10), new Leading(326, 219, 12, 12)));
 		setSize(775, 559);
 	}
 
@@ -798,32 +792,6 @@ public class GUI extends JFrame {
 		return okButton;
 	}
 
-	private JScrollPane getJScrollPane4() {
-		if (jScrollPane4 == null) {
-			jScrollPane4 = new JScrollPane();
-			jScrollPane4.setViewportView(getCommandsTable());
-		}
-		return jScrollPane4;
-	}
-
-	private JTable getCommandsTable() {
-		if (commandsTable == null) {
-			commandsTable = new JTable();
-			values3 = new String[256][1];
-			commandsTable.setModel(new DefaultTableModel(values3,
-					new String[] { "Komanda" }) {
-				private static final long serialVersionUID = 1L;
-				Class<?>[] types = new Class<?>[] { String.class };
-
-				public Class<?> getColumnClass(int columnIndex) {
-					return types[columnIndex];
-				}
-			});
-			commandsTable.setEnabled(false);
-		}
-		return commandsTable;
-	}
-
 	private JButton getJButton1() {
 		if (playButton == null) {
 			playButton = new JButton();
@@ -991,8 +959,6 @@ public class GUI extends JFrame {
 	}
 	private void stepButtonActionActionPerformed(ActionEvent event) {
 		realMachine.executeNextCommand();
-		selectionModel = commandsTable.getSelectionModel();
-		selectionModel.setSelectionInterval(commandsTable.getSelectedRow()+1, commandsTable.getSelectedRow()+1);
 		updateRealMemory();
 		updateRegistersValues();
 		updateFlags();
@@ -1025,20 +991,40 @@ public class GUI extends JFrame {
 			while((file.ready()== true)&& (i < program.length)){
 				line = file.readLine();
 				lineArray =  line.toCharArray();
-				commandsTable.setValueAt(line, i, 0);
 				program[i][0] = (byte)lineArray[0];
 				program[i][1] = (byte)lineArray[1];
 				program[i][2] = (byte)lineArray[2];
 				program[i][3] = (byte)lineArray[3];
 				i++;
 			}
-			selectionModel = commandsTable.getSelectionModel();
-			selectionModel.setSelectionInterval(0,0);
-			realMachine.registerNewVirtualmachine(program, (int) (Math.round((i/16)+0.5)+1));
-			updateRealMemory();
-			updateRegistersValues();
+			if(realMachine.registerNewVirtualmachine(program, (int) (Math.round((i/16)+0.5)+1)) == false){
+				JOptionPane.showMessageDialog(new JFrame(),
+					    "Naujai virtualiai masinai, atminties neuztenka",
+					    "Klaida",
+					    JOptionPane.ERROR_MESSAGE);
+			}else{
+				updateVirtualMemory();
+				updateRealMemory();
+				updateRegistersValues();
+			}
 		 }catch(FileNotFoundException e){System.out.println("Klaida atidarant faila");}
 		
+	}
+
+	private void updateVirtualMemory() {
+		byte[] PTR = realMachine.getPTR();
+		byte[][] block;
+		int tmp = 16;
+		for(int i = 0; i< PTR[1];i++){
+			block = realMachine.getRealMemory().getBlock(PTR[2]+i);
+			for(int j = i * 16; j < tmp; j++ ){
+				virtualMemoryTable.setValueAt(block[j][0], j, 1);
+				virtualMemoryTable.setValueAt(block[j][1], j, 2);
+				virtualMemoryTable.setValueAt(block[j][2], j, 3);
+				virtualMemoryTable.setValueAt(block[j][3], j, 4);
+			}
+			tmp = tmp * 2;
+		}
 	}
 
 	private void jComboBox0ActionActionPerformed(ActionEvent event) {
