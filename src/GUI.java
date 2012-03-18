@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -1034,9 +1035,16 @@ public class GUI extends JFrame {
 			}
 			selectionModel = commandsTable.getSelectionModel();
 			selectionModel.setSelectionInterval(0,0);
-			realMachine.registerNewVirtualmachine(program, (int) (Math.round((i/16)+0.5)+1));
-			updateRealMemory();
-			updateRegistersValues();
+			if(realMachine.registerNewVirtualmachine(program, (int) (Math.round((i/16)+0.5)+1)) == false){
+			    JOptionPane.showMessageDialog(new JFrame(),
+			         "Naujai virtualiai masinai, atminties neuztenka",
+			         "Klaida",
+			         JOptionPane.ERROR_MESSAGE);
+			   }else{
+			    //updateVirtualMemory();
+			    updateRealMemory();
+			    updateRegistersValues();
+			   }
 		 }catch(FileNotFoundException e){System.out.println("Klaida atidarant faila");}
 		
 	}
