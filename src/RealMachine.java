@@ -7,6 +7,8 @@ public class RealMachine {
 
 	private static int maxMachineSize = 16;
 	private static int maxMachineCount = 3;
+	
+	private static boolean[] isMemoryUsed;
 
     private byte[] IC;     	 										// komandu skaitiklio registras
     private byte SF; 												// status flag (!3 baitas Loginis C registras!)
@@ -50,6 +52,8 @@ public class RealMachine {
         this.setChannel1(new Channel1());
         this.setChannel2(new Channel2());
         this.setChannel3(new Channel3());
+        
+        isMemoryUsed = new boolean[64];
     }
     public void executeNextCommand(){
     	byte[] word = realMemory.getWord(paging.convertRMAddress(realMemory, PTR, IC));
@@ -316,33 +320,44 @@ public class RealMachine {
 	public Channel3 getChannel3() {return channel3;}
 	public void setChannel3(Channel3 channel3) {this.channel3 = channel3;}
 	
+	public int randomAdrress(){
+		int randomAddress = 0;
+		boolean used = true;
+		while (used) {
+			used = false;
+			int min = 16+maxMachineCount;
+			int max = 63;
+			randomAddress = min + (int)(Math.random() * ((max - min) + 1));
+			if (isMemoryUsed[randomAddress]){
+				used = true;
+			} else{
+				isMemoryUsed[randomAddress] = true;
+				return randomAddress;
+			}
+		}
+		return -1;
+	}
+	public int freeMemoryCount(){
+		int count = 0;
+		for (int i=16;i<isMemoryUsed.length;i++){
+			if (!isMemoryUsed[i]){
+				count++;
+			}
+		}
+		return count;
+	}
 	
     public boolean registerNewVirtualmachine(byte[][] program, int size){
-    	if ((size > maxMachineSize) && (size < 1) || (virtualMachines.size() >= maxMachineCount)){
+    	if (size > freeMemoryCount()){
     		return false;
+    		//NEPAKANKA ATMINTIES
     	} else {
     		VirtualMachine newMachine = new VirtualMachine();
     		virtualMachines.add(newMachine);
-    		int pageTableAddress = (virtualMachines.size() + 15)*16;
+    		int pageBlockAddress = randomAdrress();
+    		int pageTableAddress = pageBlockAddress*16;
     		for (int i=0;i<size-1;i++){
-    			
-    			int randomAddress = 0;
-    			boolean used = true;
-    			while (used) {
-    				used = false;
-    				int min = 16+maxMachineCount;
-    				int max = 63;
-    				randomAddress = min + (int)(Math.random() * ((max - min) + 1));
-    				for (int j=0;j<virtualMachines.size();j++){  					
-    					int tableAddress = (j + 16)*16;
-    					for (int k=0;k<16;k++){
-    						byte[] word = realMemory.getWord(tableAddress+k);
-    						if (word[0] == randomAddress){
-    							used = true;
-    						}
-    					}
-    				}
-    			}
+    			int randomAddress = randomAdrress();
     			byte[] addr = new byte[4];
     			addr[0] = (byte) randomAddress;
     			addr[1] = 0;
@@ -357,18 +372,19 @@ public class RealMachine {
     			pageTableAddress = pageTableAddress + 1;
     		}
     		resetRegisters();
-			byte[] addr = new byte[4];
-			addr[0] = 16;
-			addr[1] = (byte) size;
-			addr[2] = (byte) (virtualMachines.size() + 15);
-			addr[3] = 0;
-			this.setPTR(addr);
-			addr = new byte[2];
-			addr[0] = 0;
-			addr[1] = 0;
-			this.setIC(addr);
-    		return true;
+    		byte[] addr = new byte[4];
+    		addr[0] = 16;
+    		addr[1] = (byte) size;
+    		addr[2] = (byte) pageBlockAddress;
+    		addr[3] = 0;
+    		this.setPTR(addr);
+    		addr = new byte[2];
+    		addr[0] = 0;
+    		addr[1] = 0;
+    		this.setIC(addr);
+    		return true;	
     	}
+    	//}
     }
     private void resetRegisters(){
     	byte[] two = new byte[2];
