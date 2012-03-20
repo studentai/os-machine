@@ -117,6 +117,9 @@ public class GUI extends JFrame {
 	private JTextField jTextField10;
 	private JLabel jLabel15;
 	private JLabel jLabel16;
+	private JTable chlTable;
+	private JScrollPane jScrollPane2;
+	private JLabel jLabel17;
 
 	public GUI() {
 		initComponents();
@@ -147,18 +150,21 @@ public class GUI extends JFrame {
 		jTextField17.setText(String.valueOf(realMachine.getP()[2]));
 		jTextField18.setText(String.valueOf(realMachine.getP()[3]));
 		
-		jTextField19.setText(String.valueOf(realMachine.getIC()[0]));
-		jTextField20.setText(String.valueOf(realMachine.getIC()[1]));
+		jTextField19.setText(Integer.toHexString(Converter.byteToInt(realMachine.getIC()[0])).toUpperCase());
+		jTextField20.setText(Integer.toHexString(Converter.byteToInt(realMachine.getIC()[1])).toUpperCase());
 		
 		jTextField21.setText(String.valueOf(realMachine.getSM()[0]));
 		jTextField22.setText(String.valueOf(realMachine.getSM()[1]));
+		updateSM();
 		
 		jTextField23.setText(String.valueOf(realMachine.getSF()));
+		updateFlags();
 		jTextField24.setText(String.valueOf(realMachine.getPI()));
 		
 		jTextField25.setText(String.valueOf(realMachine.getSI()));
 		jTextField26.setText(String.valueOf(realMachine.getTI()));
 		jTextField10.setText(String.valueOf(realMachine.getChnl()));
+		updateCNL();
 	}
 
 	public void updateRealMemory(){
@@ -186,17 +192,51 @@ public class GUI extends JFrame {
 		}
 
 	}
+	
+	public void updateCNL(){
+		byte chl = realMachine.getChnl();
+		String firstByte = Integer.toBinaryString(Converter.byteToInt(chl));
+	
+		for (int j=firstByte.length();j<8;j++){
+			firstByte = "0"+firstByte;
+		}
+
+		char[] charsArray = firstByte.toCharArray();
+		for(int i = 0; i<firstByte.length(); i++){
+			chlTable.setValueAt(charsArray[i], i, 1);
+		}
+	}
+	
+	public void updateSM(){
+		byte[] sm = realMachine.getSM();
+		String firstByte = Integer.toBinaryString(Converter.byteToInt(sm[0]));
+		String secondByte = Integer.toBinaryString(Converter.byteToInt(sm[1]));
+	
+	
+		for (int j=firstByte.length();j<8;j++){
+			firstByte = "0"+firstByte;
+		}
+		
+		for (int j=secondByte.length();j<8;j++){
+			secondByte = "0"+secondByte;
+		}
+
+		char[] charsArray = firstByte.toCharArray();
+		char[] charsArray2 = secondByte.toCharArray();
+		
+		for(int i = 0; i<firstByte.length(); i++){
+			semaforTable.setValueAt(charsArray[i], i, 1);
+			semaforTable.setValueAt(charsArray2[i], i+8, 1);
+		}
+	}
 
 	private void initComponents() {
 		setLayout(new GroupLayout());
 		add(getJButton2(), new Constraints(new Leading(8, 116, 12, 12), new Leading(77, 10, 10)));
 		add(getJButton1(), new Constraints(new Leading(8, 116, 12, 12), new Leading(43, 10, 10)));
 		add(getJButton0(), new Constraints(new Leading(8, 116, 12, 12), new Leading(8, 10, 10)));
-		add(getJLabel0(), new Constraints(new Leading(566, 12, 12), new Leading(255, 12, 12)));
 		add(getRegistersPanel(), new Constraints(new Leading(566, 164, 12, 12), new Leading(4, 252, 12, 12)));
 		add(getJScrollPane3(), new Constraints(new Leading(484, 58, 12, 12), new Leading(31, 150, 40, 37)));
-		add(getJLabel16(), new Constraints(new Leading(506, 12, 12), new Leading(8, 40, 37)));
-		add(getJLabel2(), new Constraints(new Leading(317, 12, 12), new Leading(12, 46, 243)));
 		add(getJButton3(), new Constraints(new Leading(8, 116, 12, 12), new Leading(517, 10, 10)));
 		add(getJButton4(), new Constraints(new Leading(8, 114, 12, 12), new Leading(479, 12, 12)));
 		add(getJScrollPane6(), new Constraints(new Leading(153, 59, 10, 10), new Leading(34, 150, 12, 12)));
@@ -204,7 +244,44 @@ public class GUI extends JFrame {
 		add(getJScrollPane1(), new Constraints(new Leading(220, 248, 10, 10), new Leading(30, 270, 46, 243)));
 		add(getJScrollPane0(), new Constraints(new Leading(517, 249, 10, 10), new Leading(278, 271, 10, 10)));
 		add(getJScrollPane7(), new Constraints(new Leading(195, 304, 10, 10), new Leading(323, 219, 10, 10)));
+		add(getJLabel16(), new Constraints(new Leading(487, 12, 12), new Leading(13, 12, 12)));
+		add(getJScrollPane2(), new Constraints(new Leading(488, 53, 12, 12), new Leading(202, 70, 12, 12)));
+		add(getJLabel17(), new Constraints(new Leading(490, 12, 12), new Leading(187, 15, 12, 12)));
+		add(getJLabel0(), new Constraints(new Trailing(12, 522, 553), new Leading(256, 12, 12)));
+		add(getJLabel2(), new Constraints(new Leading(220, 12, 12), new Leading(9, 12, 12)));
 		setSize(775, 559);
+	}
+
+	private JLabel getJLabel17() {
+		if (jLabel17 == null) {
+			jLabel17 = new JLabel();
+			jLabel17.setText("CHL");
+		}
+		return jLabel17;
+	}
+
+	private JScrollPane getJScrollPane2() {
+		if (jScrollPane2 == null) {
+			jScrollPane2 = new JScrollPane();
+			jScrollPane2.setViewportView(getCHLTable());
+		}
+		return jScrollPane2;
+	}
+
+	private JTable getCHLTable() {
+		if (chlTable == null) {
+			chlTable = new JTable();
+			chlTable.setModel(new DefaultTableModel(new Object[][] { { "0", "0", }, { "1", "0", }, { "2", "0", },{"3", "0", },
+			{"4", "0", }, {"5", "0", }, {"6", "0", }, {"7", "0", } }, new String[] { "B", "R", }) {
+				private static final long serialVersionUID = 1L;
+				Class<?>[] types = new Class<?>[] { Object.class, Object.class, };
+	
+				public Class<?> getColumnClass(int columnIndex) {
+					return types[columnIndex];
+				}
+			});
+		}
+		return chlTable;
 	}
 
 	private JLabel getJLabel16() {
@@ -537,8 +614,8 @@ public class GUI extends JFrame {
 	private JTable getSemaforTable() {
 		if (semaforTable == null) {
 			semaforTable = new JTable();
-			semaforTable.setModel(new DefaultTableModel(new String[][] { { "1", "0", }, { "2", "0", }, { "3", "0", }, { "4", "0", }, { "5", "0", },
-					{ "5", "0", }, { "6", "0", }, { "7", "0", }, { "8", "0", },{ "9", "0", },{ "A", "0", },{ "B", "0", },{ "C", "0", },{ "D", "0", },
+			semaforTable.setModel(new DefaultTableModel(new String[][] {{"0", "0",}, { "1", "0", }, { "2", "0", }, { "3", "0", }, { "4", "0", }, { "5", "0", }
+											, { "6", "0", }, { "7", "0", }, { "8", "0", },{ "9", "0", },{ "A", "0", },{ "B", "0", },{ "C", "0", },{ "D", "0", },
 					{ "E", "0", },{ "F", "0", }, }, new String[] { "B", "V", }) {
 				private static final long serialVersionUID = 1L;
 				Class<?>[] types = new Class<?>[] { Object.class, Object.class, };
@@ -645,7 +722,7 @@ public class GUI extends JFrame {
 	private JComboBox<String> getJComboBox0() {
 		if (jComboBox0 == null) {
 			jComboBox0 = new JComboBox<String>();
-			jComboBox0.setModel(new DefaultComboBoxModel<String>(new String[] { "PTR", "R", "P", "IC", "SF", "SM", "PI", "SI", "CHNL" }));
+			jComboBox0.setModel(new DefaultComboBoxModel<String>(new String[] { "PTR", "R", "P", "IC", "SF", "SM", "PI", "SI", "CHNL", "TI" }));
 			jComboBox0.setDoubleBuffered(false);
 			jComboBox0.setSelectedIndex(0);
 			jComboBox0.setBorder(null);
@@ -921,8 +998,8 @@ public class GUI extends JFrame {
 
 	private void changeRegistersButtonActionActionPerformed(ActionEvent event) {
 		if(framek == null){
-			framek = new JFrame("Registr� Keitimas");
-			framek.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			framek = new JFrame("Registru Keitimas");
+			framek.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 			framek.getContentPane().add(getJPanel3(), BorderLayout.CENTER);
 			framek.pack();
 			framek.setLocation(getLocation());
@@ -936,7 +1013,7 @@ public class GUI extends JFrame {
 	private void changeMemoryButtonActionActionPerformed(ActionEvent event) {
 		if(frameks == null){
 			frameks = new JFrame("Atminties Keitimas");
-			frameks.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frameks.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 			realMemoryTable.setEnabled(true);
 			frameks.getContentPane().add(getJPanel2(), BorderLayout.CENTER);
 			frameks.pack();
@@ -955,7 +1032,7 @@ public class GUI extends JFrame {
 		b[2] = (byte)Integer.parseInt(jTextField3.getText());
 		b[3] = (byte)Integer.parseInt(jTextField4.getText());
 		
-		realMachine.getRealMemory().setWord(Integer.parseInt(jTextField6.getText()), b);
+		realMachine.getRealMemory().setWord(Integer.valueOf(String.valueOf(jTextField6.getText()), 16).intValue(), b);
 		updateRealMemory();
 	}
 	private void stepButtonActionActionPerformed(ActionEvent event) {
@@ -1116,7 +1193,7 @@ public class GUI extends JFrame {
 				jTextFieldD.setEditable(false);
 				jTextFieldD.setText("");
 			break;
-		default:value3 = realMachine.getChnl();
+		case 8: value3 = realMachine.getChnl();
 				jTextFieldA.setText(String.valueOf(value3));
 				jTextFieldB.setEditable(false);
 				jTextFieldB.setText("");
@@ -1125,6 +1202,15 @@ public class GUI extends JFrame {
 				jTextFieldD.setEditable(false);
 				jTextFieldD.setText("");
 			break;
+		default: value3 = realMachine.getTI();
+				 jTextFieldA.setText(String.valueOf(value3));
+				 jTextFieldB.setEditable(false);
+				 jTextFieldB.setText("");
+				 jTextFieldC.setEditable(false);
+				 jTextFieldC.setText("");
+				 jTextFieldD.setEditable(false);
+				 jTextFieldD.setText("");
+	break;
 		}
 		
 	}
@@ -1133,7 +1219,9 @@ public class GUI extends JFrame {
 		framek.setVisible(true);
 		byte[] value = new byte[4];
 		byte[] valueb = new byte[]{0,0};
-		if (jComboBox0.getSelectedIndex() == 4 ){
+		if ((jComboBox0.getSelectedIndex() == 4) || (jComboBox0.getSelectedIndex() == 6) ||
+				(jComboBox0.getSelectedIndex() == 7) || (jComboBox0.getSelectedIndex() == 8) ||
+				(jComboBox0.getSelectedIndex() == 9)){
 			value[0] = (byte)Integer.parseInt(jTextFieldA.getText());
 		} else {
 			if(jComboBox0.getSelectedIndex()> 2){
@@ -1163,12 +1251,15 @@ public class GUI extends JFrame {
 				updateFlags();
 			break;
 		case 5: realMachine.setSM(valueb);
+				updateSM();
 			break;
 		case 6: realMachine.setPI(value[0]);
 			break;
 		case 7: realMachine.setSI(value[0]);
 			break;
-		default:realMachine.setChnl(value[0]);
+		case 8: realMachine.setChnl(value[0]);
+			break;
+		default:realMachine.setTI(value[0]);
 			break;
 		}
 	    updateRegistersValues();
