@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
@@ -962,7 +963,7 @@ public class GUI extends JFrame {
 		updateRealMemory();
 		updateRegistersValues();
 		updateFlags();
-		
+		updateVirtualMemory();
 	}
 
 	private void loadVMButtonActionActionPerformed(ActionEvent event) {
@@ -1029,6 +1030,9 @@ public class GUI extends JFrame {
 			}
 			tmp = tmp + 16;
 		}
+		byte[] IC = realMachine.getIC();
+		ListSelectionModel selectionModel = virtualMemoryTable.getSelectionModel();
+		selectionModel.setSelectionInterval(IC[0]*16+IC[1], IC[0]*16+IC[1]);
 	}
 
 	private void jComboBox0ActionActionPerformed(ActionEvent event) {

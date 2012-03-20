@@ -72,15 +72,17 @@ public class RealMachine {
     		System.out.println("NOTR");
     		NOTR();
     	}
-    	if ((word[0]==77)&&(word[1]==86)&&(word[2]==82)&&(word[3]==80)){
+    	if ((word[0]==77)&&(word[1]==86)&&(word[2]==80)&&(word[3]==82)){
     		//MVPR
     		isLeggit = true;
     		System.out.println("MVPR");
+    		MVPR();
     	}
-    	if ((word[0]==77)&&(word[1]==86)&&(word[2]==80)&&(word[3]==82)){
+    	if ((word[0]==77)&&(word[1]==86)&&(word[2]==82)&&(word[3]==80)){
     		//MVRP
     		isLeggit = true;
     		System.out.println("MVRP");
+    		MVRP();
     	}
     	if ((word[0]==72)&&(word[1]==65)&&(word[2]==76)&&(word[3]==84)){
     		//HALT
@@ -94,11 +96,13 @@ public class RealMachine {
     		//AD
     		System.out.println("AD");
     		isLeggit = true;
+    		AD(word);
     	}
     	if ((word[0]==83)&&(word[1]==66)){
     		//SB
     		System.out.println("SB");
     		isLeggit = true;
+    		SB(word);
     	}
     	if ((word[0]==67)&&(word[1]==80)){
     		//CP
@@ -110,6 +114,7 @@ public class RealMachine {
     		//DV
     		System.out.println("DV");
     		isLeggit = true;
+    		DV(word);
     	}
 
     	//Valdymo perdavimo
@@ -129,11 +134,13 @@ public class RealMachine {
     		//JG
     		System.out.println("JG");
     		isLeggit = true;
+    		JG(word);
     	}
     	if ((word[0]==74)&&(word[1]==61)){
     		//JB
     		System.out.println("JB");
     		isLeggit = true;
+    		JB(word);
     	}
     	//Logines ir ciklas
     	
@@ -141,27 +148,32 @@ public class RealMachine {
     		//AN
     		System.out.println("AN");
     		isLeggit = true;
+    		AN(word);
     	}
-    	if ((word[0]==81)&&(word[1]==81)){
+    	if ((word[0]==79)&&(word[1]==82)){
     		//OR
     		System.out.println("OR");
     		isLeggit = true;
+    		OR(word);
     	}
     	if ((word[0]==76)&&(word[1]==80)){
     		//LP
     		System.out.println("LP");
     		isLeggit = true;
+    		LP(word);
     	}
     	//Mov'ai
     	if ((word[0]==77)&&(word[1]==82)){
     		//MR
     		System.out.println("MR");
     		isLeggit = true;
+    		MR(word);
     	}
     	if ((word[0]==82)&&(word[1]==77)){
     		//RM
     		System.out.println("RM");
     		isLeggit = true;
+    		RM(word);
     	}
     	//Atmintis ir kanalai
     	if ((word[0]==71)&&(word[1]==44)){
@@ -188,11 +200,13 @@ public class RealMachine {
     		//LK
     		System.out.println("LK");
     		isLeggit = true;
+    		LK(word);
     	}
     	if ((word[0]==78)&&(word[1]==75)){
     		//NK
     		System.out.println("NK");
     		isLeggit = true;
+    		NK(word);
     	}
     }
     public void JP(byte[] cmd){
@@ -213,6 +227,36 @@ public class RealMachine {
 				bits = "0"+bits;
 			}
     		if (bits.charAt(2) == '0'){
+    			IC = addr;
+    		}
+    	}else{
+    		PI = 2;
+    	}
+    }
+    public void JB(byte[] cmd){
+    	byte[] addr = new byte[]{Converter.HexCharToByte((char)cmd[2]), Converter.HexCharToByte((char)cmd[3])};
+    	int realAddr = paging.convertRMAddress(realMemory, PTR, addr);
+    	if (realAddr > -1){
+			String bits = Integer.toBinaryString(Converter.byteToInt(SF));
+			for (int j=bits.length();j<8;j++){
+				bits = "0"+bits;
+			}
+    		if ((bits.charAt(2) == '1') && (bits.charAt(6) == '0')){
+    			IC = addr;
+    		}
+    	}else{
+    		PI = 2;
+    	}
+    }
+    public void JG(byte[] cmd){
+    	byte[] addr = new byte[]{Converter.HexCharToByte((char)cmd[2]), Converter.HexCharToByte((char)cmd[3])};
+    	int realAddr = paging.convertRMAddress(realMemory, PTR, addr);
+    	if (realAddr > -1){
+			String bits = Integer.toBinaryString(Converter.byteToInt(SF));
+			for (int j=bits.length();j<8;j++){
+				bits = "0"+bits;
+			}
+    		if ((bits.charAt(2) == '1') && (bits.charAt(6) == '1')){
     			IC = addr;
     		}
     	}else{
@@ -280,10 +324,170 @@ public class RealMachine {
 		if (isSubed == false){
 			//Ivyko perkelimas nustatom CF
 			changeFlag('1', 3);
+		} else {
+			changeFlag('0', 3);
 		}
     }
-    
-	public byte[] getIC() {return IC;}
+    public void AN(byte[] cmd){
+		byte[] addr = new byte[]{Converter.HexCharToByte((char)cmd[2]), Converter.HexCharToByte((char)cmd[3])};
+		int realAddr = paging.convertRMAddress(realMemory, PTR, addr);
+		if (realAddr > -1){
+        	byte[] word = realMemory.getWord(realAddr);	
+	    	String regValue = Converter.wordToString(R);
+			char[] regArray = regValue.toCharArray();
+			char[] wordArray = Converter.wordToString(word).toCharArray();
+			regValue = "";
+			for (int i = 0;i<regArray.length;i++){
+				if ((regArray[i] == '1') && (wordArray[i] == '1')){
+					regValue = regValue + '1';
+				} else {
+					regValue = regValue + '0';
+				}
+			}
+			R = Converter.stringToWord(regValue);
+		} else {
+			PI = 2;
+		}
+    }   
+    public void OR(byte[] cmd){
+		byte[] addr = new byte[]{Converter.HexCharToByte((char)cmd[2]), Converter.HexCharToByte((char)cmd[3])};
+		int realAddr = paging.convertRMAddress(realMemory, PTR, addr);
+		if (realAddr > -1){
+        	byte[] word = realMemory.getWord(realAddr);	
+	    	String regValue = Converter.wordToString(R);
+			char[] regArray = regValue.toCharArray();
+			char[] wordArray = Converter.wordToString(word).toCharArray();
+			regValue = "";
+			System.out.println(regValue+" OR "+Converter.wordToString(word));
+			for (int i = 0;i<regArray.length;i++){
+				if ((regArray[i] == '1') || (wordArray[i] == '1')){
+					regValue = regValue + '1';
+				} else {
+					regValue = regValue + '0';
+				}
+			}
+			R = Converter.stringToWord(regValue);
+		} else {
+			PI = 2;
+		}
+    }  
+	public void LP(byte[] cmd){
+		long count = Converter.byteArrayToInt(P);
+		if (count > 0){
+			count--;
+			JP(cmd);
+			String pString = Converter.longToBinaryWord(count);
+			P = Converter.stringToWord(pString);
+		}
+	}
+	public void MR (byte[] cmd){
+		 byte[] addr = new byte[]{Converter.HexCharToByte((char)cmd[2]), Converter.HexCharToByte((char)cmd[3])}; 
+		 int realAddr = paging.convertRMAddress(realMemory, PTR, addr);
+		 if (realAddr > -1){
+			 realMemory.setWord(realAddr, R);
+		 }else{
+			 PI = 2;
+		 }
+	}
+	public void RM (byte[] cmd){
+		 byte[] addr = new byte[]{Converter.HexCharToByte((char)cmd[2]), Converter.HexCharToByte((char)cmd[3])}; 
+		 int realAddr = paging.convertRMAddress(realMemory, PTR, addr);
+		 if (realAddr > -1){
+			 setR(realMemory.getWord(realAddr));
+		 } else{
+			 PI = 2;
+		 }
+	}
+	public void MVRP(){
+		setP(R);
+	}
+	public void MVPR(){		
+		setR(P);
+	}	
+	public void AD(byte[] cmd){
+		byte[] addr = new byte[]{Converter.HexCharToByte((char)cmd[2]), Converter.HexCharToByte((char)cmd[3])}; 
+		int realAddr = paging.convertRMAddress(realMemory, PTR, addr);
+		if (realAddr > -1){	
+			byte[] word = realMemory.getWord(realAddr);
+			long wordInt = Converter.byteArrayToInt(word);
+	    	long RInt = Converter.byteArrayToInt(R);
+	    	long sum = wordInt+RInt;
+	    	if (Converter.longToBinaryWord(sum).length() > 32){
+	    		changeFlag('1', 3); //Nustatome carryFlag
+	    		long max = Converter.byteArrayToInt(new byte[]{(byte)255, (byte)255, (byte)255, (byte)255});
+	    		sum = (sum - max) - 1;
+	    	} else {
+	    		changeFlag('0', 3);
+	    	}
+	    	R = Converter.stringToWord(Converter.longToBinaryWord(sum));
+	    	System.out.println(wordInt+ " + " + RInt + " " + Converter.longToBinaryWord(RInt)+ " " + "=" + (RInt+wordInt) + " OR " + Converter.longToBinaryWord(sum));
+		}else {
+			PI = 2;
+		}
+	}
+	public void SB(byte[] cmd){
+		byte[] addr = new byte[]{Converter.HexCharToByte((char)cmd[2]), Converter.HexCharToByte((char)cmd[3])}; 
+		int realAddr = paging.convertRMAddress(realMemory, PTR, addr);
+		if (realAddr > -1){	
+			byte[] word = realMemory.getWord(realAddr);
+			long wordInt = Converter.byteArrayToInt(word);
+	    	long RInt = Converter.byteArrayToInt(R);
+	    	long sub = 0;
+	    	if (RInt < wordInt){
+	    		changeFlag('1', 3); //Nustatome carryFlag
+	    		long max = Converter.byteArrayToInt(new byte[]{(byte)255, (byte)255, (byte)255, (byte)255});
+	    		sub = wordInt - RInt;
+	    		sub = (max - sub) + 1;
+	    	} else {
+	    		changeFlag('0', 3);
+	    		sub = RInt - wordInt;
+	    	}
+	    	R = Converter.stringToWord(Converter.longToBinaryWord(sub));
+		}else {
+			PI = 2;
+		}
+	}
+	public void DV(byte[] cmd){
+		byte[] addr = new byte[]{Converter.HexCharToByte((char)cmd[2]), Converter.HexCharToByte((char)cmd[3])}; 
+		int realAddr = paging.convertRMAddress(realMemory, PTR, addr);
+		if (realAddr > -1){	
+			byte[] word = realMemory.getWord(realAddr);
+			long wordInt = Converter.byteArrayToInt(word);
+	    	long RInt = Converter.byteArrayToInt(R);
+	    	if (wordInt == 0){
+	    		changeFlag('1', 4); //Nustatome zeroFlag
+	    	} else {
+	    		changeFlag('0', 4);
+	    		long div = RInt/wordInt;
+	    		long mod = RInt%wordInt;
+	    		R = Converter.stringToWord(Converter.longToBinaryWord(div));
+	    		P = Converter.stringToWord(Converter.longToBinaryWord(mod));
+	    	}
+		}else {
+			PI = 2;
+		}
+	}
+	public void LK(byte[] word){
+		SI = 3;
+		int num = Converter.byteToInt(Converter.HexCharToByte((char)word[2]));
+		if (Converter.isHex((char)word[2])){
+			this.changeSM('1', num);
+		} else{
+			PI = 2;
+		}
+	}
+	public void NK(byte[] word){
+		SI = 4;
+		int num = Converter.byteToInt(Converter.HexCharToByte((char)word[2]));
+		if (Converter.isHex((char)word[2])){
+			this.changeSM('0', num);
+		} else{
+			PI = 2;
+		}
+	}
+	
+	
+    public byte[] getIC() {return IC;}
 	public void setIC(byte[] IC) {this.IC = IC;}
 	public byte getSF() {return SF;}
 	public void setSF(byte SF) {this.SF = SF;}
@@ -427,6 +631,19 @@ public class RealMachine {
 				bits = bits + tmp[i];
 			}
 			SF = (byte) new BigInteger(bits, 2).intValue();
+		}
+	}
+	public void changeSM(char value, int number){
+		if((number <= 15) && (number >=0)){
+			String bits = Converter.wordToString(SM);
+			char[] tmp = bits.toCharArray();
+			tmp[number] = value;
+			bits = "0000000000000000";
+			for (int i = 0;i<tmp.length;i++){
+				bits = bits + tmp[i];
+			}
+			byte[] word = Converter.stringToWord(bits);
+			SM = new byte[]{word[2], word[3]};
 		}
 	}
 	

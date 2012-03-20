@@ -58,9 +58,13 @@ public class Converter {
 		}
 		return Long.parseLong(value, 2);
 	}
-	public static String longToBinaryString(long arg){
+	public static String longToBinaryWord(long arg){
 		String tmp = "";
-		return tmp; /////////NEPADARYTA
+		tmp = Long.toBinaryString(arg);
+		for (int j=tmp.length();j<32;j++){
+			tmp = "0"+tmp;
+		}
+		return tmp;
 	}
 	public static byte[] stringToWord(String value){
 		if (value.length() >= 4*8){
@@ -74,5 +78,17 @@ public class Converter {
 		} else {
 			return null;
 		}
+	}
+	public static String wordToString(byte[] word){
+		String tmp = "";
+		String value = "";
+		for(int i = 0; i < word.length; i++){
+			tmp = Integer.toBinaryString(Converter.byteToInt(word[i]));//PERKELT Y KONVERTERI WORDTOSTRINGss
+			for (int j=tmp.length();j<8;j++){
+				tmp = "0"+tmp;
+			}
+			value = value + tmp;
+		}
+		return value;
 	}
 }
