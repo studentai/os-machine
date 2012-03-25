@@ -186,14 +186,16 @@ public class RealMachine {
     		RM(word);
     	}
     	//Atmintis ir kanalai
-    	if ((word[0]==71)&&(word[1]==44)){
+    	if ((word[0]==71)&&(word[1]==68)){
     		//GD
     		System.out.println("GD");
+    		gui.readString(word);
     		isLeggit = true;
     	}
     	if ((word[0]==80)&&(word[1]==68)){
     		//PD
     		System.out.println("PD");
+    		PD(word);
     		isLeggit = true;
     	}
     	if ((word[0]==76)&&(word[1]==82)){
@@ -225,6 +227,8 @@ public class RealMachine {
     			MODE = 1;	
     	        Timer timer = new Timer();
     	        timer.schedule(new RemindTask(), 2000);
+    	} else {
+    		gui.enablePlay();
     	}
     }
     class RemindTask extends TimerTask {
@@ -246,7 +250,7 @@ public class RealMachine {
     	byte[] addr = new byte[]{Converter.HexCharToByte((char)cmd[2]), 0};
     	int realAddr = paging.convertRMAddress(realMemory, PTR, addr);
     	if (realAddr > -1){
-    		realMemory.setBlock(realAddr, block);
+    		realMemory.setBlock(realAddr/16, block);
     	}else{
     		PI = 2;
     	}
@@ -255,7 +259,7 @@ public class RealMachine {
     	byte[] addr = new byte[]{Converter.HexCharToByte((char)cmd[2]), 0};
     	int realAddr = paging.convertRMAddress(realMemory, PTR, addr);
     	if (realAddr > -1){
-    		gui.printString(realMemory.getBlock(realAddr));
+    		gui.printString(realMemory.getBlock(realAddr/16));
     	}else{
     		PI = 2;
     	}	

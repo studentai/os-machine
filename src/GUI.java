@@ -124,7 +124,7 @@ public class GUI extends JFrame {
 	private JButton jButton5;
 	private JPanel jPanel5;
 	
-	private Byte[] cmd;
+	private byte[] cmd;
 
 	GUI() {
 		initComponents();
@@ -287,7 +287,7 @@ public class GUI extends JFrame {
 		return jPanel5;
 	}
 
-	public void readString(Byte[] cmd){
+	public void readString(byte[] cmd){
 		this.cmd = cmd;
 		if(frame3 == null){
 			frame3 = new JFrame("Skaitymas");
@@ -300,7 +300,7 @@ public class GUI extends JFrame {
 			frame3.setVisible(true);
 		}
 	}
-	public void printString(Byte[][] block){
+	public void printString(byte[][] block){
 		String value = "";
 		for(int i=0; i < block.length; i++){
 			value = value + Converter.ByteToChar(block[i][0])
@@ -327,7 +327,7 @@ public class GUI extends JFrame {
 	protected void jButton5ActionActionPerformed(ActionEvent event) {
 		frame3.setVisible(false);
 		String dataLine = String.valueOf(jTextField27.getText());
-		Byte[][] block = new Byte[16][4];
+		byte[][] block = new byte[16][4];
 		int i = 0;
 		int j = 0;
 		for(i = 0; i < 16; i++){
@@ -346,8 +346,7 @@ public class GUI extends JFrame {
 				j++;
 			}
 		}
-		printString(block);
-		//realMachine.GD(this.cmd, block);
+		realMachine.GD(cmd, block);
 	}
 
 	private JTextField getJTextField27() {
