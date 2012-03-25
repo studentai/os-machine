@@ -46,8 +46,8 @@ public class Main {
 		//GUI----------------------------------------
 	 	GUI.values = setRealMemoryValues(1024);
 		GUI.values4 = setRealMemoryValues(256);
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
+		//SwingUtilities.invokeLater(new Runnable() {
+		//	public void run() {
 				gui = new GUI();
 			    realMachine = new RealMachine(gui);
 				gui.setDefaultCloseOperation(GUI.EXIT_ON_CLOSE);
@@ -61,8 +61,8 @@ public class Main {
 				//gui.updateRealMemory();
 				gui.updateFlags();
 				gui.disablePlay();
-			}
-		});
+		//	}
+		//});
 				//GUI---------------------------------------
 		//converter update 
 		byte[] array = new byte[1];

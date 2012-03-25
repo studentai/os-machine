@@ -1,5 +1,7 @@
 import java.math.BigInteger;
 import java.util.LinkedList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class RealMachine {
@@ -10,7 +12,7 @@ public class RealMachine {
 	
 	private static boolean[] isMemoryUsed;
 	
-	private static GUI gui;
+	private GUI gui;
 
     private byte[] IC;     	 										// komandu skaitiklio registras
     private byte SF; 												// status flag (!3 baitas Loginis C registras!)
@@ -59,6 +61,7 @@ public class RealMachine {
         isMemoryUsed = new boolean[64];
     }
     public void executeNextCommand(){
+    	gui.disablePlay();
     	byte[] word = realMemory.getWord(paging.convertRMAddress(realMemory, PTR, IC));
     	if (IC[1] >= 15){
     		IC[0]++;
@@ -219,17 +222,43 @@ public class RealMachine {
     	}
     	TI = (byte) (Converter.byteToInt(TI) - 1);
     	if ((PI != 0) || (SI != 0) || (Converter.byteToInt(TI) == 0)){
-    		try{
-    			gui.updateGUI();
-    			//Thread.sleep(2000);
-    			PI = 0;
-    			SI = 0;
-    			if (Converter.byteToInt(TI) == 0){
-    				TI = (byte) 255;
-    			}
-    		} catch (Exception e){	
-    		}
+    			MODE = 1;	
+    	        Timer timer = new Timer();
+    	        timer.schedule(new RemindTask(), 2000);
     	}
+    }
+    class RemindTask extends TimerTask {
+        public void run() {
+        	endCommand();//Terminate the timer thread
+        }
+    }
+    public void endCommand(){
+    	MODE = 0;
+		PI = 0;
+		SI = 0;
+		if (Converter.byteToInt(TI) == 0){
+			TI = (byte) 255;
+		}
+		gui.updateGUI();
+		gui.enablePlay();
+    }
+    public void GD(byte[]cmd, byte[][] block){
+    	byte[] addr = new byte[]{Converter.HexCharToByte((char)cmd[2]), 0};
+    	int realAddr = paging.convertRMAddress(realMemory, PTR, addr);
+    	if (realAddr > -1){
+    		realMemory.setBlock(realAddr, block);
+    	}else{
+    		PI = 2;
+    	}
+    }
+    public void PD(byte[]cmd){
+    	byte[] addr = new byte[]{Converter.HexCharToByte((char)cmd[2]), 0};
+    	int realAddr = paging.convertRMAddress(realMemory, PTR, addr);
+    	if (realAddr > -1){
+    		gui.printString(realMemory.getBlock(realAddr));
+    	}else{
+    		PI = 2;
+    	}	
     }
     public void JP(byte[] cmd){
     	byte[] addr = new byte[]{Converter.HexCharToByte((char)cmd[2]), Converter.HexCharToByte((char)cmd[3])};
