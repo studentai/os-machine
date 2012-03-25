@@ -13,7 +13,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -29,7 +28,6 @@ import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 import org.dyno.visual.swing.layouts.Trailing;
 
-//bbzn
 //VS4E -- DO NOT REMOVE THIS LINE!
 public class GUI extends JFrame {
 
@@ -55,6 +53,7 @@ public class GUI extends JFrame {
 	private JFrame framek;
 	private JFrame frameks;
 	private JFrame frame2;
+	private JFrame frame3;
 	private JButton okButton;
 
 	private RealMachine realMachine;
@@ -121,32 +120,13 @@ public class GUI extends JFrame {
 	private JTable chlTable;
 	private JScrollPane jScrollPane2;
 	private JLabel jLabel17;
-	private JRadioButton jRadioButton0;
-	private JRadioButton jRadioButton1;
-	private JLabel jLabel18;
-	private JPanel jPanel4;
 	private JTextField jTextField27;
 	private JButton jButton5;
 	private JPanel jPanel5;
-	private JTextField jTextField28;
-	private JTextField jTextField29;
-	private JTextField jTextField30;
-	private JTextField jTextField31;
-	private JTextField jTextField32;
-	private JTextField jTextField33;
-	private JTextField jTextField34;
-	private JTextField jTextField35;
-	private JTextField jTextField36;
-	private JTextField jTextField37;
-	private JTextField jTextField38;
-	private JTextField jTextField39;
-	private JTextField jTextField40;
-	private JTextField jTextField41;
-	private JTextField jTextField42;
-	private JTextField jTextField43;
-	private JPanel jPanel6;
+	
+	private Byte[] cmd;
 
-	public GUI() {
+	GUI() {
 		initComponents();
 	}
 
@@ -297,158 +277,6 @@ public class GUI extends JFrame {
 		setSize(775, 559);
 	}
 
-	private JPanel getJPanel6() {
-		if (jPanel6 == null) {
-			jPanel6 = new JPanel();
-			jPanel6.setLayout(new GroupLayout());
-			jPanel6.add(getJTextField28(), new Constraints(new Leading(12, 12, 12), new Leading(9, 10, 10)));
-			jPanel6.add(getJTextField29(), new Constraints(new Leading(91, 10, 10), new Leading(9, 12, 12)));
-			jPanel6.add(getJTextField30(), new Constraints(new Leading(12, 12, 12), new Leading(33, 10, 10)));
-			jPanel6.add(getJTextField31(), new Constraints(new Leading(91, 12, 12), new Leading(35, 12, 12)));
-			jPanel6.add(getJTextField32(), new Constraints(new Leading(12, 12, 12), new Leading(59, 12, 12)));
-			jPanel6.add(getJTextField33(), new Constraints(new Leading(91, 12, 12), new Leading(59, 12, 12)));
-			jPanel6.add(getJTextField34(), new Constraints(new Leading(12, 12, 12), new Leading(85, 12, 12)));
-			jPanel6.add(getJTextField35(), new Constraints(new Leading(91, 12, 12), new Leading(85, 12, 12)));
-			jPanel6.add(getJTextField36(), new Constraints(new Leading(12, 12, 12), new Leading(111, 12, 12)));
-			jPanel6.add(getJTextField37(), new Constraints(new Leading(91, 12, 12), new Leading(111, 12, 12)));
-			jPanel6.add(getJTextField38(), new Constraints(new Leading(12, 12, 12), new Leading(137, 12, 12)));
-			jPanel6.add(getJTextField39(), new Constraints(new Leading(91, 12, 12), new Leading(137, 12, 12)));
-			jPanel6.add(getJTextField40(), new Constraints(new Leading(12, 12, 12), new Leading(163, 12, 12)));
-			jPanel6.add(getJTextField41(), new Constraints(new Leading(91, 12, 12), new Leading(163, 12, 12)));
-			jPanel6.add(getJTextField42(), new Constraints(new Leading(12, 12, 12), new Leading(189, 12, 12)));
-			jPanel6.add(getJTextField43(), new Constraints(new Leading(91, 12, 12), new Leading(189, 12, 12)));
-		}
-		return jPanel6;
-	}
-
-	private JTextField getJTextField43() {
-		if (jTextField43 == null) {
-			jTextField43 = new JTextField();
-			jTextField43.setText("jTextField43");
-		}
-		return jTextField43;
-	}
-
-	private JTextField getJTextField42() {
-		if (jTextField42 == null) {
-			jTextField42 = new JTextField();
-			jTextField42.setText("jTextField42");
-		}
-		return jTextField42;
-	}
-
-	private JTextField getJTextField41() {
-		if (jTextField41 == null) {
-			jTextField41 = new JTextField();
-			jTextField41.setText("jTextField41");
-		}
-		return jTextField41;
-	}
-
-	private JTextField getJTextField40() {
-		if (jTextField40 == null) {
-			jTextField40 = new JTextField();
-			jTextField40.setText("jTextField40");
-		}
-		return jTextField40;
-	}
-
-	private JTextField getJTextField39() {
-		if (jTextField39 == null) {
-			jTextField39 = new JTextField();
-			jTextField39.setText("jTextField39");
-		}
-		return jTextField39;
-	}
-
-	private JTextField getJTextField38() {
-		if (jTextField38 == null) {
-			jTextField38 = new JTextField();
-			jTextField38.setText("jTextField38");
-		}
-		return jTextField38;
-	}
-
-	private JTextField getJTextField37() {
-		if (jTextField37 == null) {
-			jTextField37 = new JTextField();
-			jTextField37.setText("jTextField37");
-		}
-		return jTextField37;
-	}
-
-	private JTextField getJTextField36() {
-		if (jTextField36 == null) {
-			jTextField36 = new JTextField();
-			jTextField36.setText("jTextField36");
-		}
-		return jTextField36;
-	}
-
-	private JTextField getJTextField35() {
-		if (jTextField35 == null) {
-			jTextField35 = new JTextField();
-			jTextField35.setText("jTextField35");
-		}
-		return jTextField35;
-	}
-
-	private JTextField getJTextField34() {
-		if (jTextField34 == null) {
-			jTextField34 = new JTextField();
-			jTextField34.setText("jTextField34");
-		}
-		return jTextField34;
-	}
-
-	private JTextField getJTextField33() {
-		if (jTextField33 == null) {
-			jTextField33 = new JTextField();
-			jTextField33.setText("jTextField33");
-		}
-		return jTextField33;
-	}
-
-	private JTextField getJTextField32() {
-		if (jTextField32 == null) {
-			jTextField32 = new JTextField();
-			jTextField32.setText("jTextField32");
-		}
-		return jTextField32;
-	}
-
-	private JTextField getJTextField31() {
-		if (jTextField31 == null) {
-			jTextField31 = new JTextField();
-			jTextField31.setText("jTextField31");
-		}
-		return jTextField31;
-	}
-
-	private JTextField getJTextField30() {
-		if (jTextField30 == null) {
-			jTextField30 = new JTextField();
-			jTextField30.setText("jTextField30");
-		}
-		return jTextField30;
-	}
-
-	private JTextField getJTextField29() {
-		if (jTextField29 == null) {
-			jTextField29 = new JTextField();
-			jTextField29.setText("jTextField29");
-		}
-		return jTextField29;
-	}
-
-	private JTextField getJTextField28() {
-		if (jTextField28 == null) {
-			jTextField28 = new JTextField();
-			jTextField28.setText("jTextField28");
-		}
-		return jTextField28;
-	}
-
 	private JPanel getJPanel5() {
 		if (jPanel5 == null) {
 			jPanel5 = new JPanel();
@@ -459,12 +287,67 @@ public class GUI extends JFrame {
 		return jPanel5;
 	}
 
+	public void readString(Byte[] cmd){
+		this.cmd = cmd;
+		if(frame3 == null){
+			frame3 = new JFrame("Skaitymas");
+			frame3.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+			frame3.getContentPane().add(getJPanel5(), BorderLayout.CENTER);
+			frame3.pack();
+			frame3.setLocation(getLocation());
+			frame3.setVisible(true);
+		}else{ 
+			frame3.setVisible(true);
+		}
+	}
+	public void printString(Byte[][] block){
+		String value = "";
+		for(int i=0; i < block.length; i++){
+			value = value + Converter.ByteToChar(block[i][0])
+						  + Converter.ByteToChar(block[i][1])
+						  + Converter.ByteToChar(block[i][2])
+						  + Converter.ByteToChar(block[i][3]);
+		}
+		jTextArea0.setText(value);
+	}
 	private JButton getJButton5() {
 		if (jButton5 == null) {
 			jButton5 = new JButton();
+			jButton5.addActionListener(new ActionListener() {
+				
+				public void actionPerformed(ActionEvent event) {
+					jButton5ActionActionPerformed(event);
+				}
+			});
 			jButton5.setText("Gerai");
 		}
 		return jButton5;
+	}
+
+	protected void jButton5ActionActionPerformed(ActionEvent event) {
+		frame3.setVisible(false);
+		String dataLine = String.valueOf(jTextField27.getText());
+		Byte[][] block = new Byte[16][4];
+		int i = 0;
+		int j = 0;
+		for(i = 0; i < 16; i++){
+			block[i][0] = 0;
+			block[i][1] = 0;
+			block[i][2] = 0;
+			block[i][3] = 0;
+		}
+		i = 0;
+		while (((i*4 + j) < dataLine.length()) && (i<16)) {
+			block[i][j] = (byte) dataLine.charAt(i*4 + j);
+			if (j==3){
+				j=0;
+				i++;
+			} else {
+				j++;
+			}
+		}
+		printString(block);
+		//realMachine.GD(this.cmd, block);
 	}
 
 	private JTextField getJTextField27() {
@@ -473,43 +356,6 @@ public class GUI extends JFrame {
 			jTextField27.setText("jTextField27");
 		}
 		return jTextField27;
-	}
-
-	private JPanel getJPanel4() {
-		if (jPanel4 == null) {
-			jPanel4 = new JPanel();
-			jPanel4.setLayout(new GroupLayout());
-			jPanel4.add(getJRadioButton0(), new Constraints(new Leading(12, 12, 12), new Leading(28, 10, 10)));
-			jPanel4.add(getJRadioButton1(), new Constraints(new Leading(12, 12, 12), new Leading(58, 12, 12)));
-			jPanel4.add(getJLabel18(), new Constraints(new Leading(47, 10, 10), new Leading(6, 12, 12)));
-		}
-		return jPanel4;
-	}
-
-	private JLabel getJLabel18() {
-		if (jLabel18 == null) {
-			jLabel18 = new JLabel();
-			jLabel18.setText("Pasirinkite");
-		}
-		return jLabel18;
-	}
-
-	private JRadioButton getJRadioButton1() {
-		if (jRadioButton1 == null) {
-			jRadioButton1 = new JRadioButton();
-			jRadioButton1.setSelected(true);
-			jRadioButton1.setText("Žodžiai");
-		}
-		return jRadioButton1;
-	}
-
-	private JRadioButton getJRadioButton0() {
-		if (jRadioButton0 == null) {
-			jRadioButton0 = new JRadioButton();
-			jRadioButton0.setSelected(true);
-			jRadioButton0.setText("Eilutė");
-		}
-		return jRadioButton0;
 	}
 
 	private JLabel getJLabel17() {
