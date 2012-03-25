@@ -130,37 +130,6 @@ public class GUI extends JFrame {
 		return realMachine;
 	}
 
-	public void updateRegistersValues(){
-
-		jTextField1.setText(String.valueOf(Converter.byteToInt(realMachine.getPTR()[0])));
-		jTextField7.setText(String.valueOf(Converter.byteToInt(realMachine.getPTR()[1])));
-		jTextField8.setText(String.valueOf(Converter.byteToInt(realMachine.getPTR()[2])));
-		jTextField9.setText(String.valueOf(Converter.byteToInt(realMachine.getPTR()[3])));
-		
-		jTextField11.setText(String.valueOf(Converter.byteToInt(realMachine.getR()[0])));
-		jTextField12.setText(String.valueOf(Converter.byteToInt(realMachine.getR()[1])));
-		jTextField13.setText(String.valueOf(Converter.byteToInt(realMachine.getR()[2])));
-		jTextField14.setText(String.valueOf(Converter.byteToInt(realMachine.getR()[3])));
-		
-		jTextField15.setText(String.valueOf(Converter.byteToInt(realMachine.getP()[0])));
-		jTextField16.setText(String.valueOf(Converter.byteToInt(realMachine.getP()[1])));
-		jTextField17.setText(String.valueOf(Converter.byteToInt(realMachine.getP()[2])));
-		jTextField18.setText(String.valueOf(Converter.byteToInt(realMachine.getP()[3])));
-		
-		jTextField19.setText(String.valueOf(Converter.byteToInt(realMachine.getIC()[0])));
-		jTextField20.setText(String.valueOf(Converter.byteToInt(realMachine.getIC()[1])));
-		
-		jTextField21.setText(String.valueOf(Converter.byteToInt(realMachine.getSM()[0])));
-		jTextField22.setText(String.valueOf(Converter.byteToInt(realMachine.getSM()[1])));
-		
-		jTextField23.setText(String.valueOf(Converter.byteToInt(realMachine.getSF())));
-		jTextField24.setText(String.valueOf(Converter.byteToInt(realMachine.getPI())));
-		
-		jTextField25.setText(String.valueOf(Converter.byteToInt(realMachine.getSI())));
-		jTextField26.setText(String.valueOf(Converter.byteToInt(realMachine.getTI())));
-		jTextField10.setText(String.valueOf(Converter.byteToInt(realMachine.getChnl())));
-	}
-
 	public void disablePlay(){
 		playButton.setEnabled(false);
 		stepButton.setEnabled(false);
@@ -173,11 +142,45 @@ public class GUI extends JFrame {
 		changeRegistersButton.setEnabled(true);
 		changeMemoryButton.setEnabled(true);
 	}
+
+
 	public void updateGUI(){
-		updateRealMemory();
 		updateRegistersValues();
+		updateRealMemory();
 		updateVirtualMemory();
 	}
+	
+	public void updateRegistersValues(){
+
+		jTextField1.setText(String.valueOf(realMachine.getPTR()[0]));
+		jTextField7.setText(String.valueOf(realMachine.getPTR()[1]));
+		jTextField8.setText(String.valueOf(realMachine.getPTR()[2]));
+		jTextField9.setText(String.valueOf(realMachine.getPTR()[3]));
+		
+		jTextField11.setText(String.valueOf(realMachine.getR()[0]));
+		jTextField12.setText(String.valueOf(realMachine.getR()[1]));
+		jTextField13.setText(String.valueOf(realMachine.getR()[2]));
+		jTextField14.setText(String.valueOf(realMachine.getR()[3]));
+		
+		jTextField15.setText(String.valueOf(realMachine.getP()[0]));
+		jTextField16.setText(String.valueOf(realMachine.getP()[1]));
+		jTextField17.setText(String.valueOf(realMachine.getP()[2]));
+		jTextField18.setText(String.valueOf(realMachine.getP()[3]));
+		
+		jTextField19.setText(String.valueOf(realMachine.getIC()[0]));
+		jTextField20.setText(String.valueOf(realMachine.getIC()[1]));
+		
+		jTextField21.setText(String.valueOf(realMachine.getSM()[0]));
+		jTextField22.setText(String.valueOf(realMachine.getSM()[1]));
+		
+		jTextField23.setText(String.valueOf(realMachine.getSF()));
+		jTextField24.setText(String.valueOf(realMachine.getPI()));
+		
+		jTextField25.setText(String.valueOf(realMachine.getSI()));
+		jTextField26.setText(String.valueOf(realMachine.getTI()));
+		jTextField10.setText(String.valueOf(realMachine.getChnl()));
+	}
+
 	public void updateRealMemory(){
 		byte[][] memory = realMachine.getRealMemory().getMemory();
 		for(int i = 0; i<memory.length; i++){
