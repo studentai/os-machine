@@ -61,6 +61,7 @@ public class Main {
 				//gui.updateRealMemory();
 				gui.updateFlags();
 				gui.disablePlay();
+				gui.readString(null);
 			}
 		});
 				//GUI---------------------------------------
