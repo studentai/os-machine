@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -117,6 +118,33 @@ public class GUI extends JFrame {
 	private JTextField jTextField10;
 	private JLabel jLabel15;
 	private JLabel jLabel16;
+	private JTable chlTable;
+	private JScrollPane jScrollPane2;
+	private JLabel jLabel17;
+	private JRadioButton jRadioButton0;
+	private JRadioButton jRadioButton1;
+	private JLabel jLabel18;
+	private JPanel jPanel4;
+	private JTextField jTextField27;
+	private JButton jButton5;
+	private JPanel jPanel5;
+	private JTextField jTextField28;
+	private JTextField jTextField29;
+	private JTextField jTextField30;
+	private JTextField jTextField31;
+	private JTextField jTextField32;
+	private JTextField jTextField33;
+	private JTextField jTextField34;
+	private JTextField jTextField35;
+	private JTextField jTextField36;
+	private JTextField jTextField37;
+	private JTextField jTextField38;
+	private JTextField jTextField39;
+	private JTextField jTextField40;
+	private JTextField jTextField41;
+	private JTextField jTextField42;
+	private JTextField jTextField43;
+	private JPanel jPanel6;
 
 	public GUI() {
 		initComponents();
@@ -130,55 +158,38 @@ public class GUI extends JFrame {
 		return realMachine;
 	}
 
-	public void disablePlay(){
-		playButton.setEnabled(false);
-		stepButton.setEnabled(false);
-		changeRegistersButton.setEnabled(false);
-		changeMemoryButton.setEnabled(false);
-	}
-	public void enablePlay(){
-		playButton.setEnabled(true);
-		stepButton.setEnabled(true);
-		changeRegistersButton.setEnabled(true);
-		changeMemoryButton.setEnabled(true);
-	}
-
-
-	public void updateGUI(){
-		updateRegistersValues();
-		updateRealMemory();
-		updateVirtualMemory();
-	}
-	
 	public void updateRegistersValues(){
 
-		jTextField1.setText(String.valueOf(Converter.byteToInt(realMachine.getPTR()[0])));
-		jTextField7.setText(String.valueOf(Converter.byteToInt(realMachine.getPTR()[1])));
-		jTextField8.setText(String.valueOf(Converter.byteToInt(realMachine.getPTR()[2])));
-		jTextField9.setText(String.valueOf(Converter.byteToInt(realMachine.getPTR()[3])));
+		jTextField1.setText(String.valueOf(realMachine.getPTR()[0]));
+		jTextField7.setText(String.valueOf(realMachine.getPTR()[1]));
+		jTextField8.setText(String.valueOf(realMachine.getPTR()[2]));
+		jTextField9.setText(String.valueOf(realMachine.getPTR()[3]));
 		
-		jTextField11.setText(String.valueOf(Converter.byteToInt(realMachine.getR()[0])));
-		jTextField12.setText(String.valueOf(Converter.byteToInt(realMachine.getR()[1])));
-		jTextField13.setText(String.valueOf(Converter.byteToInt(realMachine.getR()[2])));
-		jTextField14.setText(String.valueOf(Converter.byteToInt(realMachine.getR()[3])));
+		jTextField11.setText(String.valueOf(realMachine.getR()[0]));
+		jTextField12.setText(String.valueOf(realMachine.getR()[1]));
+		jTextField13.setText(String.valueOf(realMachine.getR()[2]));
+		jTextField14.setText(String.valueOf(realMachine.getR()[3]));
 		
-		jTextField15.setText(String.valueOf(Converter.byteToInt(realMachine.getP()[0])));
-		jTextField16.setText(String.valueOf(Converter.byteToInt(realMachine.getP()[1])));
-		jTextField17.setText(String.valueOf(Converter.byteToInt(realMachine.getP()[2])));
-		jTextField18.setText(String.valueOf(Converter.byteToInt(realMachine.getP()[3])));
+		jTextField15.setText(String.valueOf(realMachine.getP()[0]));
+		jTextField16.setText(String.valueOf(realMachine.getP()[1]));
+		jTextField17.setText(String.valueOf(realMachine.getP()[2]));
+		jTextField18.setText(String.valueOf(realMachine.getP()[3]));
 		
-		jTextField19.setText(String.valueOf(Converter.byteToInt(realMachine.getIC()[0])));
-		jTextField20.setText(String.valueOf(Converter.byteToInt(realMachine.getIC()[1])));
+		jTextField19.setText(Integer.toHexString(Converter.byteToInt(realMachine.getIC()[0])).toUpperCase());
+		jTextField20.setText(Integer.toHexString(Converter.byteToInt(realMachine.getIC()[1])).toUpperCase());
 		
-		jTextField21.setText(String.valueOf(Converter.byteToInt(realMachine.getSM()[0])));
-		jTextField22.setText(String.valueOf(Converter.byteToInt(realMachine.getSM()[1])));
+		jTextField21.setText(String.valueOf(realMachine.getSM()[0]));
+		jTextField22.setText(String.valueOf(realMachine.getSM()[1]));
+		updateSM();
 		
-		jTextField23.setText(String.valueOf(Converter.byteToInt(realMachine.getSF())));
-		jTextField24.setText(String.valueOf(Converter.byteToInt(realMachine.getPI())));
+		jTextField23.setText(String.valueOf(realMachine.getSF()));
+		updateFlags();
+		jTextField24.setText(String.valueOf(realMachine.getPI()));
 		
-		jTextField25.setText(String.valueOf(Converter.byteToInt(realMachine.getSI())));
-		jTextField26.setText(String.valueOf(Converter.byteToInt(realMachine.getTI())));
-		jTextField10.setText(String.valueOf(Converter.byteToInt(realMachine.getChnl())));
+		jTextField25.setText(String.valueOf(realMachine.getSI()));
+		jTextField26.setText(String.valueOf(realMachine.getTI()));
+		jTextField10.setText(String.valueOf(realMachine.getChnl()));
+		updateCNL();
 	}
 
 	public void updateRealMemory(){
@@ -206,17 +217,51 @@ public class GUI extends JFrame {
 		}
 
 	}
+	
+	public void updateCNL(){
+		byte chl = realMachine.getChnl();
+		String firstByte = Integer.toBinaryString(Converter.byteToInt(chl));
+	
+		for (int j=firstByte.length();j<8;j++){
+			firstByte = "0"+firstByte;
+		}
+
+		char[] charsArray = firstByte.toCharArray();
+		for(int i = 0; i<firstByte.length(); i++){
+			chlTable.setValueAt(charsArray[i], i, 1);
+		}
+	}
+	
+	public void updateSM(){
+		byte[] sm = realMachine.getSM();
+		String firstByte = Integer.toBinaryString(Converter.byteToInt(sm[0]));
+		String secondByte = Integer.toBinaryString(Converter.byteToInt(sm[1]));
+	
+	
+		for (int j=firstByte.length();j<8;j++){
+			firstByte = "0"+firstByte;
+		}
+		
+		for (int j=secondByte.length();j<8;j++){
+			secondByte = "0"+secondByte;
+		}
+
+		char[] charsArray = firstByte.toCharArray();
+		char[] charsArray2 = secondByte.toCharArray();
+		
+		for(int i = 0; i<firstByte.length(); i++){
+			semaforTable.setValueAt(charsArray[i], i, 1);
+			semaforTable.setValueAt(charsArray2[i], i+8, 1);
+		}
+	}
 
 	private void initComponents() {
 		setLayout(new GroupLayout());
 		add(getJButton2(), new Constraints(new Leading(8, 116, 12, 12), new Leading(77, 10, 10)));
 		add(getJButton1(), new Constraints(new Leading(8, 116, 12, 12), new Leading(43, 10, 10)));
 		add(getJButton0(), new Constraints(new Leading(8, 116, 12, 12), new Leading(8, 10, 10)));
-		add(getJLabel0(), new Constraints(new Leading(566, 12, 12), new Leading(255, 12, 12)));
 		add(getRegistersPanel(), new Constraints(new Leading(566, 164, 12, 12), new Leading(4, 252, 12, 12)));
 		add(getJScrollPane3(), new Constraints(new Leading(484, 58, 12, 12), new Leading(31, 150, 40, 37)));
-		add(getJLabel16(), new Constraints(new Leading(506, 12, 12), new Leading(8, 40, 37)));
-		add(getJLabel2(), new Constraints(new Leading(317, 12, 12), new Leading(12, 46, 243)));
 		add(getJButton3(), new Constraints(new Leading(8, 116, 12, 12), new Leading(517, 10, 10)));
 		add(getJButton4(), new Constraints(new Leading(8, 114, 12, 12), new Leading(479, 12, 12)));
 		add(getJScrollPane6(), new Constraints(new Leading(153, 59, 10, 10), new Leading(34, 150, 12, 12)));
@@ -224,7 +269,259 @@ public class GUI extends JFrame {
 		add(getJScrollPane1(), new Constraints(new Leading(220, 248, 10, 10), new Leading(30, 270, 46, 243)));
 		add(getJScrollPane0(), new Constraints(new Leading(517, 249, 10, 10), new Leading(278, 271, 10, 10)));
 		add(getJScrollPane7(), new Constraints(new Leading(195, 304, 10, 10), new Leading(323, 219, 10, 10)));
+		add(getJLabel16(), new Constraints(new Leading(487, 12, 12), new Leading(13, 12, 12)));
+		add(getJScrollPane2(), new Constraints(new Leading(488, 53, 12, 12), new Leading(202, 70, 12, 12)));
+		add(getJLabel17(), new Constraints(new Leading(490, 12, 12), new Leading(187, 15, 12, 12)));
+		add(getJLabel0(), new Constraints(new Trailing(12, 522, 553), new Leading(256, 12, 12)));
+		add(getJLabel2(), new Constraints(new Leading(220, 12, 12), new Leading(9, 12, 12)));
 		setSize(775, 559);
+	}
+
+	private JPanel getJPanel6() {
+		if (jPanel6 == null) {
+			jPanel6 = new JPanel();
+			jPanel6.setLayout(new GroupLayout());
+			jPanel6.add(getJTextField28(), new Constraints(new Leading(12, 12, 12), new Leading(9, 10, 10)));
+			jPanel6.add(getJTextField29(), new Constraints(new Leading(91, 10, 10), new Leading(9, 12, 12)));
+			jPanel6.add(getJTextField30(), new Constraints(new Leading(12, 12, 12), new Leading(33, 10, 10)));
+			jPanel6.add(getJTextField31(), new Constraints(new Leading(91, 12, 12), new Leading(35, 12, 12)));
+			jPanel6.add(getJTextField32(), new Constraints(new Leading(12, 12, 12), new Leading(59, 12, 12)));
+			jPanel6.add(getJTextField33(), new Constraints(new Leading(91, 12, 12), new Leading(59, 12, 12)));
+			jPanel6.add(getJTextField34(), new Constraints(new Leading(12, 12, 12), new Leading(85, 12, 12)));
+			jPanel6.add(getJTextField35(), new Constraints(new Leading(91, 12, 12), new Leading(85, 12, 12)));
+			jPanel6.add(getJTextField36(), new Constraints(new Leading(12, 12, 12), new Leading(111, 12, 12)));
+			jPanel6.add(getJTextField37(), new Constraints(new Leading(91, 12, 12), new Leading(111, 12, 12)));
+			jPanel6.add(getJTextField38(), new Constraints(new Leading(12, 12, 12), new Leading(137, 12, 12)));
+			jPanel6.add(getJTextField39(), new Constraints(new Leading(91, 12, 12), new Leading(137, 12, 12)));
+			jPanel6.add(getJTextField40(), new Constraints(new Leading(12, 12, 12), new Leading(163, 12, 12)));
+			jPanel6.add(getJTextField41(), new Constraints(new Leading(91, 12, 12), new Leading(163, 12, 12)));
+			jPanel6.add(getJTextField42(), new Constraints(new Leading(12, 12, 12), new Leading(189, 12, 12)));
+			jPanel6.add(getJTextField43(), new Constraints(new Leading(91, 12, 12), new Leading(189, 12, 12)));
+		}
+		return jPanel6;
+	}
+
+	private JTextField getJTextField43() {
+		if (jTextField43 == null) {
+			jTextField43 = new JTextField();
+			jTextField43.setText("jTextField43");
+		}
+		return jTextField43;
+	}
+
+	private JTextField getJTextField42() {
+		if (jTextField42 == null) {
+			jTextField42 = new JTextField();
+			jTextField42.setText("jTextField42");
+		}
+		return jTextField42;
+	}
+
+	private JTextField getJTextField41() {
+		if (jTextField41 == null) {
+			jTextField41 = new JTextField();
+			jTextField41.setText("jTextField41");
+		}
+		return jTextField41;
+	}
+
+	private JTextField getJTextField40() {
+		if (jTextField40 == null) {
+			jTextField40 = new JTextField();
+			jTextField40.setText("jTextField40");
+		}
+		return jTextField40;
+	}
+
+	private JTextField getJTextField39() {
+		if (jTextField39 == null) {
+			jTextField39 = new JTextField();
+			jTextField39.setText("jTextField39");
+		}
+		return jTextField39;
+	}
+
+	private JTextField getJTextField38() {
+		if (jTextField38 == null) {
+			jTextField38 = new JTextField();
+			jTextField38.setText("jTextField38");
+		}
+		return jTextField38;
+	}
+
+	private JTextField getJTextField37() {
+		if (jTextField37 == null) {
+			jTextField37 = new JTextField();
+			jTextField37.setText("jTextField37");
+		}
+		return jTextField37;
+	}
+
+	private JTextField getJTextField36() {
+		if (jTextField36 == null) {
+			jTextField36 = new JTextField();
+			jTextField36.setText("jTextField36");
+		}
+		return jTextField36;
+	}
+
+	private JTextField getJTextField35() {
+		if (jTextField35 == null) {
+			jTextField35 = new JTextField();
+			jTextField35.setText("jTextField35");
+		}
+		return jTextField35;
+	}
+
+	private JTextField getJTextField34() {
+		if (jTextField34 == null) {
+			jTextField34 = new JTextField();
+			jTextField34.setText("jTextField34");
+		}
+		return jTextField34;
+	}
+
+	private JTextField getJTextField33() {
+		if (jTextField33 == null) {
+			jTextField33 = new JTextField();
+			jTextField33.setText("jTextField33");
+		}
+		return jTextField33;
+	}
+
+	private JTextField getJTextField32() {
+		if (jTextField32 == null) {
+			jTextField32 = new JTextField();
+			jTextField32.setText("jTextField32");
+		}
+		return jTextField32;
+	}
+
+	private JTextField getJTextField31() {
+		if (jTextField31 == null) {
+			jTextField31 = new JTextField();
+			jTextField31.setText("jTextField31");
+		}
+		return jTextField31;
+	}
+
+	private JTextField getJTextField30() {
+		if (jTextField30 == null) {
+			jTextField30 = new JTextField();
+			jTextField30.setText("jTextField30");
+		}
+		return jTextField30;
+	}
+
+	private JTextField getJTextField29() {
+		if (jTextField29 == null) {
+			jTextField29 = new JTextField();
+			jTextField29.setText("jTextField29");
+		}
+		return jTextField29;
+	}
+
+	private JTextField getJTextField28() {
+		if (jTextField28 == null) {
+			jTextField28 = new JTextField();
+			jTextField28.setText("jTextField28");
+		}
+		return jTextField28;
+	}
+
+	private JPanel getJPanel5() {
+		if (jPanel5 == null) {
+			jPanel5 = new JPanel();
+			jPanel5.setLayout(new GroupLayout());
+			jPanel5.add(getJTextField27(), new Constraints(new Leading(6, 184, 10, 10), new Leading(26, 10, 10)));
+			jPanel5.add(getJButton5(), new Constraints(new Leading(66, 12, 12), new Leading(64, 12, 12)));
+		}
+		return jPanel5;
+	}
+
+	private JButton getJButton5() {
+		if (jButton5 == null) {
+			jButton5 = new JButton();
+			jButton5.setText("Gerai");
+		}
+		return jButton5;
+	}
+
+	private JTextField getJTextField27() {
+		if (jTextField27 == null) {
+			jTextField27 = new JTextField();
+			jTextField27.setText("jTextField27");
+		}
+		return jTextField27;
+	}
+
+	private JPanel getJPanel4() {
+		if (jPanel4 == null) {
+			jPanel4 = new JPanel();
+			jPanel4.setLayout(new GroupLayout());
+			jPanel4.add(getJRadioButton0(), new Constraints(new Leading(12, 12, 12), new Leading(28, 10, 10)));
+			jPanel4.add(getJRadioButton1(), new Constraints(new Leading(12, 12, 12), new Leading(58, 12, 12)));
+			jPanel4.add(getJLabel18(), new Constraints(new Leading(47, 10, 10), new Leading(6, 12, 12)));
+		}
+		return jPanel4;
+	}
+
+	private JLabel getJLabel18() {
+		if (jLabel18 == null) {
+			jLabel18 = new JLabel();
+			jLabel18.setText("Pasirinkite");
+		}
+		return jLabel18;
+	}
+
+	private JRadioButton getJRadioButton1() {
+		if (jRadioButton1 == null) {
+			jRadioButton1 = new JRadioButton();
+			jRadioButton1.setSelected(true);
+			jRadioButton1.setText("Žodžiai");
+		}
+		return jRadioButton1;
+	}
+
+	private JRadioButton getJRadioButton0() {
+		if (jRadioButton0 == null) {
+			jRadioButton0 = new JRadioButton();
+			jRadioButton0.setSelected(true);
+			jRadioButton0.setText("Eilutė");
+		}
+		return jRadioButton0;
+	}
+
+	private JLabel getJLabel17() {
+		if (jLabel17 == null) {
+			jLabel17 = new JLabel();
+			jLabel17.setText("CHL");
+		}
+		return jLabel17;
+	}
+
+	private JScrollPane getJScrollPane2() {
+		if (jScrollPane2 == null) {
+			jScrollPane2 = new JScrollPane();
+			jScrollPane2.setViewportView(getCHLTable());
+		}
+		return jScrollPane2;
+	}
+
+	private JTable getCHLTable() {
+		if (chlTable == null) {
+			chlTable = new JTable();
+			chlTable.setModel(new DefaultTableModel(new Object[][] { { "0", "0", }, { "1", "0", }, { "2", "0", },{"3", "0", },
+			{"4", "0", }, {"5", "0", }, {"6", "0", }, {"7", "0", } }, new String[] { "B", "R", }) {
+				private static final long serialVersionUID = 1L;
+				Class<?>[] types = new Class<?>[] { Object.class, Object.class, };
+	
+				public Class<?> getColumnClass(int columnIndex) {
+					return types[columnIndex];
+				}
+			});
+		}
+		return chlTable;
 	}
 
 	private JLabel getJLabel16() {
@@ -557,8 +854,8 @@ public class GUI extends JFrame {
 	private JTable getSemaforTable() {
 		if (semaforTable == null) {
 			semaforTable = new JTable();
-			semaforTable.setModel(new DefaultTableModel(new String[][] { { "1", "0", }, { "2", "0", }, { "3", "0", }, { "4", "0", }, { "5", "0", },
-					{ "5", "0", }, { "6", "0", }, { "7", "0", }, { "8", "0", },{ "9", "0", },{ "A", "0", },{ "B", "0", },{ "C", "0", },{ "D", "0", },
+			semaforTable.setModel(new DefaultTableModel(new String[][] {{"0", "0",}, { "1", "0", }, { "2", "0", }, { "3", "0", }, { "4", "0", }, { "5", "0", }
+											, { "6", "0", }, { "7", "0", }, { "8", "0", },{ "9", "0", },{ "A", "0", },{ "B", "0", },{ "C", "0", },{ "D", "0", },
 					{ "E", "0", },{ "F", "0", }, }, new String[] { "B", "V", }) {
 				private static final long serialVersionUID = 1L;
 				Class<?>[] types = new Class<?>[] { Object.class, Object.class, };
@@ -665,7 +962,7 @@ public class GUI extends JFrame {
 	private JComboBox<String> getJComboBox0() {
 		if (jComboBox0 == null) {
 			jComboBox0 = new JComboBox<String>();
-			jComboBox0.setModel(new DefaultComboBoxModel<String>(new String[] { "PTR", "R", "P", "IC", "SF", "SM", "PI", "SI", "CHNL" }));
+			jComboBox0.setModel(new DefaultComboBoxModel<String>(new String[] { "PTR", "R", "P", "IC", "SF", "SM", "PI", "SI", "CHNL", "TI" }));
 			jComboBox0.setDoubleBuffered(false);
 			jComboBox0.setSelectedIndex(0);
 			jComboBox0.setBorder(null);
@@ -941,8 +1238,8 @@ public class GUI extends JFrame {
 
 	private void changeRegistersButtonActionActionPerformed(ActionEvent event) {
 		if(framek == null){
-			framek = new JFrame("Registr� Keitimas");
-			framek.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			framek = new JFrame("Registru Keitimas");
+			framek.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 			framek.getContentPane().add(getJPanel3(), BorderLayout.CENTER);
 			framek.pack();
 			framek.setLocation(getLocation());
@@ -956,7 +1253,7 @@ public class GUI extends JFrame {
 	private void changeMemoryButtonActionActionPerformed(ActionEvent event) {
 		if(frameks == null){
 			frameks = new JFrame("Atminties Keitimas");
-			frameks.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frameks.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 			realMemoryTable.setEnabled(true);
 			frameks.getContentPane().add(getJPanel2(), BorderLayout.CENTER);
 			frameks.pack();
@@ -975,7 +1272,7 @@ public class GUI extends JFrame {
 		b[2] = (byte)Integer.parseInt(jTextField3.getText());
 		b[3] = (byte)Integer.parseInt(jTextField4.getText());
 		
-		realMachine.getRealMemory().setWord(Integer.parseInt(jTextField6.getText()), b);
+		realMachine.getRealMemory().setWord(Integer.valueOf(String.valueOf(jTextField6.getText()), 16).intValue(), b);
 		updateRealMemory();
 	}
 	private void stepButtonActionActionPerformed(ActionEvent event) {
@@ -1027,7 +1324,6 @@ public class GUI extends JFrame {
 				updateVirtualMemory();
 				updateRealMemory();
 				updateRegistersValues();
-				enablePlay();
 			}
 		 }catch(FileNotFoundException e){System.out.println("Klaida atidarant faila");}
 		
@@ -1137,7 +1433,7 @@ public class GUI extends JFrame {
 				jTextFieldD.setEditable(false);
 				jTextFieldD.setText("");
 			break;
-		default:value3 = realMachine.getChnl();
+		case 8: value3 = realMachine.getChnl();
 				jTextFieldA.setText(String.valueOf(value3));
 				jTextFieldB.setEditable(false);
 				jTextFieldB.setText("");
@@ -1146,6 +1442,15 @@ public class GUI extends JFrame {
 				jTextFieldD.setEditable(false);
 				jTextFieldD.setText("");
 			break;
+		default: value3 = realMachine.getTI();
+				 jTextFieldA.setText(String.valueOf(value3));
+				 jTextFieldB.setEditable(false);
+				 jTextFieldB.setText("");
+				 jTextFieldC.setEditable(false);
+				 jTextFieldC.setText("");
+				 jTextFieldD.setEditable(false);
+				 jTextFieldD.setText("");
+	break;
 		}
 		
 	}
@@ -1154,7 +1459,9 @@ public class GUI extends JFrame {
 		framek.setVisible(true);
 		byte[] value = new byte[4];
 		byte[] valueb = new byte[]{0,0};
-		if (jComboBox0.getSelectedIndex() == 4 ){
+		if ((jComboBox0.getSelectedIndex() == 4) || (jComboBox0.getSelectedIndex() == 6) ||
+				(jComboBox0.getSelectedIndex() == 7) || (jComboBox0.getSelectedIndex() == 8) ||
+				(jComboBox0.getSelectedIndex() == 9)){
 			value[0] = (byte)Integer.parseInt(jTextFieldA.getText());
 		} else {
 			if(jComboBox0.getSelectedIndex()> 2){
@@ -1184,12 +1491,15 @@ public class GUI extends JFrame {
 				updateFlags();
 			break;
 		case 5: realMachine.setSM(valueb);
+				updateSM();
 			break;
 		case 6: realMachine.setPI(value[0]);
 			break;
 		case 7: realMachine.setSI(value[0]);
 			break;
-		default:realMachine.setChnl(value[0]);
+		case 8: realMachine.setChnl(value[0]);
+			break;
+		default:realMachine.setTI(value[0]);
 			break;
 		}
 	    updateRegistersValues();
