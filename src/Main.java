@@ -31,7 +31,7 @@ public class Main {
 	public static void main(String[] args){
 
 		//TEST DONT DELETE
-	     realMachine = new RealMachine();
+
 //		byte[][] program = new byte[240][4];
 //		for (int i=0;i<program.length;i++){
 //			program[i][0] = (byte) (i/2+1);
@@ -49,6 +49,7 @@ public class Main {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				gui = new GUI();
+			    realMachine = new RealMachine(gui);
 				gui.setDefaultCloseOperation(GUI.EXIT_ON_CLOSE);
 				gui.setTitle("GUI");
 				gui.getContentPane().setPreferredSize(gui.getSize());
@@ -59,11 +60,10 @@ public class Main {
 				gui.updateRegistersValues();
 				//gui.updateRealMemory();
 				gui.updateFlags();
+				gui.disablePlay();
 			}
 		});
 				//GUI---------------------------------------
-		realMachine.getRealMemory().print();
-		
 		//converter update 
 		byte[] array = new byte[1];
 		array[0] = -50;

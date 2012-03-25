@@ -9,6 +9,8 @@ public class RealMachine {
 	private static int maxMachineCount = 3;
 	
 	private static boolean[] isMemoryUsed;
+	
+	private static GUI gui;
 
     private byte[] IC;     	 										// komandu skaitiklio registras
     private byte SF; 												// status flag (!3 baitas Loginis C registras!)
@@ -31,8 +33,9 @@ public class RealMachine {
     
     private String error;
 
-    public RealMachine()
+    public RealMachine(GUI gui)
     {
+    	this.gui = gui;
         this.setIC(new byte[2]);
         this.setChnl((byte) 0);
         this.setSF((byte) 0);
@@ -63,8 +66,11 @@ public class RealMachine {
     	} else {
     		IC[1]++;
     	}
+    	if (IC[0] >= (PTR[1]-1)){
+    		word = new byte[]{72, 65, 76, 84};
+    	}
     	boolean isLeggit = false;
-    	System.out.println(word[0]+" "+word[1]+" "+word[2]+" "+word[3]+"   "+paging.convertRMAddress(realMemory, PTR, IC));
+    	//System.out.println(word[0]+" "+word[1]+" "+word[2]+" "+word[3]+"   "+paging.convertRMAddress(realMemory, PTR, IC));
     	//FOUR BYTES
     	if ((word[0]==78)&&(word[1]==79)&&(word[2]==84)&&(word[3]==82)){
     		//NOTR
@@ -89,6 +95,7 @@ public class RealMachine {
     		isLeggit = true;
     		System.out.println("HALT");
     		HALT();
+    		gui.disablePlay();
     	}
     	//TWO BYTES
     	//Aritmetinës
@@ -190,11 +197,13 @@ public class RealMachine {
     		//LR
     		System.out.println("LR");
     		isLeggit = true;
+    		LR(word);
     	}
     	if ((word[0]==83)&&(word[1]==82)){
     		//SR
     		System.out.println("SR");
     		isLeggit = true;
+    		SR(word);
     	}
     	if ((word[0]==76)&&(word[1]==75)){
     		//LK
@@ -207,6 +216,19 @@ public class RealMachine {
     		System.out.println("NK");
     		isLeggit = true;
     		NK(word);
+    	}
+    	TI = (byte) (Converter.byteToInt(TI) - 1);
+    	if ((PI != 0) || (SI != 0) || (Converter.byteToInt(TI) == 0)){
+    		try{
+    			gui.updateGUI();
+    			//Thread.sleep(2000);
+    			PI = 0;
+    			SI = 0;
+    			if (Converter.byteToInt(TI) == 0){
+    				TI = (byte) 255;
+    			}
+    		} catch (Exception e){	
+    		}
     	}
     }
     public void JP(byte[] cmd){
@@ -366,7 +388,7 @@ public class RealMachine {
 					regValue = regValue + '0';
 				}
 			}
-			R = Converter.stringToWord(regValue);
+			setR(Converter.stringToWord(regValue));
 		} else {
 			PI = 2;
 		}
@@ -482,6 +504,26 @@ public class RealMachine {
 		if (Converter.isHex((char)word[2])){
 			this.changeSM('0', num);
 		} else{
+			PI = 2;
+		}
+	}
+	
+	public void LR(byte[] word){
+		int blockNum = Converter.byteToInt(Converter.HexCharToByte((char)word[2]));
+		String SMString = Converter.wordToString(SM);
+		if (SMString.charAt(blockNum) == '1'){
+			byte[] mem = realMemory.getWord(blockNum*16 + Converter.byteToInt(Converter.HexCharToByte((char)word[3])));
+			setR(mem.clone());
+		} else {
+			PI = 2;
+		}
+	}
+	public void SR(byte[] word){
+		int blockNum = Converter.byteToInt(Converter.HexCharToByte((char)word[2]));
+		String SMString = Converter.wordToString(SM);
+		if (SMString.charAt(blockNum) == '1'){
+			 realMemory.setWord(blockNum*16 + Converter.byteToInt(Converter.HexCharToByte((char)word[3])), R);
+		} else {
 			PI = 2;
 		}
 	}
@@ -612,7 +654,7 @@ public class RealMachine {
         this.setPTR(four);
         this.setPI((byte) 0);
         this.setSI((byte) 0);
-        this.setTI((byte) 127);
+        this.setTI((byte) 255);
         this.setMODE((byte) 0);
     }
 	public byte getChnl() {return chnl;}
