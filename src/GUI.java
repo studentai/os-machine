@@ -5,6 +5,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -27,6 +29,7 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 import org.dyno.visual.swing.layouts.Trailing;
+
 
 //VS4E -- DO NOT REMOVE THIS LINE!
 public class GUI extends JFrame {
@@ -125,6 +128,7 @@ public class GUI extends JFrame {
 	private JPanel jPanel5;
 	
 	private byte[] cmd;
+	private boolean isStop = true;
 
 	GUI() {
 		initComponents();
@@ -352,7 +356,7 @@ public class GUI extends JFrame {
 	private JTextField getJTextField27() {
 		if (jTextField27 == null) {
 			jTextField27 = new JTextField();
-			jTextField27.setText("jTextField27");
+			jTextField27.setText("");
 		}
 		return jTextField27;
 	}
@@ -432,7 +436,7 @@ public class GUI extends JFrame {
 	private JTextArea getJTextArea0() {
 		if (jTextArea0 == null) {
 			jTextArea0 = new JTextArea();
-			jTextArea0.setText("jTextArea0");
+			jTextArea0.setText("");
 		}
 		return jTextArea0;
 	}
@@ -906,8 +910,7 @@ public class GUI extends JFrame {
 	private JLabel getJLabel4() {
 		if (jLabel4 == null) {
 			jLabel4 = new JLabel();
-			jLabel4.setText("Reik?m?");
-			jLabel4.setText("Reik?m?");
+			jLabel4.setText("Reikšmė");
 		}
 		return jLabel4;
 	}
@@ -1102,6 +1105,7 @@ public class GUI extends JFrame {
 	}
 
 	private void changeRegistersButtonActionActionPerformed(ActionEvent event) {
+		isStop = true;
 		if(framek == null){
 			framek = new JFrame("Registru Keitimas");
 			framek.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -1116,6 +1120,7 @@ public class GUI extends JFrame {
 	}
 
 	private void changeMemoryButtonActionActionPerformed(ActionEvent event) {
+		isStop = true;
 		if(frameks == null){
 			frameks = new JFrame("Atminties Keitimas");
 			frameks.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -1141,6 +1146,7 @@ public class GUI extends JFrame {
 		updateRealMemory();
 	}
 	private void stepButtonActionActionPerformed(ActionEvent event) {
+		isStop = true;
 		realMachine.executeNextCommand();
 		updateRealMemory();
 		updateRegistersValues();
@@ -1149,6 +1155,7 @@ public class GUI extends JFrame {
 	}
 
 	private void loadVMButtonActionActionPerformed(ActionEvent event) {
+		isStop = true;
 		if(frame2 == null){
 			frame2 = new JFrame("Load VM");
 			frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -1160,18 +1167,53 @@ public class GUI extends JFrame {
 	}
 
 	private void playButtonActionActionPerformed(ActionEvent event) {
+		isStop = false;
+		if (playButton.isEnabled()){
+	        Timer timer = new Timer();
+	        timer.schedule(new RemindTask(), 1000);
+		}
 	}
+    class RemindTask extends TimerTask {
+        public void run() {
+        	if (!isStop){
+            	if (playButton.isEnabled()){
+            		realMachine.executeNextCommand();
+            		updateRealMemory();
+            		updateRegistersValues();
+            		updateFlags();
+            		updateVirtualMemory();
+        	        Timer timer = new Timer();
+        	        timer.schedule(new RemindTask(), 1000);
+            	} else {
+            		if (realMachine.getSI() == 1){
+            	        Timer timer = new Timer();
+            	        timer.schedule(new RemindTask(), 1000);
+            		}
+            	}
+        	}
+        }
+    }
 	private void ok3ButtonActionActionPerformed(ActionEvent event)throws IOException{
 		frame2.setVisible(false);
 		
 		 try{
 			FileReader fileReader = new FileReader(jTextField0.getText());
 			file = new BufferedReader(fileReader);
-			byte[][] program = new byte[256][4];
+			byte[][] program = new byte[240][4];
+			for (int i =0;i<program.length;i++){
+				program[i][0]=0;
+				program[i][1]=0;
+				program[i][2]=0;
+				program[i][3]=0;
+			}
 			int i = 0;
 			String line;
+			int programLength = Integer.parseInt(file.readLine());
+			if ((programLength)*16 > program.length){
+				programLength = program.length;
+			}
 			char[] lineArray;
-			while((file.ready()== true)&& (i < program.length)){
+			while((file.ready()== true)&& (i < programLength*16)){
 				line = file.readLine();
 				lineArray =  line.toCharArray();
 				program[i][0] = (byte)lineArray[0];
@@ -1180,7 +1222,7 @@ public class GUI extends JFrame {
 				program[i][3] = (byte)lineArray[3];
 				i++;
 			}
-			if(realMachine.registerNewVirtualmachine(program, (int) (Math.round((i/16)+0.5)+1)) == false){
+			if(realMachine.registerNewVirtualmachine(program, programLength+1) == false){
 				JOptionPane.showMessageDialog(new JFrame(),
 					    "Naujai virtualiai masinai, atminties neuztenka",
 					    "Klaida",
@@ -1191,7 +1233,13 @@ public class GUI extends JFrame {
 				updateRegistersValues();
 				enablePlay();
 			}
-		 }catch(FileNotFoundException e){System.out.println("Klaida atidarant faila");}
+			file.close();
+		 }catch(Exception e){
+				JOptionPane.showMessageDialog(new JFrame(),
+					    "Įvyko klaida, bandant nuskaityti failą",
+					    "Klaida",
+					    JOptionPane.ERROR_MESSAGE);
+		 }
 		
 	}
 

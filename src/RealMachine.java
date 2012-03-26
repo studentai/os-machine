@@ -189,11 +189,14 @@ public class RealMachine {
     	if ((word[0]==71)&&(word[1]==68)){
     		//GD
     		System.out.println("GD");
+    		SI = 1;
+    		gui.updateGUI();
     		gui.readString(word);
     		isLeggit = true;
     	}
     	if ((word[0]==80)&&(word[1]==68)){
     		//PD
+    		SI = 2;
     		System.out.println("PD");
     		PD(word);
     		isLeggit = true;
@@ -212,21 +215,24 @@ public class RealMachine {
     	}
     	if ((word[0]==76)&&(word[1]==75)){
     		//LK
+    		SI = 3;
     		System.out.println("LK");
     		isLeggit = true;
     		LK(word);
     	}
     	if ((word[0]==78)&&(word[1]==75)){
     		//NK
+    		SI = 4;
     		System.out.println("NK");
     		isLeggit = true;
     		NK(word);
     	}
+    	if (!isLeggit) PI = 1;  
     	TI = (byte) (Converter.byteToInt(TI) - 1);
     	if ((PI != 0) || (SI != 0) || (Converter.byteToInt(TI) == 0)){
     			MODE = 1;	
     	        Timer timer = new Timer();
-    	        timer.schedule(new RemindTask(), 2000);
+    	        timer.schedule(new RemindTask(), 1000);
     	} else {
     		gui.enablePlay();
     	}
@@ -239,12 +245,15 @@ public class RealMachine {
     public void endCommand(){
     	MODE = 0;
 		PI = 0;
-		SI = 0;
 		if (Converter.byteToInt(TI) == 0){
 			TI = (byte) 255;
 		}
+		if ((SI != 5) && (SI != 1)){
+			gui.enablePlay();
+			SI = 0;
+		}
 		gui.updateGUI();
-		gui.enablePlay();
+		
     }
     public void GD(byte[]cmd, byte[][] block){
     	byte[] addr = new byte[]{Converter.HexCharToByte((char)cmd[2]), 0};
@@ -254,6 +263,8 @@ public class RealMachine {
     	}else{
     		PI = 2;
     	}
+    	SI = 0;
+    	gui.enablePlay();
     }
     public void PD(byte[]cmd){
     	byte[] addr = new byte[]{Converter.HexCharToByte((char)cmd[2]), 0};
@@ -262,7 +273,7 @@ public class RealMachine {
     		gui.printString(realMemory.getBlock(realAddr/16));
     	}else{
     		PI = 2;
-    	}	
+    	}
     }
     public void JP(byte[] cmd){
     	byte[] addr = new byte[]{Converter.HexCharToByte((char)cmd[2]), Converter.HexCharToByte((char)cmd[3])};
@@ -600,11 +611,12 @@ public class RealMachine {
 	public void setChannel3(Channel3 channel3) {this.channel3 = channel3;}
 	
 	public int randomAdrress(){
+		System.out.println("Randominam addrs"+freeMemoryCount());
 		int randomAddress = 0;
 		boolean used = true;
 		while (used) {
 			used = false;
-			int min = 16+maxMachineCount;
+			int min = 16;
 			int max = 63;
 			randomAddress = min + (int)(Math.random() * ((max - min) + 1));
 			if (isMemoryUsed[randomAddress]){
