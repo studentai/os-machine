@@ -440,6 +440,7 @@ public class GUI extends JFrame {
 		if (jTextArea0 == null) {
 			jTextArea0 = new JTextArea();
 			jTextArea0.setText("");
+			jTextArea0.setAutoscrolls(false);
 		}
 		return jTextArea0;
 	}
@@ -1237,10 +1238,10 @@ public class GUI extends JFrame {
 			while((file.ready()== true)&& (i < programLength*16)){
 				line = file.readLine();
 				lineArray =  line.toCharArray();
-				program[i][0] = (byte)lineArray[0];
-				program[i][1] = (byte)lineArray[1];
-				program[i][2] = (byte)lineArray[2];
-				program[i][3] = (byte)lineArray[3];
+				if (lineArray.length>0) program[i][0] = (byte)lineArray[0];
+				if (lineArray.length>1) program[i][1] = (byte)lineArray[1];
+				if (lineArray.length>2) program[i][2] = (byte)lineArray[2];
+				if (lineArray.length>3) program[i][3] = (byte)lineArray[3];
 				i++;
 			}
 			if(realMachine.registerNewVirtualmachine(program, programLength+1) == false){
