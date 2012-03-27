@@ -449,7 +449,7 @@ public class RealMachine {
 			P = Converter.stringToWord(pString);
 		}
 	}
-	public void MR (byte[] cmd){
+	public void RM (byte[] cmd){
 		 byte[] addr = new byte[]{Converter.HexCharToByte((char)cmd[2]), Converter.HexCharToByte((char)cmd[3])}; 
 		 int realAddr = paging.convertRMAddress(realMemory, PTR, addr);
 		 if (realAddr > -1){
@@ -458,7 +458,7 @@ public class RealMachine {
 			 PI = 2;
 		 }
 	}
-	public void RM (byte[] cmd){
+	public void MR (byte[] cmd){
 		 byte[] addr = new byte[]{Converter.HexCharToByte((char)cmd[2]), Converter.HexCharToByte((char)cmd[3])}; 
 		 int realAddr = paging.convertRMAddress(realMemory, PTR, addr);
 		 if (realAddr > -1){
