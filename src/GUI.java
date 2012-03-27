@@ -440,7 +440,6 @@ public class GUI extends JFrame {
 		if (jTextArea0 == null) {
 			jTextArea0 = new JTextArea();
 			jTextArea0.setText("");
-			jTextArea0.setAutoscrolls(false);
 		}
 		return jTextArea0;
 	}
