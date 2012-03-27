@@ -243,7 +243,6 @@ public class RealMachine {
         }
     }
     public void endCommand(){
-    	MODE = 0;
 		PI = 0;
 		if (Converter.byteToInt(TI) == 0){
 			TI = (byte) 255;
@@ -251,6 +250,7 @@ public class RealMachine {
 		if ((SI != 5) && (SI != 1)){
 			gui.enablePlay();
 			SI = 0;
+			MODE = 0;
 		}
 		gui.updateGUI();
 		
@@ -265,6 +265,7 @@ public class RealMachine {
     		PI = 2;
     	}
     	SI = 0;
+    	MODE=0;
     	gui.updateGUI();
     	gui.enablePlay();
     }

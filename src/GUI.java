@@ -126,6 +126,8 @@ public class GUI extends JFrame {
 	private JTextField jTextField27;
 	private JButton jButton5;
 	private JPanel jPanel5;
+	private JTextField jTextField00;
+	private JLabel jLabel00;
 	
 	private byte[] cmd;
 	private boolean isStop = true;
@@ -191,6 +193,7 @@ public class GUI extends JFrame {
 		jTextField25.setText(String.valueOf(Converter.byteToInt(realMachine.getSI())));
 		jTextField26.setText(String.valueOf(Converter.byteToInt(realMachine.getTI())));
 		jTextField10.setText(String.valueOf(Converter.byteToInt(realMachine.getChnl())));
+		jTextField00.setText(String.valueOf(Converter.byteToInt(realMachine.getMODE())));
 		updateSM();
 		updateFlags();
 		updateCNL();
@@ -329,7 +332,6 @@ public class GUI extends JFrame {
 	}
 
 	protected void jButton5ActionActionPerformed(ActionEvent event) {
-		System.out.println("vykdom ivedima");
 		frame3.setVisible(false);
 		String dataLine = String.valueOf(jTextField27.getText());
 		byte[][] block = new byte[16][4];
@@ -601,6 +603,14 @@ public class GUI extends JFrame {
 		}
 		return jTextField1;
 	}
+	
+	private JTextField getJTextField00(){
+		if (jTextField00 == null) {
+			jTextField00 = new JTextField();
+			jTextField00.setText("0");
+		}
+		return jTextField00;
+	}
 
 	private JPanel getRegistersPanel() {
 		if (jPanel1 == null) {
@@ -637,6 +647,8 @@ public class GUI extends JFrame {
 			jPanel1.add(getJTextField16(), new Constraints(new Leading(66, 24, 12, 12), new Leading(51, 12, 12)));
 			jPanel1.add(getJLabel14(), new Constraints(new Leading(3, 12, 12), new Leading(229, 12, 12)));
 			jPanel1.add(getJTextField10(), new Constraints(new Leading(36, 24, 12, 12), new Leading(227, 12, 12)));
+			jPanel1.add(getJLabel00(), new Constraints(new Leading(80,12, 12), new Leading(229, 12, 12)));
+			jPanel1.add(getJTextField00(), new Constraints(new Leading(126, 24, 12, 12), new Leading(227, 12, 12)));
 		}
 		return jPanel1;
 	}
@@ -647,6 +659,14 @@ public class GUI extends JFrame {
 			jLabel13.setText("TI");
 		}
 		return jLabel13;
+	}
+	
+	private JLabel getJLabel00() {
+		if (jLabel00 == null) {
+			jLabel00 = new JLabel();
+			jLabel00.setText("MODE");
+		}
+		return jLabel00;
 	}
 
 	private JLabel getJLabel12() {
@@ -832,7 +852,7 @@ public class GUI extends JFrame {
 	private JComboBox<String> getJComboBox0() {
 		if (jComboBox0 == null) {
 			jComboBox0 = new JComboBox<String>();
-			jComboBox0.setModel(new DefaultComboBoxModel<String>(new String[] { "PTR", "R", "P", "IC", "SF", "SM", "PI", "SI", "CHNL", "TI" }));
+			jComboBox0.setModel(new DefaultComboBoxModel<String>(new String[] { "PTR", "R", "P", "IC", "SF", "SM", "PI", "SI", "CHNL", "TI", "MODE" }));
 			jComboBox0.setDoubleBuffered(false);
 			jComboBox0.setSelectedIndex(0);
 			jComboBox0.setBorder(null);
@@ -1357,7 +1377,7 @@ public class GUI extends JFrame {
 				jTextFieldD.setEditable(false);
 				jTextFieldD.setText("");
 			break;
-		default: value3 = realMachine.getTI();
+		case 9: value3 = realMachine.getTI();
 				 jTextFieldA.setText(String.valueOf(value3));
 				 jTextFieldB.setEditable(false);
 				 jTextFieldB.setText("");
@@ -1365,7 +1385,15 @@ public class GUI extends JFrame {
 				 jTextFieldC.setText("");
 				 jTextFieldD.setEditable(false);
 				 jTextFieldD.setText("");
-	break;
+		   break;
+		default:value3 = realMachine.getMODE();
+		 		jTextFieldA.setText(String.valueOf(value3));
+		 		jTextFieldB.setEditable(false);
+		 		jTextFieldB.setText("");
+		 		jTextFieldC.setEditable(false);
+		 		jTextFieldC.setText("");
+		 		jTextFieldD.setEditable(false);
+		 		jTextFieldD.setText("");
 		}
 		
 	}
@@ -1376,7 +1404,7 @@ public class GUI extends JFrame {
 		byte[] valueb = new byte[]{0,0};
 		if ((jComboBox0.getSelectedIndex() == 4) || (jComboBox0.getSelectedIndex() == 6) ||
 				(jComboBox0.getSelectedIndex() == 7) || (jComboBox0.getSelectedIndex() == 8) ||
-				(jComboBox0.getSelectedIndex() == 9)){
+				(jComboBox0.getSelectedIndex() == 9)||(jComboBox0.getSelectedIndex() == 10)){
 			value[0] = (byte)Integer.parseInt(jTextFieldA.getText());
 		} else {
 			if(jComboBox0.getSelectedIndex()> 2){
@@ -1414,7 +1442,9 @@ public class GUI extends JFrame {
 			break;
 		case 8: realMachine.setChnl(value[0]);
 			break;
-		default:realMachine.setTI(value[0]);
+		case 9: realMachine.setTI(value[0]);
+			break;
+		default:realMachine.setMODE(value[0]);
 			break;
 		}
 	    updateRegistersValues();
