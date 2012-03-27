@@ -260,10 +260,12 @@ public class RealMachine {
     	int realAddr = paging.convertRMAddress(realMemory, PTR, addr);
     	if (realAddr > -1){
     		realMemory.setBlock(realAddr/16, block);
+    		System.out.println("GD: adresas geras"+paging.convertRMAddress(realMemory, PTR, addr));
     	}else{
     		PI = 2;
     	}
     	SI = 0;
+    	gui.updateGUI();
     	gui.enablePlay();
     }
     public void PD(byte[]cmd){

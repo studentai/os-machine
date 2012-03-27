@@ -329,6 +329,7 @@ public class GUI extends JFrame {
 	}
 
 	protected void jButton5ActionActionPerformed(ActionEvent event) {
+		System.out.println("vykdom ivedima");
 		frame3.setVisible(false);
 		String dataLine = String.valueOf(jTextField27.getText());
 		byte[][] block = new byte[16][4];
